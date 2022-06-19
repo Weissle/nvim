@@ -221,6 +221,14 @@ local load_plugins_function = function(use)
 		'hrsh7th/cmp-cmdline',
 		after = "nvim-cmp"
 	}
+	use {
+		'onsails/lspkind.nvim',
+		after = 'nvim-cmp',
+		config = function ()
+			require('plugins.lspkind')
+		end
+
+	}
 
 
 

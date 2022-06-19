@@ -46,13 +46,6 @@ for _, lsp in pairs(servers) do
 		flags = {
 			-- This will be the default in neovim 0.7+
 			debounce_text_changes = 150,
-		},
-		settings= {
-			Lua = {
-				diagnostics = {
-					globals = { 'vim' }
-				}
-			}
 		}
 	}
 end
@@ -66,3 +59,13 @@ require'lspconfig'.sumneko_lua.setup {
 		}
 	}
 }
+
+-- Setup lspconfig.
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+
+for _, lsp in pairs(servers) do
+	require('lspconfig')[lsp].setup {
+		capabilities = capabilities
+	}
+end
