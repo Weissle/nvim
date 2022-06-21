@@ -1,17 +1,3 @@
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
-local lspconfig = require('lspconfig')
-
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'pyright', 'clangd', 'tsserver', 'cmake', 'sumneko_lua' }
-for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup {
-		-- on_attach = my_custom_on_attach,
-		capabilities = capabilities,
-	}
-end
-
 -- luasnip setup
 local luasnip = require 'luasnip'
 
@@ -49,11 +35,12 @@ cmp.setup {
 	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
 		{ name = 'luasnip' },
-		{ name = 'cmp_tabnine'}
-	},{
-		{name = 'buffer'}
+		{ name = 'cmp_tabnine' },
+		{ name = 'path' },
+		{ name = 'buffer' }
 	})
 }
+
 cmp.setup.cmdline('/', {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = {
@@ -64,9 +51,8 @@ cmp.setup.cmdline('/', {
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
 	mapping = cmp.mapping.preset.cmdline(),
-	sources = cmp.config.sources({
-		{ name = 'path' }
-	}, {
-		{ name = 'cmdline' }
-	})
+	sources = cmp.config.sources(
+	{{ name = 'path' }},
+	{{ name = 'cmdline' }}
+	)
 })

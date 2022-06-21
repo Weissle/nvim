@@ -34,6 +34,11 @@ local load_plugins_function = function(use)
 			require('lualine').setup {
 				options = {
 					theme = 'tokyonight'
+				},
+				sections = {
+					lualine_c = {
+						{require('auto-session-library').current_session_name}
+					}
 				}
 			}
 		end,
@@ -52,7 +57,7 @@ local load_plugins_function = function(use)
 	use {
 		'kyazdani42/nvim-tree.lua',
 		requires = { 'kyazdani42/nvim-web-devicons' },
-		cmd = "NvimTreeToggle",
+		cmd = {"NvimTreeToggle","NvimTreeFindFile"},
 		config = function()
 			require('plugins.nvim-tree')
 		end,
@@ -184,7 +189,7 @@ local load_plugins_function = function(use)
 
 	use {
 		'hrsh7th/nvim-cmp',-- Autocompletion plugin
-		event = lazy_event_enter_file,
+		after = "nvim-lspconfig",
 		config = function()
 			require"plugins.nvim-cmp"
 		end
@@ -272,6 +277,30 @@ local load_plugins_function = function(use)
 	use {
 		'tpope/vim-repeat',
 		event = lazy_event_enter_file,
+	}
+
+	use {
+		'rmagatti/auto-session',
+		config = function()
+			vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal",
+			require('auto-session').setup {
+				log_level = 'info',
+				auto_session_suppress_dirs = {'~/'}
+			}
+		end
+	}
+
+	use {
+		'rmagatti/session-lens',
+		requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
+		config = function()
+			require('session-lens').setup({
+				path_display = {'shorten'},
+				theme_conf = { border = false },
+				previewer = true
+			})
+			require("telescope").load_extension("session-lens")
+		end
 	}
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
