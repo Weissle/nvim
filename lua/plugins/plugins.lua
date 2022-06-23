@@ -35,11 +35,6 @@ local load_plugins_function = function(use)
 				options = {
 					theme = 'tokyonight'
 				},
-				sections = {
-					lualine_c = {
-						{require('auto-session-library').current_session_name}
-					}
-				}
 			}
 		end,
 	}
@@ -280,26 +275,12 @@ local load_plugins_function = function(use)
 	}
 
 	use {
-		'rmagatti/auto-session',
-		config = function()
-			vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal",
-			require('auto-session').setup {
-				log_level = 'info',
-				auto_session_suppress_dirs = {'~/'}
-			}
-		end
-	}
-
-	use {
-		'rmagatti/session-lens',
-		requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
-		config = function()
-			require('session-lens').setup({
-				path_display = {'shorten'},
-				theme_conf = { border = false },
-				previewer = true
-			})
-			require("telescope").load_extension("session-lens")
+		'akinsho/bufferline.nvim',
+		event = lazy_event_enter_file,
+		tag = "v2.*",
+		requires = 'kyazdani42/nvim-web-devicons',
+		config = function ()
+			require('bufferline').setup{}
 		end
 	}
 	-- Automatically set up your configuration after cloning packer.nvim
