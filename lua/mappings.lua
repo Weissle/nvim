@@ -23,6 +23,9 @@ keymap('n','<Leader>fb','<cmd>Telescope buffers<cr>',opts)
 keymap('n','<Leader>fh','<cmd>Telescope help_tags<cr>',opts)
 keymap('n','<Leader>fc','<cmd>Telescope commands<cr>',opts)
 keymap('n','<Leader>ft','<cmd>Telescope <cr>',opts)
+-- keymap('n','<Leader>fa','<cmd>lua require("telescope.builtin").find_files({hidden=true,no_ignore=true}) <cr>',opts)
+keymap('n','<Leader>fa','<cmd>lua require("telescope.builtin").find_files(no_ignore=true}) <cr>',opts)
+keymap('n','<Leader>f*','<cmd>Telescope grep_string<cr>',opts)
 
 --> hop.nvim
 keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", opts)
