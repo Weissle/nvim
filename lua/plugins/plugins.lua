@@ -8,7 +8,7 @@ require('packer').init({
 	profile = {
 		enable = true,
 		threshold = 1,
-	}
+	},
 })
 
 local lazy_event_enter_file = {'BufRead','BufNewFile'}
@@ -132,11 +132,11 @@ local load_plugins_function = function(use)
 
 	use {
 		'phaazon/hop.nvim',
-		branch = 'v1.3', -- optional but strongly recommended
+		-- branch = 'v1.3', -- optional but strongly recommended
 		event = lazy_event_enter_file,
 		config = function()
 			-- you can configure Hop the way you like here; see :h hop-config
-			require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+			require'hop'.setup{}
 		end
 	}
 
