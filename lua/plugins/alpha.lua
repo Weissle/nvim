@@ -18,11 +18,11 @@ local pwd = vim.fn.getcwd()
 
 -- Set menu
 dashboard.section.buttons.val = {
-    dashboard.button( "e", "  > New file" , ":ene <BAR> startinsert <CR>"),
-    dashboard.button( "f", "  > Find file", string.format(":cd %s | Telescope find_files<CR>",pwd)),
-    dashboard.button( "r", "  > Recent"   , ":Telescope oldfiles<CR>"),
-    dashboard.button( "s", "  > Settings" , ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
-    dashboard.button( "q", "  > Quit NVIM", ":qa<CR>"),
+    dashboard.button( "e", "  > New file" , ":ene <BAR> startinsert <CR>", nil),
+    dashboard.button( "f", "  > Find file", string.format(":cd %s | Telescope find_files<CR>",pwd), nil),
+    dashboard.button( "g", "  > Grep string", string.format(":cd %s | Telescope live_grep<CR>",pwd), nil),
+    dashboard.button( "o", "  > Recent"   , ":Telescope oldfiles<CR>", nil),
+    dashboard.button( "q", "  > Quit NVIM", ":qa<CR>", nil),
 }
 
 -- Send config to alpha

@@ -25,6 +25,8 @@ keymap('n','<Leader>fc','<cmd>Telescope commands<cr>',opts)
 keymap('n','<Leader>ft','<cmd>Telescope <cr>',opts)
 keymap('n','<Leader>fa','<cmd>lua require("telescope.builtin").find_files(no_ignore=true}) <cr>',opts)
 keymap('n','<Leader>f*','<cmd>Telescope grep_string<cr>',opts)
+keymap('n','<Leader>fo','<cmd>Telescope oldfiles<cr>',opts)
+keymap('n','<Leader>fk','<cmd>Telescope keymaps<cr>',opts)
 
 --> hop.nvim
 --
