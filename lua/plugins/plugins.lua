@@ -95,6 +95,9 @@ local load_plugins_function = function(use)
 						case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
 						-- the default case_mode is "smart_case"
 					}
+				},
+				defaults = {
+					mappings = require('mappings.pl_mappings').telescope
 				}
 			}
 		end
@@ -197,40 +200,23 @@ local load_plugins_function = function(use)
 		after = "nvim-cmp"
 	}
 
-	use {
+	local cmp_plugin_list = {
 		'hrsh7th/cmp-nvim-lsp',
-		after = "nvim-cmp"
-	} -- LSP source for nvim-cmp
-	use {
 		'saadparwaiz1/cmp_luasnip',
-		after = "nvim-cmp"
-	} -- Snippets source for nvim-cmp
-	use {
 		'L3MON4D3/LuaSnip',
-		after = "nvim-cmp"
-	} -- Snippets plugin
-	use {
 		'hrsh7th/cmp-buffer',
-		after = "nvim-cmp"
-	}
-	use {
 		'hrsh7th/cmp-path',
-		after = "nvim-cmp"
-	}
-	use {
 		'hrsh7th/cmp-cmdline',
-		after = "nvim-cmp"
-	}
-	use {
-		'onsails/lspkind.nvim',
-		after = 'nvim-cmp',
-		config = function ()
-			require('plugins.lspkind')
-		end
-
+		'hrsh7th/cmp-nvim-lua',
+		'ray-x/cmp-treesitter'
 	}
 
-
+	for _,pl_name in ipairs(cmp_plugin_list) do
+		use {
+			pl_name,
+			after = 'nvim-cmp'
+		}
+	end
 
 	use {
 		'mfussenegger/nvim-dap',

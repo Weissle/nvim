@@ -6,4 +6,4 @@ end
 
 require('settings')
 require('plugins.plugins')
-require('mappings')
+require('mappings.mappings')
