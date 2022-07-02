@@ -171,22 +171,9 @@ local load_plugins_function = function(use)
 		end
 	}
 
-	use {
-		"ray-x/lsp_signature.nvim",
-		event = lazy_event_enter_file,
-		config = function()
-			require "lsp_signature".setup {
-				bind = true, -- This is mandatory, otherwise border config won't get registered.
-				handler_opts = {
-					border = "rounded"
-				}
-			}
-		end
-	}
 
 	use {
 		'hrsh7th/nvim-cmp',-- Autocompletion plugin
-		after = "nvim-lspconfig",
 		config = function()
 			require"plugins.nvim-cmp"
 		end
@@ -197,6 +184,19 @@ local load_plugins_function = function(use)
 		run='./install.sh',
 		requires = 'hrsh7th/nvim-cmp',
 		after = "nvim-cmp"
+	}
+
+	use {
+		"ray-x/lsp_signature.nvim",
+		after = 'nvim-cmp',
+		config = function()
+			require "lsp_signature".setup {
+				bind = true, -- This is mandatory, otherwise border config won't get registered.
+				handler_opts = {
+					border = "rounded"
+				}
+			}
+		end
 	}
 
 	local cmp_plugin_list = {
@@ -267,6 +267,15 @@ local load_plugins_function = function(use)
 			require('bufferline').setup{}
 		end
 	}
+
+	use {
+		'rcarriga/nvim-notify',
+		config = function ()
+			require('plugins.notify')
+		end
+	}
+
+
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if packer_bootstrap then
