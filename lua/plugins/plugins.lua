@@ -1,15 +1,7 @@
-fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-	packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-end
+local misc = require('plugins.misc')
+local packer_bootstrap = misc.first_install_packer()
 
-require('packer').init({
-	profile = {
-		enable = true,
-		threshold = 1,
-	},
-})
+require('packer').init(misc.packer_init_config)
 
 local lazy_event_enter_file = {'BufRead','BufNewFile'}
 
@@ -18,23 +10,14 @@ local load_plugins_function = function(use)
 
 	use {
 		'folke/tokyonight.nvim',
-		config = function ()
-			vim.cmd('colorscheme tokyonight')
-			vim.cmd('hi Visual guibg=#006699')
-		end
+		config = misc.tokyonight
 	}
 
 	use {
 		'nvim-lualine/lualine.nvim',
 		event = lazy_event_enter_file,
 		requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-		config = function()
-			require('lualine').setup {
-				options = {
-					theme = 'tokyonight'
-				},
-			}
-		end,
+		config = misc.lualine
 	}
 
 	use {
@@ -85,20 +68,7 @@ local load_plugins_function = function(use)
 		cmd = "Telescope",
 		requires = {'nvim-lua/plenary.nvim'},
 		config = function ()
-			require('telescope').setup {
-				extensions = {
-					fzf = {
-						fuzzy = true,                    -- false will only do exact matching
-						override_generic_sorter = true,  -- override the generic sorter
-						override_file_sorter = true,     -- override the file sorter
-						case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-						-- the default case_mode is "smart_case"
-					}
-				},
-				defaults = {
-					mappings = require('mappings.pl_mappings').telescope()
-				}
-			}
+			require('plugins.telescope')
 		end
 	}
 
@@ -134,10 +104,8 @@ local load_plugins_function = function(use)
 
 	use {
 		'phaazon/hop.nvim',
-		-- branch = 'v1.3', -- optional but strongly recommended
 		event = lazy_event_enter_file,
 		config = function()
-			-- you can configure Hop the way you like here; see :h hop-config
 			require'hop'.setup{}
 		end
 	}
@@ -163,11 +131,7 @@ local load_plugins_function = function(use)
 		requires = "kyazdani42/nvim-web-devicons",
 		event = lazy_event_enter_file,
 		config = function()
-			require("trouble").setup {
-				-- your configuration comes here
-				-- or leave it empty to use the default settings
-				-- refer to the configuration section below
-			}
+			require("trouble").setup {}
 		end
 	}
 
@@ -189,14 +153,7 @@ local load_plugins_function = function(use)
 	use {
 		"ray-x/lsp_signature.nvim",
 		after = 'nvim-cmp',
-		config = function()
-			require "lsp_signature".setup {
-				bind = true, -- This is mandatory, otherwise border config won't get registered.
-				handler_opts = {
-					border = "rounded"
-				}
-			}
-		end
+		config = misc.lsp_signature
 	}
 
 	local cmp_plugin_list = {
@@ -283,17 +240,4 @@ local load_plugins_function = function(use)
 	end
 end
 
-local packer_config = {
-	display = {
-		working_sym = " ﲊ",
-		error_sym = "✗ ",
-		done_sym = " ",
-		removed_sym = " ",
-		moved_sym = "",
-		open_fn = function()
-			return require('packer.util').float({border='single'})
-		end
-	}
-}
-
-return require('packer').startup({load_plugins_function,config = packer_config})
+require('packer').startup({load_plugins_function,config = misc.packer_config})
