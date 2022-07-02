@@ -40,10 +40,6 @@ local cmp_source = {
 	['cmdline'] = 'Cmd',
 }
 
-local function sim_input(key_str)
-	local key = vim.api.nvim_replace_termcodes(key_str,true,false,true)
-	vim.api.nvim_feedkeys(key,'t',false)
-end
 cmp.setup {
 	formatting = {
 		format = function(entry, vim_item)
@@ -58,47 +54,7 @@ cmp.setup {
 			vim.cmd('startinsert')
 		end,
 	},
-	mapping = {
-		['<Tab>'] = cmp.mapping(cmp.mapping.confirm {
-			select = true,
-		},{'i','s','c'}),
-		['<C-n>'] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			else
-				fallback()
-			end
-		end, {"i","s"}),
-		['<C-p>'] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			else
-				fallback()
-			end
-		end, {"i","s"}),
-		['<C-j>'] = cmp.mapping(function (fallback)
-			if luasnip.jumpable(1) then
-				luasnip.jump(1)
-				vim.cmd('startinsert')
-			else
-				if cmp.visible() then
-					cmp.close()
-				end
-				sim_input('<down>')
-			end
-		end, {'i', 's'}),
-		['<C-k>'] = cmp.mapping(function (fallback)
-			if luasnip.jumpable(-1) then
-				luasnip.jump(-1)
-				vim.cmd('startinsert')
-			else
-				if cmp.visible() then
-					cmp.close()
-				end
-				sim_input('<up>')
-			end
-		end, {'i', 's'}),
-	},
+	mapping = require('mappings.pl_mappings').cmp(),
 	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
 		{ name = 'luasnip' },

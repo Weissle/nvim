@@ -5,16 +5,15 @@ local keymap = vim.api.nvim_set_keymap
 
 keymap('n',' ','<NOP>',opts)
 keymap('n','<F3>','<cmd>noh<cr>',opts)
-keymap('n','<C-k>','<C-o>k',opts)
 keymap('i','jj','<C-[>',opts)
 keymap('i','<C-h>','<left>',opts)
 keymap('i','<C-l>','<right>',opts)
--- keymap('i','<C-j>','<C-o>j',opts)
--- keymap('i','<C-k>','<C-o>k',opts)
+keymap('i','<C-j>','<C-o>j',opts)
+keymap('i','<C-k>','<C-o>k',opts)
 
 --> nvim-tree.lua
 keymap('n','<C-n>',':NvimTreeToggle<CR>',opts)
-keymap('n','<C-m>',':NvimTreeFindFileToggle<CR>',opts)
+keymap('n','<C-b>',':NvimTreeFindFileToggle<CR>',opts)
 
 --> telescope.nvim
 keymap('n','<Leader>ff','<cmd>Telescope find_files<cr>',opts)
@@ -44,9 +43,6 @@ keymap('', '<leader>he', "<cmd>lua require'hop'.hint_words({ hint_position = req
 keymap('', '<leader>hx', "<cmd>HopChar2<cr>", opts)
 keymap('', '<leader>hs', "<cmd>HopPattern<cr>", opts)
 
---> Comment.nvim
---
---
 --> AsyncRun
 keymap('n', '<F5>', ":AsyncTask file-run<cr>", opts)
 keymap('n', '<F6>', ":AsyncTask file-build<cr>", opts)

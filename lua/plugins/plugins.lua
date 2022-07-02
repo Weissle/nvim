@@ -19,10 +19,8 @@ local load_plugins_function = function(use)
 	use {
 		'folke/tokyonight.nvim',
 		config = function ()
-			vim.cmd[[colorscheme tokyonight]]
-			vim.cmd[[
-			hi Visual guibg=#006699
-			]]
+			vim.cmd('colorscheme tokyonight')
+			vim.cmd('hi Visual guibg=#006699')
 		end
 	}
 
@@ -52,7 +50,7 @@ local load_plugins_function = function(use)
 	use {
 		'kyazdani42/nvim-tree.lua',
 		requires = { 'kyazdani42/nvim-web-devicons' },
-		cmd = {"NvimTreeToggle","NvimTreeFindFile"},
+		cmd = {"NvimTreeToggle","NvimTreeFindFileToggle"},
 		config = function()
 			require('plugins.nvim-tree')
 		end,
@@ -60,6 +58,7 @@ local load_plugins_function = function(use)
 
 	use {
 		'ethanholz/nvim-lastplace',
+		event = lazy_event_enter_file,
 		config = function()
 			require('nvim-lastplace').setup()
 		end
@@ -97,7 +96,7 @@ local load_plugins_function = function(use)
 					}
 				},
 				defaults = {
-					mappings = require('mappings.pl_mappings').telescope
+					mappings = require('mappings.pl_mappings').telescope()
 				}
 			}
 		end
@@ -244,7 +243,6 @@ local load_plugins_function = function(use)
 	use {
 		'skywind3000/asynctasks.vim',
 		requires = { 'skywind3000/asyncrun.vim'},
-		event = lazy_event_enter_file,
 		config = function ()
 			vim.g.asyncrun_open = 6
 		end
