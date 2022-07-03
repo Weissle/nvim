@@ -26,22 +26,21 @@ keymap('n','<Leader>fa','<cmd>lua require("telescope.builtin").find_files(no_ign
 keymap('n','<Leader>f*','<cmd>Telescope grep_string<cr>',opts)
 keymap('n','<Leader>fo','<cmd>Telescope oldfiles<cr>',opts)
 keymap('n','<Leader>fk','<cmd>Telescope keymaps<cr>',opts)
+keymap('n','<Leader>fn','<cmd>Telescope notify<cr>',opts)
 
 --> hop.nvim
 --
-keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", opts)
-keymap('s', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", opts)
-keymap('o', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", opts)
-keymap('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", opts)
-keymap('s', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", opts)
-keymap('o', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", opts)
+keymap('', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", opts)
+keymap('o', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = 1 })<cr>", opts)
+keymap('', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", opts)
+keymap('o', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = -1 })<cr>", opts)
 keymap('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>", opts)
 keymap('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>", opts)
-keymap('', '<leader>hl', "<cmd>HopLineStart<cr>", opts)
-keymap('', '<leader>hw', "<cmd>lua require'hop'.hint_words()<cr>", opts)
-keymap('', '<leader>he', "<cmd>lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", opts)
-keymap('', '<leader>hx', "<cmd>HopChar2<cr>", opts)
-keymap('', '<leader>hs', "<cmd>HopPattern<cr>", opts)
+keymap('', '<leader>hl', "<cmd>HopLineStartMW<cr>", opts)
+keymap('', '<leader>hw', "<cmd>HopWordMW<cr>", opts)
+keymap('', '<leader>he', "<cmd>lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, multi_windows = true })<cr>", opts)
+keymap('', '<leader>hx', "<cmd>HopChar2MW <cr>", opts)
+keymap('', '<leader>h/', "<cmd>HopPatternMW <cr>", opts)
 
 --> AsyncRun
 keymap('n', '<F5>', ":AsyncTask file-run<cr>", opts)
