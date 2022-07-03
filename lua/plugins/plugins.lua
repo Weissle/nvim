@@ -8,7 +8,6 @@ local lazy_event_enter_file = {'BufRead','BufNewFile'}
 local load_plugins_function = function(use)
 	use {
 		'wbthomason/packer.nvim',
-		cmd = {'PackerInstall','PackerSync','PackerCompile','PackerStatus'}
 	}
 
 	use {
@@ -137,7 +136,6 @@ local load_plugins_function = function(use)
 			require("trouble").setup {}
 		end
 	}
-
 
 	use {
 		'hrsh7th/nvim-cmp',-- Autocompletion plugin
