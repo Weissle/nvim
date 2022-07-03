@@ -7,6 +7,9 @@ vim.o.termguicolors = true
 vim.o.smartcase = true
 vim.o.ignorecase = true
 vim.o.guicursor = 'n-v-c-sm:blinkon01,i-ci-ve:ver25-blinkon01,r-cr-o:hor20'
+vim.o.jumpoptions = 'stack'
+
+vim.g.mapleader = ' '
 
 vim.cmd([[
 augroup packer_user_config
@@ -16,10 +19,6 @@ augroup end
 ]])
 
 
-
-vim.g.mapleader = ' '
-
-
 vim.defer_fn(function ()
 	vim.o.clipboard = 'unnamedplus'
-end,100)
+end,200)

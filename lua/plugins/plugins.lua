@@ -6,7 +6,10 @@ require('packer').init(misc.packer_init_config)
 local lazy_event_enter_file = {'BufRead','BufNewFile'}
 
 local load_plugins_function = function(use)
-	use 'wbthomason/packer.nvim'
+	use {
+		'wbthomason/packer.nvim',
+		cmd = {'PackerInstall','PackerSync','PackerCompile','PackerStatus'}
+	}
 
 	use {
 		'folke/tokyonight.nvim',
