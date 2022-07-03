@@ -8,8 +8,8 @@ keymap('n','<F3>','<cmd>noh<cr>',opts)
 keymap('i','jj','<C-[>',opts)
 keymap('i','<C-h>','<left>',opts)
 keymap('i','<C-l>','<right>',opts)
-keymap('i','<C-j>','<C-o>j',opts)
-keymap('i','<C-k>','<C-o>k',opts)
+keymap('i','<C-k>','<up>',opts)
+keymap('i','<C-j>','<down>',opts)
 
 --> nvim-tree.lua
 keymap('n','<C-n>',':NvimTreeToggle<CR>',opts)

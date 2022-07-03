@@ -36,7 +36,6 @@ M.cmp = function ()
 		['<C-j>'] = cmp.mapping(function (fallback)
 			if luasnip.jumpable(1) then
 				luasnip.jump(1)
-				vim.cmd('startinsert')
 			else
 				if cmp.visible() then
 					cmp.close()
@@ -47,7 +46,6 @@ M.cmp = function ()
 		['<C-k>'] = cmp.mapping(function (fallback)
 			if luasnip.jumpable(-1) then
 				luasnip.jump(-1)
-				vim.cmd('startinsert')
 			else
 				if cmp.visible() then
 					cmp.close()
