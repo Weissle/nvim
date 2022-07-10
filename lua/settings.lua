@@ -8,7 +8,7 @@ vim.o.smartcase = true
 vim.o.ignorecase = true
 vim.o.guicursor = 'n-v-c-sm:blinkon01,i-ci-ve:ver25-blinkon01,r-cr-o:hor20'
 vim.o.jumpoptions = 'stack'
-vim.o.hidden = true
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
 vim.g.mapleader = ' '
 
 vim.cmd([[
@@ -30,7 +30,7 @@ vim.api.nvim_create_autocmd('BufWritePost',{
 
 local dap_utils = require('plugins.dap-utils')
 dap_utils.create_father_path()
-vim.api.nvim_create_autocmd({"BufRead"},{ callback = dap_utils.load_breakpoints })
+vim.api.nvim_create_autocmd({"BufReadPost"},{ callback = dap_utils.load_breakpoints })
 
 vim.defer_fn(function ()
 	vim.o.clipboard = 'unnamedplus'

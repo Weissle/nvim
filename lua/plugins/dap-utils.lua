@@ -23,37 +23,38 @@ local load_bps = function (path)
 end
 
 M.store_breakpoints = function (clear)
-	local bps_path = get_bps_path()
-	local bps = load_bps(bps_path)
-	local breakpoints_by_buf = breakpoints.get()
-	if (clear) then
-		bps = {}
-	else
-		for buf, buf_bps in pairs(breakpoints_by_buf) do
-			bps[vim.api.nvim_buf_get_name(buf)] = buf_bps
-		end
+	local bps_path,bps = get_bps_path(),{}
+	if clear == nil or clear == false then
+		bps = load_bps(bps_path)
+		local current_buf_file_name = vim.api.nvim_buf_get_name(0)
+		local current_buf_id = vim.api.nvim_get_current_buf()
+		local current_buf_breakpoints = breakpoints.get()[current_buf_id]
+		bps[current_buf_file_name] = current_buf_breakpoints
 	end
 	local fp = io.open(bps_path, 'w+')
 	if fp == nil then
 		require('common').async_notify('Failed to save checkpoints. File: ' .. vim.fn.expand('%'), 'WARN')
 		return
+	else
+		fp:write(vim.fn.json_encode(bps))
+		fp:close()
 	end
-	fp:write(vim.fn.json_encode(bps))
-	fp:close()
 end
 
+local cnt =0
 
 M.load_breakpoints = function()
+	cnt = cnt + 1
 	local bps_path = get_bps_path()
 	local bps = load_bps(bps_path)
 	breakpoints.clear()
-    local loaded_buffers = {}
-    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        local file_name = vim.api.nvim_buf_get_name(buf)
-        if (bps[file_name] ~= nil and bps[file_name] ~= {}) then
+	local loaded_buffers = {}
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		local file_name = vim.api.nvim_buf_get_name(buf)
+		if (bps[file_name] ~= nil and bps[file_name] ~= {}) then
 			loaded_buffers[file_name] = buf
-        end
-    end
+		end
+	end
 	for path, buf_bps in pairs(bps) do
 		if loaded_buffers[path] ~= nil then
 			for _, bp in pairs(buf_bps) do

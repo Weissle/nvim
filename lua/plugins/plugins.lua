@@ -243,12 +243,25 @@ local load_plugins_function = function(use)
 			require("todo-comments").setup{}
 		end
 	}
-	
+
 	use {
 		'williamboman/mason.nvim',
 		branch = "alpha",
 		config = function ()
 			require('mason').setup{}
+		end
+	}
+
+	use {
+		'rmagatti/auto-session',
+		config = misc.auto_session
+	}
+
+	use {
+		'rmagatti/session-lens',
+		requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
+		config = function()
+			require('session-lens').setup{}
 		end
 	}
 
