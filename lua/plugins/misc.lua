@@ -19,11 +19,6 @@ M.packer_init_config = {
 
 M.packer_config = {
 	display = {
-		working_sym = " ﲊ",
-		error_sym = "✗ ",
-		done_sym = " ",
-		removed_sym = " ",
-		moved_sym = "",
 		open_fn = function()
 			return require('packer.util').float({border='single'})
 		end
@@ -38,7 +33,8 @@ end
 M.lualine = function()
 	require('lualine').setup {
 		options = {
-			theme = 'tokyonight'
+			theme = 'tokyonight',
+			disabled_filetypes = { 'dapui_console', 'dap-repl', 'dapui_breakpoints', 'dapui_stacks', 'dapui_scopes', 'dapui_watches' },
 		},
 	}
 end

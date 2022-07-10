@@ -178,6 +178,9 @@ local load_plugins_function = function(use)
 	use {
 		'mfussenegger/nvim-dap',
 		event = lazy_event_enter_file,
+		config = function ()
+			require('plugins.dap')
+		end
 	}
 
 	use {
@@ -185,7 +188,7 @@ local load_plugins_function = function(use)
 		requires = {'mfussenegger/nvim-dap'},
 		after = 'nvim-dap',
 		config = function ()
-			require('dapui').setup()
+			require('plugins.dap-ui')
 		end
 	}
 
@@ -199,10 +202,10 @@ local load_plugins_function = function(use)
 	}
 
 	use {
-		'skywind3000/asynctasks.vim',
-		requires = { 'skywind3000/asyncrun.vim'},
+		'nvim-telescope/telescope-dap.nvim',
+		after = 'telescope.nvim',
 		config = function ()
-			vim.g.asyncrun_open = 6
+			require('telescope').load_extension('dap')
 		end
 	}
 
@@ -240,6 +243,16 @@ local load_plugins_function = function(use)
 			require("todo-comments").setup{}
 		end
 	}
+	
+	use {
+		'williamboman/mason.nvim',
+		branch = "alpha",
+		config = function ()
+			require('mason').setup{}
+		end
+	}
+
+
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
