@@ -1,6 +1,7 @@
 local breakpoints = require('dap.breakpoints')
 local M = {}
 local cp_dir = '/tmp/.nvim_checkpoints'
+
 M.create_father_path = function ()
 	os.execute('mkdir -p ' .. cp_dir)
 end
@@ -45,30 +46,27 @@ end
 M.load_breakpoints = function()
 	local bps_path = get_bps_path()
 	local bps = load_bps(bps_path)
-
+	breakpoints.clear()
     local loaded_buffers = {}
-    local found = false
     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
         local file_name = vim.api.nvim_buf_get_name(buf)
         if (bps[file_name] ~= nil and bps[file_name] ~= {}) then
-            found = true
+			loaded_buffers[file_name] = buf
         end
-        loaded_buffers[file_name] = buf
     end
-    if (found == false) then
-        return
-    end
-
 	for path, buf_bps in pairs(bps) do
-		for _, bp in pairs(buf_bps) do
-            local line = bp.line
-            local opts = {
-                condition = bp.condition,
-                log_message = bp.logMessage,
-                hit_condition = bp.hitCondition
-            }
-            breakpoints.set(opts, tonumber(loaded_buffers[path]), line)
+		if loaded_buffers[path] ~= nil then
+			for _, bp in pairs(buf_bps) do
+				local line = bp.line
+				local opts = {
+					condition = bp.condition,
+					log_message = bp.logMessage,
+					hit_condition = bp.hitCondition
+				}
+				breakpoints.set(opts, tonumber(loaded_buffers[path]), line)
+			end
 		end
+
 	end
 end
 
