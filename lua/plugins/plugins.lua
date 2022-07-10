@@ -265,6 +265,12 @@ local load_plugins_function = function(use)
 		end
 	}
 
+	use{
+		'mrjones2014/smart-splits.nvim',
+		config = function ()
+			require('smart-splits').setup{}
+		end
+	}
 
 
 	-- Automatically set up your configuration after cloning packer.nvim
