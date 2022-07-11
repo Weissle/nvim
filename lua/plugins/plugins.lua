@@ -272,6 +272,12 @@ local load_plugins_function = function(use)
 		end
 	}
 
+	use {
+		'Weissle/persistent-breakpoints.nvim',
+		config = function ()
+			require('persistent-breakpoints').setup{}
+		end
+	}
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

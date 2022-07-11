@@ -1,5 +1,4 @@
 local opts = { noremap = true, silent = true }
-
 local keymap = vim.api.nvim_set_keymap
 
 
@@ -66,12 +65,13 @@ vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, opts)
 vim.keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, opts)
 keymap('n','gr','<cmd>Telescope lsp_references<cr><Esc>',opts)
 
---> BufferLine
-keymap('n','<leader>b','<cmd>BufferLinePick<cr>',opts)
+--> Buffer
+keymap('n','<leader>bj','<cmd>BufferLinePick<cr>',opts)
+keymap('n','<leader>bd','<cmd>bd<cr>',opts)
 
 --> Dap
-keymap("n", "<leader>da", "<cmd>lua require'dap'.toggle_breakpoint(); require('plugins.dap-utils').store_breakpoints(false)<cr>", opts)
-keymap("n", "<leader>dA", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input '[Condition] > '); require('plugins.dap-utils').store_breakpoints(false)<cr>", opts)
+keymap("n", "<leader>da", "<cmd>lua require'dap'.toggle_breakpoint(); require('persistent-breakpoints.api').store_breakpoints(false)<cr>", opts)
+keymap("n", "<leader>dA", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input '[Condition] > '); require('persistent-breakpoints.api').store_breakpoints(false)<cr>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.run_to_cursor()<cr>", opts)
 keymap("n", "<leader>ds", "<cmd>lua require'dap'.pause()<cr>", opts)
 keymap("n", "<leader>dc", "<cmd>Telescope dap configurations<cr>", opts)

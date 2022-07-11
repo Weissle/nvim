@@ -28,9 +28,7 @@ vim.api.nvim_create_autocmd('BufWritePost',{
 	end
 })
 
-local dap_utils = require('plugins.dap-utils')
-dap_utils.create_father_path()
-vim.api.nvim_create_autocmd({"BufReadPost"},{ callback = dap_utils.load_breakpoints })
+vim.api.nvim_create_autocmd({"BufReadPost"},{ callback = require('persistent-breakpoints.api').load_breakpoints })
 
 vim.defer_fn(function ()
 	vim.o.clipboard = 'unnamedplus'
