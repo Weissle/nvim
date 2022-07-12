@@ -70,8 +70,8 @@ keymap('n','<leader>bj','<cmd>BufferLinePick<cr>',opts)
 keymap('n','<leader>bd','<cmd>bd<cr>',opts)
 
 --> Dap
-keymap("n", "<leader>da", "<cmd>lua require'dap'.toggle_breakpoint(); require('persistent-breakpoints.api').store_breakpoints(false)<cr>", opts)
-keymap("n", "<leader>dA", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input '[Condition] > '); require('persistent-breakpoints.api').store_breakpoints(false)<cr>", opts)
+keymap("n", "<leader>da", "<cmd>lua require('persistent-breakpoints.api').toggle_breakpoint()<cr>", opts)
+keymap("n", "<leader>dA", "<cmd>lua require('persistent-breakpoints.api').set_conditional_breakpoint()<cr>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.run_to_cursor()<cr>", opts)
 keymap("n", "<leader>ds", "<cmd>lua require'dap'.pause()<cr>", opts)
 keymap("n", "<leader>dc", "<cmd>Telescope dap configurations<cr>", opts)
