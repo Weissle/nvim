@@ -9,8 +9,6 @@ keymap('i','<C-h>','<left>',opts)
 keymap('i','<C-l>','<right>',opts)
 keymap('i','<C-k>','<up>',opts)
 keymap('i','<C-j>','<down>',opts)
-keymap('n','<A-[>','<cmd>keepjumps normal {<cr>',opts)
-keymap('n','<A-]>','<cmd>keepjumps normal }<cr>',opts)
 
 --> nvim-tree.lua
 keymap('n','<C-n>',':NvimTreeToggle<CR>',opts)
@@ -51,29 +49,38 @@ keymap('', '<leader>h/', "<cmd>HopPatternMW <cr>", opts)
 
 --> LSP Mappings.
 -- See `:help vim.lsp.*` for documentation on any of the below functions
-vim.keymap.set('n', '<Leader>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-keymap('n', '<Leader>q', '<cmd>Telescope diagnostics<cr>', opts)
+vim.keymap.set('n', '<Leader>lf', vim.diagnostic.open_float, opts)
+keymap('n', '<Leader>ld', '<cmd>Telescope diagnostics<cr>', opts)
+vim.keymap.set('n', '<Leader>la', vim.lsp.buf.code_action, opts)
+vim.keymap.set('n', '<Leader>lh', vim.lsp.buf.hover, opts)
+vim.keymap.set('n', '<Leader>ls', vim.lsp.buf.signature_help, opts)
+vim.keymap.set('n', '<Leader>ld', vim.lsp.buf.type_definition, opts)
+vim.keymap.set('n', '<Leader>lr', vim.lsp.buf.rename, opts)
+vim.keymap.set('n', '<Leader>lp', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', '<Leader>ln', vim.diagnostic.goto_next, opts)
+keymap('n', '<Leader>ld', '<cmd>Telescope diagnostics<cr>', opts)
+
+vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, opts)
-vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, opts)
-vim.keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, opts)
 keymap('n','gr','<cmd>Telescope lsp_references<cr><Esc>',opts)
 
 --> Buffer
 keymap('n','<leader>bj','<cmd>BufferLinePick<cr>',opts)
-keymap('n','<leader>bd','<cmd>bd<cr>',opts)
+keymap('n','<leader>bn','<cmd>BufferLineCycleNext<cr>',opts)
+keymap('n','<leader>bp','<cmd>BufferLineCyclePrev<cr>',opts)
+
+--> Quic or Close
+keymap('n','<leader>qb','<cmd>bd<cr>',opts)
+keymap('n','<leader>qq','<cmd>wq<cr>',opts)
+keymap('n','<leader>qa','<cmd>wqa<cr>',opts)
+keymap('n','<leader>qw','<cmd>wa<cr>',opts)
 
 --> Dap
 keymap("n", "<leader>da", "<cmd>lua require('persistent-breakpoints.api').toggle_breakpoint()<cr>", opts)
 keymap("n", "<leader>dA", "<cmd>lua require('persistent-breakpoints.api').set_conditional_breakpoint()<cr>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.run_to_cursor()<cr>", opts)
-keymap("n", "<leader>ds", "<cmd>lua require'dap'.pause()<cr>", opts)
+keymap("n", "<leader>dp", "<cmd>lua require'dap'.pause()<cr>", opts)
 keymap("n", "<leader>dc", "<cmd>Telescope dap configurations<cr>", opts)
 keymap("n", "<leader>dC", "<cmd>Telescope dap commands<cr>", opts)
 keymap("n", "<leader>dv", "<cmd>Telescope dap variables<cr>", opts)
@@ -89,3 +96,8 @@ keymap("t", "jj", "<C-\\><C-n>", opts)
 
 --> smart split
 vim.keymap.set('n', '<leader>mw', require('smart-splits').start_resize_mode)
+
+--> Neogen
+keymap("n", "<Leader>of", "<cmd>Neogen func<CR>", opts)
+keymap("n", "<Leader>oc", "<cmd>Neogen class<CR>", opts)
+keymap("n", "<Leader>ot", "<cmd>Neogen type<CR>", opts)

@@ -48,20 +48,28 @@ M.lsp_signature = function ()
 	}
 end
 
-function _G.close_all_floating_wins()
+_G.close_all_floating_wins = function()
 	for _, win in ipairs(vim.api.nvim_list_wins()) do
 		local config = vim.api.nvim_win_get_config(win)
+		print(vim.inspect(config))
 		if config.relative ~= '' then
 			vim.api.nvim_win_close(win, false)
 		end
 	end
 end
 
+local function restore_nvim_tree()
+    local nvim_tree = require('nvim-tree')
+    nvim_tree.change_dir(vim.fn.getcwd())
+    nvim_tree.refresh()
+end
+
 M.auto_session = function ()
 	require('auto-session').setup {
 		log_level = 'info',
 		auto_session_suppress_dirs = {'~/'},
-		pre_save_cmds = { _G.close_all_floating_wins }
+		pre_save_cmds = { _G.close_all_floating_wins },
+		post_restore_cmds = { restore_nvim_tree }
 	}
 end
 

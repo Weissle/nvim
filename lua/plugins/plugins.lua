@@ -6,6 +6,7 @@ require('packer').init(misc.packer_init_config)
 local lazy_event_enter_file = {'BufRead','BufNewFile'}
 
 local load_plugins_function = function(use)
+
 	use {
 		'wbthomason/packer.nvim',
 	}
@@ -35,27 +36,12 @@ local load_plugins_function = function(use)
 	use {
 		'kyazdani42/nvim-tree.lua',
 		requires = { 'kyazdani42/nvim-web-devicons' },
-		cmd = {"NvimTreeToggle","NvimTreeFindFileToggle"},
+		-- cmd = {"NvimTreeToggle","NvimTreeFindFileToggle"},
 		config = function()
 			require('plugins.nvim-tree')
 		end,
 	}
 
-	use {
-		'ethanholz/nvim-lastplace',
-		event = lazy_event_enter_file,
-		config = function()
-			require('nvim-lastplace').setup()
-		end
-	}
-
-	use {
-		'goolord/alpha-nvim',
-		requires = { 'kyazdani42/nvim-web-devicons' },
-		config = function ()
-			require('plugins.alpha')
-		end
-	}
 
 	use {
 		'numToStr/Comment.nvim',
@@ -145,13 +131,6 @@ local load_plugins_function = function(use)
 	}
 
 	use {
-		'tzachar/cmp-tabnine',
-		run='./install.sh',
-		requires = 'hrsh7th/nvim-cmp',
-		after = "nvim-cmp"
-	}
-
-	use {
 		"ray-x/lsp_signature.nvim",
 		after = 'nvim-cmp',
 		config = misc.lsp_signature
@@ -177,7 +156,6 @@ local load_plugins_function = function(use)
 
 	use {
 		'mfussenegger/nvim-dap',
-		event = lazy_event_enter_file,
 		config = function ()
 			require('plugins.dap')
 		end
@@ -267,6 +245,7 @@ local load_plugins_function = function(use)
 
 	use{
 		'mrjones2014/smart-splits.nvim',
+		event = lazy_event_enter_file,
 		config = function ()
 			require('smart-splits').setup{}
 		end
@@ -275,8 +254,21 @@ local load_plugins_function = function(use)
 	use {
 		'Weissle/persistent-breakpoints.nvim',
 		config = function ()
-			require('persistent-breakpoints').setup{}
+			require('persistent-breakpoints').setup({
+				perf_record = true
+			})
 		end
+	}
+
+	use {
+		"danymat/neogen",
+		requires = "nvim-treesitter/nvim-treesitter",
+		event = lazy_event_enter_file,
+		config = function()
+			require('neogen').setup {
+				snippet_engine = 'luasnip'
+			}
+		end,
 	}
 
 	-- Automatically set up your configuration after cloning packer.nvim
