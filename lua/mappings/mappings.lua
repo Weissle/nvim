@@ -49,17 +49,17 @@ keymap('', '<leader>h/', "<cmd>HopPatternMW <cr>", opts)
 
 --> LSP Mappings.
 -- See `:help vim.lsp.*` for documentation on any of the below functions
-vim.keymap.set('n', '<Leader>lf', vim.diagnostic.open_float, opts)
-keymap('n', '<Leader>ld', '<cmd>Telescope diagnostics<cr>', opts)
 vim.keymap.set('n', '<Leader>la', vim.lsp.buf.code_action, opts)
 vim.keymap.set('n', '<Leader>lh', vim.lsp.buf.hover, opts)
 vim.keymap.set('n', '<Leader>ls', vim.lsp.buf.signature_help, opts)
-vim.keymap.set('n', '<Leader>ld', vim.lsp.buf.type_definition, opts)
 vim.keymap.set('n', '<Leader>lr', vim.lsp.buf.rename, opts)
-vim.keymap.set('n', '<Leader>lp', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', '<Leader>ln', vim.diagnostic.goto_next, opts)
-keymap('n', '<Leader>ld', '<cmd>Telescope diagnostics<cr>', opts)
-
+vim.keymap.set('n', '<Leader>lt', vim.lsp.buf.type_definition, opts)
+-- diagnostic
+vim.keymap.set('n', '<Leader>dp', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', '<Leader>dn', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<Leader>do', vim.diagnostic.open_float, opts)
+keymap('n', '<Leader>dl', '<cmd>Telescope diagnostics<cr>', opts)
+-- frequently use
 vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
@@ -73,7 +73,9 @@ keymap('n','<leader>bp','<cmd>BufferLineCyclePrev<cr>',opts)
 --> Quic or Close
 keymap('n','<leader>qb','<cmd>bd<cr>',opts)
 keymap('n','<leader>qq','<cmd>wq<cr>',opts)
-keymap('n','<leader>qa','<cmd>wqa<cr>',opts)
+--> so long due to the bug of toggleTerm
+keymap('n','<leader>qa','<cmd>wa<cr><bar><cmd>qa<cr>',opts)
+keymap('n','<leader>qt','<cmd>q<cr>',opts)
 keymap('n','<leader>qw','<cmd>wa<cr>',opts)
 
 --> Dap
@@ -96,7 +98,7 @@ keymap("t", "jj", "<C-\\><C-n>", opts)
 
 --> smart split
 vim.keymap.set('n', '<leader>mw', require('smart-splits').start_resize_mode)
-
+keymap("n", "<leader>mt", "<cmd>ToggleTerm<cr>", opts)
 --> Neogen
 keymap("n", "<Leader>of", "<cmd>Neogen func<CR>", opts)
 keymap("n", "<Leader>oc", "<cmd>Neogen class<CR>", opts)
