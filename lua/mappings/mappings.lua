@@ -71,12 +71,14 @@ keymap('n','<leader>bn','<cmd>BufferLineCycleNext<cr>',opts)
 keymap('n','<leader>bp','<cmd>BufferLineCyclePrev<cr>',opts)
 
 --> Quic or Close
-keymap('n','<leader>qb','<cmd>bd<cr>',opts)
+keymap('n','<leader>qb','<cmd>Bdelete<cr>',opts)
 keymap('n','<leader>qq','<cmd>wq<cr>',opts)
 --> so long due to the bug of toggleTerm
 keymap('n','<leader>qa','<cmd>wa<cr><bar><cmd>qa<cr>',opts)
 keymap('n','<leader>qt','<cmd>q<cr>',opts)
 keymap('n','<leader>qw','<cmd>wa<cr>',opts)
+keymap('n','<leader>ql','<cmd>BufferLineCloseLeft<cr>',opts)
+keymap('n','<leader>qr','<cmd>BufferLineCloseRight<cr>',opts)
 
 --> Dap
 keymap("n", "<leader>da", "<cmd>lua require('persistent-breakpoints.api').toggle_breakpoint()<cr>", opts)
@@ -103,3 +105,5 @@ keymap("n", "<leader>mt", "<cmd>ToggleTerm<cr>", opts)
 keymap("n", "<Leader>of", "<cmd>Neogen func<CR>", opts)
 keymap("n", "<Leader>oc", "<cmd>Neogen class<CR>", opts)
 keymap("n", "<Leader>ot", "<cmd>Neogen type<CR>", opts)
+
+keymap('n','<Leader>mg',"<cmd>tabnew<cr><bar><cmd>ToggleTerm<cr>",opts)

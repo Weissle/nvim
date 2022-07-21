@@ -3,58 +3,67 @@ local packer_bootstrap = misc.first_install_packer()
 
 require('packer').init(misc.packer_init_config)
 
-local lazy_event_enter_file = {'BufRead','BufNewFile'}
+-- local lazy_event_enter_file = {'BufRead','BufNewFile'}
 
+-- just install
+local function ins(use)
+	use 'wbthomason/packer.nvim'
+	use 'famiu/bufdelete.nvim'
+	use 'lukas-reineke/indent-blankline.nvim'
+	use 'RRethy/vim-illuminate'
+	use 'tpope/vim-surround'
+	use 'tpope/vim-repeat'
+	use 'kyazdani42/nvim-web-devicons'
+	use 'nvim-lua/plenary.nvim'
+	use 'lewis6991/impatient.nvim'
+end
+
+
+-- install then config
+local function ins_cfg(use)
+	-- plugin -> config function
+	local pl_cf = {
+		['folke/tokyonight.nvim'] = misc.tokyonight,
+		['nvim-lualine/lualine.nvim'] = misc.lualine,
+		['rmagatti/auto-session'] = misc.auto_session,
+		['ray-x/lsp_signature.nvim'] = misc.lsp_signature,
+		----------------------
+		['windwp/nvim-autopairs'] = function() require('nvim-autopairs').setup{} end,
+		['phaazon/hop.nvim'] = function() require('hop').setup{} end,
+		['folke/trouble.nvim'] = function() require('trouble').setup{} end,
+		['mrjones2014/smart-splits.nvim'] = function() require('smart-splits').setup{} end,
+		['folke/todo-comments.nvim'] = function() require('todo-comments').setup{} end,
+		['theHamsta/nvim-dap-virtual-text'] = function() require('nvim-dap-virtual-text').setup{} end,
+		['rmagatti/session-lens'] = function() require('session-lens').setup{} end,
+		['Weissle/persistent-breakpoints.nvim'] = function() require('persistent-breakpoints').setup{} end,
+		['numToStr/Comment.nvim'] = function() require('Comment').setup{} end,
+		-------------------------------
+		['rcarriga/nvim-notify'] = function() require('plugins.notify')() end,
+		['kyazdani42/nvim-tree.lua'] = function() require('plugins.nvim-tree')() end,
+		['rcarriga/nvim-dap-ui'] = function() require('plugins.dap-ui')() end,
+		['hrsh7th/nvim-cmp'] = function() require('plugins.nvim-cmp')() end,
+		['mfussenegger/nvim-dap'] = function() require('plugins.dap')() end,
+		['williamboman/nvim-lsp-installer'] = function() require('plugins.lspinstaller')() end,
+	}
+
+	for plugin_name,config_function in pairs(pl_cf) do
+		use{
+			plugin_name,
+			config = config_function
+		}
+	end
+end
 local load_plugins_function = function(use)
 
-	use {
-		'wbthomason/packer.nvim',
-	}
+	ins(use)
+	ins_cfg(use)
 
-	use {
-		'folke/tokyonight.nvim',
-		config = misc.tokyonight
-	}
-
-	use {
-		'nvim-lualine/lualine.nvim',
-		event = lazy_event_enter_file,
-		requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-		config = misc.lualine
-	}
-
-	use {
-		"lukas-reineke/indent-blankline.nvim",
-		event = lazy_event_enter_file,
-	}
-
-	use {
-		"RRethy/vim-illuminate",
-		event = lazy_event_enter_file,
-	}
-
-	use {
-		'kyazdani42/nvim-tree.lua',
-		requires = { 'kyazdani42/nvim-web-devicons' },
-		-- cmd = {"NvimTreeToggle","NvimTreeFindFileToggle"},
-		config = function()
-			require('plugins.nvim-tree')
-		end,
-	}
-
-
-	use {
-		'numToStr/Comment.nvim',
-		event = lazy_event_enter_file,
-		config = function()
-			require('Comment').setup()
-		end
-	}
 
 	use {
 		'nvim-telescope/telescope.nvim',
 		cmd = "Telescope",
-		requires = {'nvim-lua/plenary.nvim'},
+		branch = '0.1.x',
+		requires = {},
 		config = function ()
 			require('plugins.telescope')
 		end
@@ -69,41 +78,14 @@ local load_plugins_function = function(use)
 		end
 	}
 
-	use 'lewis6991/impatient.nvim'
-
-
 	use {
 		'nvim-treesitter/nvim-treesitter',
-		event = lazy_event_enter_file,
 		run = ':TSUpdate',
 		config = function()
 			require('plugins.treesitter')
 		end
-
 	}
 
-	use {
-		"windwp/nvim-autopairs",
-		event = lazy_event_enter_file,
-		config = function()
-			require("nvim-autopairs").setup {}
-		end
-	}
-
-	use {
-		'phaazon/hop.nvim',
-		event = lazy_event_enter_file,
-		config = function()
-			require'hop'.setup{}
-		end
-	}
-
-	use {
-		'williamboman/nvim-lsp-installer',
-		config = function()
-			require('plugins.lspinstaller')
-		end
-	}
 
 	use {
 		'neovim/nvim-lspconfig',
@@ -113,28 +95,6 @@ local load_plugins_function = function(use)
 		end
 	}
 
-
-	use {
-		"folke/trouble.nvim",
-		requires = "kyazdani42/nvim-web-devicons",
-		event = lazy_event_enter_file,
-		config = function()
-			require("trouble").setup {}
-		end
-	}
-
-	use {
-		'hrsh7th/nvim-cmp',-- Autocompletion plugin
-		config = function()
-			require"plugins.nvim-cmp"
-		end
-	}
-
-	use {
-		"ray-x/lsp_signature.nvim",
-		after = 'nvim-cmp',
-		config = misc.lsp_signature
-	}
 
 	local cmp_plugin_list = {
 		'hrsh7th/cmp-nvim-lsp',
@@ -154,30 +114,8 @@ local load_plugins_function = function(use)
 		}
 	end
 
-	use {
-		'mfussenegger/nvim-dap',
-		config = function ()
-			require('plugins.dap')
-		end
-	}
 
-	use {
-		"rcarriga/nvim-dap-ui",
-		requires = {'mfussenegger/nvim-dap'},
-		after = 'nvim-dap',
-		config = function ()
-			require('plugins.dap-ui')
-		end
-	}
 
-	use {
-		'theHamsta/nvim-dap-virtual-text',
-		after = 'nvim-dap',
-		requires = {"mfussenegger/nvim-dap"},
-		config = function ()
-			require('nvim-dap-virtual-text').setup()
-		end
-	}
 
 	use {
 		'nvim-telescope/telescope-dap.nvim',
@@ -187,38 +125,13 @@ local load_plugins_function = function(use)
 		end
 	}
 
-	use {
-		'tpope/vim-surround',
-		event = lazy_event_enter_file,
-	}
-
-	use {
-		'tpope/vim-repeat',
-		event = lazy_event_enter_file,
-	}
 
 	use {
 		'akinsho/bufferline.nvim',
-		event = lazy_event_enter_file,
 		tag = "v2.*",
 		requires = 'kyazdani42/nvim-web-devicons',
 		config = function ()
 			require('bufferline').setup{}
-		end
-	}
-
-	use {
-		'rcarriga/nvim-notify',
-		config = function ()
-			require('plugins.notify')
-		end
-	}
-
-	use {
-		"folke/todo-comments.nvim",
-		requires = "nvim-lua/plenary.nvim",
-		config = function()
-			require("todo-comments").setup{}
 		end
 	}
 
@@ -230,40 +143,9 @@ local load_plugins_function = function(use)
 		end
 	}
 
-	use {
-		'rmagatti/auto-session',
-		config = misc.auto_session
-	}
-
-	use {
-		'rmagatti/session-lens',
-		requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
-		config = function()
-			require('session-lens').setup{}
-		end
-	}
-
-	use{
-		'mrjones2014/smart-splits.nvim',
-		event = lazy_event_enter_file,
-		config = function ()
-			require('smart-splits').setup{}
-		end
-	}
-
-	use {
-		'Weissle/persistent-breakpoints.nvim',
-		config = function ()
-			require('persistent-breakpoints').setup({
-				perf_record = true
-			})
-		end
-	}
 
 	use {
 		"danymat/neogen",
-		requires = "nvim-treesitter/nvim-treesitter",
-		event = lazy_event_enter_file,
 		config = function()
 			require('neogen').setup {
 				snippet_engine = 'luasnip'
@@ -278,6 +160,7 @@ local load_plugins_function = function(use)
 			require("toggleterm").setup()
 		end
 	}
+
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
