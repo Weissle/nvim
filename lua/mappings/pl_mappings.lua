@@ -46,7 +46,7 @@ M.cmp = function ()
 				fallback()
 			end
 		end, {"i","s"}),
-		['\\'] = cmp.mapping(cmp.mapping.abort(), {"i","s"}),
+		['<C-\\>'] = cmp.mapping(cmp.mapping.abort(), {"i","s"}),
 	}
 end
 

@@ -29,7 +29,7 @@ return function ()
 		Operator = "",
 		TypeParameter = ""
 	}
-
+	
 	local cmp_source = {
 		['nvim_lsp'] = 'LSP',
 		['luasnip'] = 'Snip',
@@ -56,8 +56,8 @@ return function ()
 		},
 		mapping = require('mappings.pl_mappings').cmp(),
 		sources = cmp.config.sources({
-			{ name = 'nvim_lsp' },
 			{ name = 'luasnip' },
+			{ name = 'nvim_lsp' },
 			{ name = 'path' },
 			{ name = 'buffer' },
 			{ name = 'treesitter' },

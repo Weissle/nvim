@@ -16,6 +16,7 @@ local function ins(use)
 	use 'kyazdani42/nvim-web-devicons'
 	use 'nvim-lua/plenary.nvim'
 	use 'lewis6991/impatient.nvim'
+	use 'rafamadriz/friendly-snippets'
 end
 
 
@@ -97,7 +98,6 @@ local load_plugins_function = function(use)
 	local cmp_plugin_list = {
 		'hrsh7th/cmp-nvim-lsp',
 		'saadparwaiz1/cmp_luasnip',
-		'L3MON4D3/LuaSnip',
 		'hrsh7th/cmp-buffer',
 		'hrsh7th/cmp-path',
 		'hrsh7th/cmp-cmdline',
@@ -111,8 +111,12 @@ local load_plugins_function = function(use)
 			after = 'nvim-cmp'
 		}
 	end
-
-
+	use{
+		'L3MON4D3/LuaSnip',
+		config = function()
+			require("luasnip.loaders.from_vscode").lazy_load()
+		end
+	}
 
 
 	use {
