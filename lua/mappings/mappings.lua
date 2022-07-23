@@ -37,9 +37,6 @@ for _, mode in ipairs({'n','x','o'}) do
 	keymap(mode, 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>", opts)
 	keymap(mode, 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>", opts)
 end
-
--- keymap('o', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = 1})<cr>", opts)
--- keymap('o', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = -1})<cr>", opts)
 keymap('', '<leader>hl', "<cmd>HopLineStartMW<cr>", opts)
 keymap('', '<leader>hw', "<cmd>HopWordMW<cr>", opts)
 keymap('', '<leader>he', "<cmd>lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, multi_windows = true })<cr>", opts)
@@ -100,10 +97,11 @@ keymap("t", "jj", "<C-\\><C-n>", opts)
 
 --> smart split
 vim.keymap.set('n', '<leader>mw', require('smart-splits').start_resize_mode)
-keymap("n", "<leader>mt", "<cmd>ToggleTerm<cr>", opts)
+keymap("n", "<leader>tt", "<cmd>ToggleTerm direction=tab<cr>", opts)
+keymap("n", "<leader>tx", "<cmd>ToggleTerm direction=horizontal<cr>", opts)
+keymap("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical<cr>", opts)
+keymap("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", opts)
 --> Neogen
 keymap("n", "<Leader>of", "<cmd>Neogen func<CR>", opts)
 keymap("n", "<Leader>oc", "<cmd>Neogen class<CR>", opts)
 keymap("n", "<Leader>ot", "<cmd>Neogen type<CR>", opts)
-
-keymap('n','<Leader>mg',"<cmd>tabnew<cr><bar><cmd>ToggleTerm<cr>",opts)

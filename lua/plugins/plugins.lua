@@ -29,7 +29,6 @@ local function ins_cfg(use)
 		['ray-x/lsp_signature.nvim'] = misc.lsp_signature,
 		----------------------
 		['windwp/nvim-autopairs'] = function() require('nvim-autopairs').setup{} end,
-		['phaazon/hop.nvim'] = function() require('hop').setup{} end,
 		['folke/trouble.nvim'] = function() require('trouble').setup{} end,
 		['mrjones2014/smart-splits.nvim'] = function() require('smart-splits').setup{} end,
 		['folke/todo-comments.nvim'] = function() require('todo-comments').setup{} end,
@@ -38,12 +37,12 @@ local function ins_cfg(use)
 		['Weissle/persistent-breakpoints.nvim'] = function() require('persistent-breakpoints').setup{} end,
 		['numToStr/Comment.nvim'] = function() require('Comment').setup{} end,
 		-------------------------------
-		['rcarriga/nvim-notify'] = function() require('plugins.notify')() end,
-		['kyazdani42/nvim-tree.lua'] = function() require('plugins.nvim-tree')() end,
-		['rcarriga/nvim-dap-ui'] = function() require('plugins.dap-ui')() end,
-		['hrsh7th/nvim-cmp'] = function() require('plugins.nvim-cmp')() end,
-		['mfussenegger/nvim-dap'] = function() require('plugins.dap')() end,
-		['williamboman/nvim-lsp-installer'] = function() require('plugins.lspinstaller')() end,
+		['rcarriga/nvim-notify'] = require('plugins.notify'),
+		['kyazdani42/nvim-tree.lua'] = require('plugins.nvim-tree'),
+		['rcarriga/nvim-dap-ui'] = require('plugins.dap-ui'),
+		['hrsh7th/nvim-cmp'] = require('plugins.nvim-cmp'),
+		['mfussenegger/nvim-dap'] = require('plugins.dap'),
+		['williamboman/nvim-lsp-installer'] = require('plugins.lspinstaller'),
 	}
 
 	for plugin_name,config_function in pairs(pl_cf) do
@@ -58,14 +57,13 @@ local load_plugins_function = function(use)
 	ins(use)
 	ins_cfg(use)
 
-
 	use {
 		'nvim-telescope/telescope.nvim',
 		cmd = "Telescope",
 		branch = '0.1.x',
 		requires = {},
 		config = function ()
-			require('plugins.telescope')
+			require('plugins.telescope')()
 		end
 	}
 
@@ -82,7 +80,7 @@ local load_plugins_function = function(use)
 		'nvim-treesitter/nvim-treesitter',
 		run = ':TSUpdate',
 		config = function()
-			require('plugins.treesitter')
+			require('plugins.treesitter')()
 		end
 	}
 
@@ -91,7 +89,7 @@ local load_plugins_function = function(use)
 		'neovim/nvim-lspconfig',
 		after = "nvim-lsp-installer",
 		config = function()
-			require('plugins.lspconfig')
+			require('plugins.lspconfig')()
 		end
 	}
 
@@ -161,6 +159,13 @@ local load_plugins_function = function(use)
 		end
 	}
 
+	use {
+		'phaazon/hop.nvim',
+		branch = 'v2', -- optional but strongly recommended
+		config = function()
+			require'hop'.setup{}
+		end
+	}
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
