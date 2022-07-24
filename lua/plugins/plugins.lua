@@ -171,6 +171,15 @@ local load_plugins_function = function(use)
 		end
 	}
 
+	use {
+		'lewis6991/gitsigns.nvim',
+		tag = 'release',
+		config = function()
+			require('plugins.gitsigns')()
+		end
+
+
+	}
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if packer_bootstrap then
