@@ -82,6 +82,7 @@ keymap("n", "<leader>da", "<cmd>lua require('persistent-breakpoints.api').toggle
 keymap("n", "<leader>dA", "<cmd>lua require('persistent-breakpoints.api').set_conditional_breakpoint()<cr>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.run_to_cursor()<cr>", opts)
 keymap("n", "<leader>dp", "<cmd>lua require'dap'.pause()<cr>", opts)
+keymap("n", "<leader>dT", "<cmd>lua require('dap').terminate(); require('dapui').close()<cr>", opts)
 keymap("n", "<leader>dc", "<cmd>Telescope dap configurations<cr>", opts)
 keymap("n", "<leader>dC", "<cmd>Telescope dap commands<cr>", opts)
 keymap("n", "<leader>dv", "<cmd>Telescope dap variables<cr>", opts)
@@ -94,6 +95,10 @@ keymap("n", "<F8>", "<cmd>lua require'dap'.step_out()<cr>", opts)
 keymap("n", "<F9>", "<cmd>lua require'dap'.run_last()<cr>", opts)
 keymap("n", "<leader>dk", "<cmd>lua require'dapui'.eval()<cr>", opts)
 keymap("t", "jj", "<C-\\><C-n>", opts)
+keymap("t", "<C-w>j", "<C-\\><C-n><C-w>j", opts)
+keymap("t", "<C-w>h", "<C-\\><C-n><C-w>h", opts)
+keymap("t", "<C-w>k", "<C-\\><C-n><C-w>k", opts)
+keymap("t", "<C-w>l", "<C-\\><C-n><C-w>l", opts)
 
 --> smart split
 vim.keymap.set('n', '<leader>mw', require('smart-splits').start_resize_mode)

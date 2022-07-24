@@ -28,10 +28,10 @@ local function ins_cfg(use)
 		['nvim-lualine/lualine.nvim'] = misc.lualine,
 		['rmagatti/auto-session'] = misc.auto_session,
 		['ray-x/lsp_signature.nvim'] = misc.lsp_signature,
+		['mrjones2014/smart-splits.nvim'] = misc.smart_splits,
 		----------------------
 		['windwp/nvim-autopairs'] = function() require('nvim-autopairs').setup{} end,
 		['folke/trouble.nvim'] = function() require('trouble').setup{} end,
-		['mrjones2014/smart-splits.nvim'] = function() require('smart-splits').setup{} end,
 		['folke/todo-comments.nvim'] = function() require('todo-comments').setup{} end,
 		['theHamsta/nvim-dap-virtual-text'] = function() require('nvim-dap-virtual-text').setup{} end,
 		['rmagatti/session-lens'] = function() require('session-lens').setup{} end,
