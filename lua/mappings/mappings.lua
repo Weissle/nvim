@@ -29,6 +29,7 @@ keymap('n','<Leader>fk','<cmd>lua require("telescope.builtin").keymaps{ modes = 
 keymap('n','<Leader>fn','<cmd>Telescope notify<cr>',opts)
 keymap('n','<Leader>fG','<cmd>Telescope git_status<cr>',opts)
 keymap('n','<Leader>fs','<cmd>Telescope session-lens search_session<cr>',opts)
+keymap('n','<Leader>fr','<cmd>lua require("telescope.builtin").resume()<cr>',opts)
 
 --> hop.nvim
 for _, mode in ipairs({'n','x','o'}) do

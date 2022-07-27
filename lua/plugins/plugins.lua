@@ -102,7 +102,8 @@ local load_plugins_function = function(use)
 		'hrsh7th/cmp-path',
 		'hrsh7th/cmp-cmdline',
 		'hrsh7th/cmp-nvim-lua',
-		'ray-x/cmp-treesitter'
+		'ray-x/cmp-treesitter',
+		'lukas-reineke/cmp-rg',
 	}
 
 	for _,pl_name in ipairs(cmp_plugin_list) do
