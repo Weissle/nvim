@@ -100,6 +100,8 @@ keymap("t", "<C-w>j", "<C-\\><C-n><C-w>j", opts)
 keymap("t", "<C-w>h", "<C-\\><C-n><C-w>h", opts)
 keymap("t", "<C-w>k", "<C-\\><C-n><C-w>k", opts)
 keymap("t", "<C-w>l", "<C-\\><C-n><C-w>l", opts)
+keymap("t", "gt", "<C-\\><C-n><cmd>tabn<cr>", opts)
+keymap("t", "gT", "<C-\\><C-n><cmd>tabN<cr>", opts)
 
 --> smart split
 vim.keymap.set('n', '<leader>mw', require('smart-splits').start_resize_mode)
