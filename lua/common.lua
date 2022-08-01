@@ -1,6 +1,3 @@
-local async = require("plenary.async")
-local notify = require("notify").async
-
 local M = {}
 
 M.shallow_copy = function (orig)
@@ -26,6 +23,8 @@ M.notify_default = {
 }
 
 M.async_notify = function (message, type, opts)
+	local async = require("plenary.async")
+	local notify = require("notify").async
 	if opts == nil then
 		opts = M.notify_default
 	end
@@ -46,4 +45,5 @@ M.enter_term_autocmd = function ()
 		end
 	})
 end
+
 return M
