@@ -1,4 +1,6 @@
-return function ()
+local M = {}
+
+M.setup = function (_)
 
 	require'nvim-treesitter.configs'.setup {
 		-- A list of parser names, or "all"
@@ -17,3 +19,5 @@ return function ()
 	require'nvim-treesitter.install'.prefer_git = true
 
 end
+
+return M

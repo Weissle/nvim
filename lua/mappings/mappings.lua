@@ -51,6 +51,7 @@ vim.keymap.set('n', '<Leader>la', vim.lsp.buf.code_action, opts)
 vim.keymap.set('n', '<Leader>lh', vim.lsp.buf.hover, opts)
 vim.keymap.set('n', '<Leader>ls', vim.lsp.buf.signature_help, opts)
 vim.keymap.set('n', '<Leader>lr', vim.lsp.buf.rename, opts)
+vim.keymap.set('n', '<Leader>lf', vim.lsp.buf.formatting, opts)
 vim.keymap.set('n', '<Leader>lt', vim.lsp.buf.type_definition, opts)
 -- diagnostic
 vim.keymap.set('n', '<Leader>dp', vim.diagnostic.goto_prev, opts)

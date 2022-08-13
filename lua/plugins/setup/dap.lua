@@ -1,4 +1,6 @@
-return function ()
+local M = {}
+
+M.setup = function (_)
 	local dap = require('dap')
 	local mason_registry = require("mason-registry")
 	local get_package_dir = function (name)
@@ -18,3 +20,5 @@ return function ()
 
 	require('dap.ext.vscode').load_launchjs(nil)
 end
+
+return M

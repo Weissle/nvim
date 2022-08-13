@@ -1,4 +1,6 @@
-return function ()
+local M = {}
+
+M.setup = function (_)
 	local luasnip = require 'luasnip'
 	local cmp = require 'cmp'
 
@@ -83,3 +85,5 @@ return function ()
 	})
 
 end
+
+return M

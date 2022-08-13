@@ -1,4 +1,6 @@
-return function ()
+local M = {}
+
+M.setup = function (_)
 	vim.notify = require("notify")
 	require("telescope").load_extension("notify")
 	-- Utility functions shared between progress reports for LSP and DAP
@@ -94,3 +96,5 @@ return function ()
 		notif_data.spinner = nil
 	end
 end
+
+return M

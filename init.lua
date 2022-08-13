@@ -5,5 +5,5 @@ if present then
 end
 
 require('settings')
-require('plugins.plugins')
+require('plugins')
 require('mappings.mappings')

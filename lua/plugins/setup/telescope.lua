@@ -1,4 +1,6 @@
-return function ()
+local M = {}
+
+M.setup = function (_)
 	require('telescope').setup {
 		extensions = {
 			fzf = {
@@ -15,3 +17,5 @@ return function ()
 	}
 
 end
+
+return M
