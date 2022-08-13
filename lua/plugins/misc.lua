@@ -51,7 +51,6 @@ end
 _G.close_all_floating_wins = function()
 	for _, win in ipairs(vim.api.nvim_list_wins()) do
 		local config = vim.api.nvim_win_get_config(win)
-		print(vim.inspect(config))
 		if config.relative ~= '' then
 			vim.api.nvim_win_close(win, false)
 		end
@@ -59,9 +58,9 @@ _G.close_all_floating_wins = function()
 end
 
 local function restore_nvim_tree()
-    local nvim_tree = require('nvim-tree')
-    nvim_tree.change_dir(vim.fn.getcwd())
-    nvim_tree.refresh()
+	local nvim_tree = require('nvim-tree')
+	nvim_tree.change_dir(vim.fn.getcwd())
+	nvim_tree.refresh()
 end
 
 M.auto_session = function ()
@@ -86,6 +85,18 @@ M.smart_splits = function ()
 				end
 			}
 		}
+	})
+end
+
+M.neogen = function ()
+	require('neogen').setup {
+		snippet_engine = 'luasnip'
+	}
+end
+
+M.mason_lspconfig = function ()
+	require('mason-lspconfig').setup({
+		ensure_installed = require('common').get_lsp_server_list()
 	})
 end
 return M

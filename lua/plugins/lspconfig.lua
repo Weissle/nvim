@@ -9,16 +9,21 @@ return function ()
 
 	-- Use a loop to conveniently call 'setup' on multiple servers and
 	-- map buffer local keybindings when the language server attaches
-	local servers = { 'pyright', 'clangd', 'tsserver', 'cmake', 'bashls', 'lemminx' }
+	local servers = require('common').get_lsp_server_list()
 	local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+	local special_setup = { ['sumneko_lua'] = true }
 	for _, lsp in pairs(servers) do
-		require('lspconfig')[lsp].setup {
-			capabilities = capabilities,
-			on_attach = on_attach,
-		}
+		if special_setup[lsp] == nil then
+			require('lspconfig')[lsp].setup {
+				capabilities = capabilities,
+				on_attach = on_attach,
+			}
+		end
 	end
 
 	require'lspconfig'.sumneko_lua.setup {
+		capabilities = capabilities,
 		on_attach = on_attach,
 		settings= {
 			Lua = {

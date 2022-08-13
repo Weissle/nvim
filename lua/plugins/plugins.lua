@@ -19,7 +19,6 @@ local function ins(use)
 	use 'rafamadriz/friendly-snippets'
 end
 
-
 -- install then config
 local function ins_cfg(use)
 	-- plugin -> config function
@@ -29,6 +28,8 @@ local function ins_cfg(use)
 		['rmagatti/auto-session'] = misc.auto_session,
 		['ray-x/lsp_signature.nvim'] = misc.lsp_signature,
 		['mrjones2014/smart-splits.nvim'] = misc.smart_splits,
+		['danymat/neogen'] = misc.neogen,
+		['williamboman/mason-lspconfig.nvim'] = misc.mason_lspconfig,
 		----------------------
 		['windwp/nvim-autopairs'] = function() require('nvim-autopairs').setup{} end,
 		['folke/trouble.nvim'] = function() require('trouble').setup{} end,
@@ -37,13 +38,15 @@ local function ins_cfg(use)
 		['rmagatti/session-lens'] = function() require('session-lens').setup{} end,
 		['Weissle/persistent-breakpoints.nvim'] = function() require('persistent-breakpoints').setup{} end,
 		['numToStr/Comment.nvim'] = function() require('Comment').setup{} end,
+		['windwp/nvim-spectre'] = function() require('spectre').setup{} end,
+		['williamboman/mason.nvim'] = function() require('mason').setup{} end,
 		-------------------------------
 		['rcarriga/nvim-notify'] = require('plugins.notify'),
 		['kyazdani42/nvim-tree.lua'] = require('plugins.nvim-tree'),
 		['rcarriga/nvim-dap-ui'] = require('plugins.dap-ui'),
 		['hrsh7th/nvim-cmp'] = require('plugins.nvim-cmp'),
 		['mfussenegger/nvim-dap'] = require('plugins.dap'),
-		['williamboman/nvim-lsp-installer'] = require('plugins.lspinstaller'),
+		['neovim/nvim-lspconfig'] = require('plugins.lspconfig'),
 	}
 
 	for plugin_name,config_function in pairs(pl_cf) do
@@ -53,6 +56,7 @@ local function ins_cfg(use)
 		}
 	end
 end
+
 local load_plugins_function = function(use)
 
 	ins(use)
@@ -86,14 +90,6 @@ local load_plugins_function = function(use)
 	}
 
 
-	use {
-		'neovim/nvim-lspconfig',
-		after = "nvim-lsp-installer",
-		config = function()
-			require('plugins.lspconfig')()
-		end
-	}
-
 
 	local cmp_plugin_list = {
 		'hrsh7th/cmp-nvim-lsp',
@@ -103,7 +99,6 @@ local load_plugins_function = function(use)
 		'hrsh7th/cmp-cmdline',
 		'hrsh7th/cmp-nvim-lua',
 		'ray-x/cmp-treesitter',
-		'lukas-reineke/cmp-rg',
 	}
 
 	for _,pl_name in ipairs(cmp_plugin_list) do
@@ -112,6 +107,7 @@ local load_plugins_function = function(use)
 			after = 'nvim-cmp'
 		}
 	end
+
 	use{
 		'L3MON4D3/LuaSnip',
 		config = function()
@@ -139,24 +135,6 @@ local load_plugins_function = function(use)
 	}
 
 	use {
-		'williamboman/mason.nvim',
-		branch = "alpha",
-		config = function ()
-			require('mason').setup{}
-		end
-	}
-
-
-	use {
-		"danymat/neogen",
-		config = function()
-			require('neogen').setup {
-				snippet_engine = 'luasnip'
-			}
-		end,
-	}
-
-	use {
 		"akinsho/toggleterm.nvim",
 		tag = 'v2.*',
 		config = function()
@@ -172,15 +150,6 @@ local load_plugins_function = function(use)
 		end
 	}
 
-	use {
-		'lewis6991/gitsigns.nvim',
-		tag = 'release',
-		config = function()
-			require('plugins.gitsigns')()
-		end
-
-
-	}
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if packer_bootstrap then

@@ -3,6 +3,11 @@ local notify = require("notify").async
 
 local M = {}
 
+M.get_lsp_server_list = function ()
+	return { 'pyright', 'clangd', 'tsserver', 'cmake', 'bashls', 'lemminx', 'sumneko_lua' }
+end
+
+
 M.shallow_copy = function (orig)
     local copy
     if type(orig) ~= 'table' then
@@ -46,4 +51,5 @@ M.enter_term_autocmd = function ()
 		end
 	})
 end
+
 return M
