@@ -1,18 +1,6 @@
 local M = {}
 
--- local lazy_event_enter_file = {'BufRead','BufNewFile'}
-
-M["wbthomason/packer.nvim"] = {}
-
-M["famiu/bufdelete.nvim"] = {}
-
-M["lukas-reineke/indent-blankline.nvim"] = {}
-
-M["RRethy/vim-illuminate"] = {}
-
-M["tpope/vim-surround"] = {}
-
-M["tpope/vim-repeat"] = {}
+local lazy_event_enter_file = { "BufRead", "BufNewFile" }
 
 M["kyazdani42/nvim-web-devicons"] = {}
 
@@ -22,6 +10,28 @@ M["lewis6991/impatient.nvim"] = {}
 
 M["rafamadriz/friendly-snippets"] = {}
 
+M["wbthomason/packer.nvim"] = {}
+
+M["famiu/bufdelete.nvim"] = {
+	event = lazy_event_enter_file,
+}
+
+M["lukas-reineke/indent-blankline.nvim"] = {
+	event = lazy_event_enter_file,
+}
+
+M["RRethy/vim-illuminate"] = {
+	event = lazy_event_enter_file,
+}
+
+M["tpope/vim-surround"] = {
+	event = lazy_event_enter_file,
+}
+
+M["tpope/vim-repeat"] = {
+	event = lazy_event_enter_file,
+}
+
 M["folke/tokyonight.nvim"] = {
 	config = function()
 		vim.cmd("colorscheme tokyonight")
@@ -30,6 +40,7 @@ M["folke/tokyonight.nvim"] = {
 }
 
 M["nvim-lualine/lualine.nvim"] = {
+	event = lazy_event_enter_file,
 	config = function()
 		require("lualine").setup({
 			options = {
@@ -54,6 +65,7 @@ M["rmagatti/auto-session"] = {
 }
 
 M["ray-x/lsp_signature.nvim"] = {
+	event = lazy_event_enter_file,
 	config = function()
 		require("lsp_signature").setup({
 			bind = true, -- This is mandatory, otherwise border config won't get registered.
@@ -71,6 +83,7 @@ M["mrjones2014/smart-splits.nvim"] = {
 }
 
 M["danymat/neogen"] = {
+	event = lazy_event_enter_file,
 	config = function()
 		require("neogen").setup({
 			snippet_engine = "luasnip",
@@ -87,6 +100,7 @@ M["williamboman/mason-lspconfig.nvim"] = {
 }
 
 M["windwp/nvim-autopairs"] = {
+	event = lazy_event_enter_file,
 	config = function()
 		require("nvim-autopairs").setup({})
 	end,
@@ -105,6 +119,7 @@ M["folke/todo-comments.nvim"] = {
 }
 
 M["theHamsta/nvim-dap-virtual-text"] = {
+	event = lazy_event_enter_file,
 	config = function()
 		require("nvim-dap-virtual-text").setup({})
 	end,
@@ -117,12 +132,18 @@ M["rmagatti/session-lens"] = {
 }
 
 M["Weissle/persistent-breakpoints.nvim"] = {
+	event = lazy_event_enter_file,
 	config = function()
+		vim.api.nvim_create_autocmd(
+			{ "BufReadPost" },
+			{ callback = require("persistent-breakpoints.api").load_breakpoints }
+		)
 		require("persistent-breakpoints").setup({})
 	end,
 }
 
 M["numToStr/Comment.nvim"] = {
+	event = lazy_event_enter_file,
 	config = function()
 		require("Comment").setup({})
 	end,
@@ -183,40 +204,49 @@ M["nvim-telescope/telescope-fzf-native.nvim"] = {
 
 M["nvim-treesitter/nvim-treesitter"] = {
 	run = ":TSUpdate",
+	event = lazy_event_enter_file,
 	config = function()
 		require("plugins.setup.treesitter").setup({})
 	end,
 }
 
 M["hrsh7th/cmp-nvim-lsp"] = {
+	event = lazy_event_enter_file,
 	after = "nvim-cmp",
 }
 
 M["saadparwaiz1/cmp_luasnip"] = {
+	event = lazy_event_enter_file,
 	after = "nvim-cmp",
 }
 
 M["hrsh7th/cmp-buffer"] = {
+	event = lazy_event_enter_file,
 	after = "nvim-cmp",
 }
 
 M["hrsh7th/cmp-path"] = {
+	event = lazy_event_enter_file,
 	after = "nvim-cmp",
 }
 
 M["hrsh7th/cmp-cmdline"] = {
+	event = lazy_event_enter_file,
 	after = "nvim-cmp",
 }
 
 M["hrsh7th/cmp-nvim-lua"] = {
+	event = lazy_event_enter_file,
 	after = "nvim-cmp",
 }
 
 M["ray-x/cmp-treesitter"] = {
+	event = lazy_event_enter_file,
 	after = "nvim-cmp",
 }
 
 M["L3MON4D3/LuaSnip"] = {
+	event = lazy_event_enter_file,
 	config = function()
 		require("luasnip.loaders.from_vscode").lazy_load()
 	end,
@@ -231,6 +261,7 @@ M["nvim-telescope/telescope-dap.nvim"] = {
 
 M["akinsho/bufferline.nvim"] = {
 	tag = "v2.*",
+	event = lazy_event_enter_file,
 	requires = "kyazdani42/nvim-web-devicons",
 	config = function()
 		require("bufferline").setup({})
@@ -240,12 +271,13 @@ M["akinsho/bufferline.nvim"] = {
 M["akinsho/toggleterm.nvim"] = {
 	tag = "v2.*",
 	config = function()
-		require("toggleterm").setup()
+		require("plugins.setup.toggleterm").setup({})
 	end,
 }
 
 M["phaazon/hop.nvim"] = {
 	branch = "v2", -- optional but strongly recommended
+	event = lazy_event_enter_file,
 	config = function()
 		require("hop").setup({})
 	end,

@@ -6,12 +6,12 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 		vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
 end
 
-require("packer").init({
-	profile = {
-		enable = true,
-		threshold = 1,
-	},
-})
+vim.cmd([[
+augroup packer_user_config
+autocmd!
+autocmd BufWritePost init.lua source <afile> | PackerCompile
+augroup end
+]])
 
 local load_plugins = function(use)
 	local plugins = require("plugins.plugins")
@@ -25,6 +25,13 @@ local load_plugins = function(use)
 		require("packer").sync({})
 	end
 end
+
+require("packer").init({
+	profile = {
+		enable = true,
+		threshold = 1,
+	},
+})
 
 require("packer").startup({
 	load_plugins,
