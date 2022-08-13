@@ -1,6 +1,3 @@
-local async = require("plenary.async")
-local notify = require("notify").async
-
 local M = {}
 
 M.get_lsp_server_list = function ()
@@ -31,6 +28,8 @@ M.notify_default = {
 }
 
 M.async_notify = function (message, type, opts)
+	local async = require("plenary.async")
+	local notify = require("notify").async
 	if opts == nil then
 		opts = M.notify_default
 	end
