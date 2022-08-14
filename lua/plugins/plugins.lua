@@ -1,10 +1,6 @@
 local M = {}
 
--- local lazy_event_enter_file = { "UIEnter" }
 local lazy_event_enter_file = { "BufReadPre" }
--- local lazy_event_enter_file = nil
-
---	load_plugins,
 
 M["kyazdani42/nvim-web-devicons"] = {}
 
@@ -178,14 +174,14 @@ M["rcarriga/nvim-notify"] = {
 	config = function()
 		require("plugins.setup.notify").setup({})
 		require("mappings.fl_mappings").notify()
-	end
+	end,
 }
 
 M["kyazdani42/nvim-tree.lua"] = {
-	config = function ()
+	config = function()
 		require("plugins.setup.nvim-tree").setup({})
 		require("mappings.fl_mappings").nvim_tree()
-	end
+	end,
 }
 
 M["rcarriga/nvim-dap-ui"] = {
@@ -193,7 +189,7 @@ M["rcarriga/nvim-dap-ui"] = {
 	config = function()
 		require("plugins.setup.dap-ui").setup({})
 		require("mappings.fl_mappings").dapui()
-	end
+	end,
 }
 
 M["mfussenegger/nvim-dap"] = {
@@ -201,7 +197,7 @@ M["mfussenegger/nvim-dap"] = {
 	config = function()
 		require("plugins.setup.dap").setup({})
 		require("mappings.fl_mappings").dap()
-	end
+	end,
 }
 
 M["neovim/nvim-lspconfig"] = {
@@ -209,7 +205,7 @@ M["neovim/nvim-lspconfig"] = {
 	config = function()
 		require("plugins.setup.lspconfig").setup({})
 		require("mappings.fl_mappings").lspconfig()
-	end
+	end,
 }
 
 M["nvim-telescope/telescope.nvim"] = {
@@ -231,6 +227,7 @@ M["nvim-telescope/telescope-fzf-native.nvim"] = {
 
 M["nvim-treesitter/nvim-treesitter"] = {
 	run = ":TSUpdate",
+	after = "LuaSnip",
 	event = lazy_event_enter_file,
 	config = function()
 		require("plugins.setup.treesitter").setup({})
@@ -238,7 +235,6 @@ M["nvim-treesitter/nvim-treesitter"] = {
 }
 
 M["L3MON4D3/LuaSnip"] = {
-	event = lazy_event_enter_file,
 	config = function()
 		require("luasnip.loaders.from_vscode").lazy_load()
 	end,
@@ -254,9 +250,6 @@ M["saadparwaiz1/cmp_luasnip"] = {
 
 M["hrsh7th/cmp-buffer"] = {
 	event = lazy_event_enter_file,
-	config = function ()
-		require("mappings.fl_mappings").bufferline()
-	end
 }
 
 M["hrsh7th/cmp-path"] = {
@@ -277,7 +270,16 @@ M["ray-x/cmp-treesitter"] = {
 
 M["hrsh7th/nvim-cmp"] = {
 	event = lazy_event_enter_file,
-	after = {"LuaSnip", "cmp-nvim-lsp", "cmp_luasnip","cmp-buffer","cmp-path","cmp-cmdline","cmp-nvim-lua","cmp-treesitter"},
+	after = {
+		"LuaSnip",
+		"cmp-nvim-lsp",
+		"cmp_luasnip",
+		"cmp-buffer",
+		"cmp-path",
+		"cmp-cmdline",
+		"cmp-nvim-lua",
+		"cmp-treesitter",
+	},
 	config = function()
 		require("plugins.setup.nvim-cmp").setup({})
 	end,
@@ -296,6 +298,7 @@ M["akinsho/bufferline.nvim"] = {
 	requires = "kyazdani42/nvim-web-devicons",
 	config = function()
 		require("bufferline").setup({})
+		require("mappings.fl_mappings").bufferline()
 	end,
 }
 
