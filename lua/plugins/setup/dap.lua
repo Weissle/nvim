@@ -11,13 +11,20 @@ local setup_autocmd_reload_launchjson = function()
 	})
 
 end
-vim.api.nvim_create_augroup("dap_launchjson", { clear = true })
+
+
 M.setup = function(_)
-	local dap = require('dap')
-	local mason_registry = require("mason-registry")
+	local ext1, dap = pcall(require,'dap')
+	local ext2, mason_registry = pcall(require,"mason-registry")
+	if not ext1 or not ext2 then
+		return
+	end
+	vim.api.nvim_create_augroup("dap_launchjson", { clear = true })
+	
 	local get_package_dir = function(name)
 		return mason_registry.get_package(name):get_install_path()
 	end
+
 	dap.adapters.python = {
 		type = 'executable',
 		command = get_package_dir('debugpy') .. '/venv/bin/python',

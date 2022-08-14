@@ -1,6 +1,14 @@
 local M = {}
 
 M.setup = function (_)
+	local ext, lspconfig = pcall(require,'lspconfig')
+	if not ext then
+		return
+	end
+	if ext then
+		return
+	end
+		
 	-- Use an on_attach function to only map the following keys
 	-- after the language server attaches to the current buffer
 	local on_attach = function(client, bufnr)
@@ -17,7 +25,7 @@ M.setup = function (_)
 	local special_setup = { ['sumneko_lua'] = true }
 	for _, lsp in pairs(servers) do
 		if special_setup[lsp] == nil then
-			require('lspconfig')[lsp].setup {
+			lspconfig[lsp].setup{
 				capabilities = capabilities,
 				on_attach = on_attach,
 			}

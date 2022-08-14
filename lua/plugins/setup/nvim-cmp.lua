@@ -1,8 +1,11 @@
 local M = {}
 
 M.setup = function (_)
-	local luasnip = require 'luasnip'
-	local cmp = require 'cmp'
+	local ext1, luasnip = pcall(require,'luasnip')
+	local ext2, cmp = pcall(require,'cmp')
+	if not ext1 or not ext2 then
+		return
+	end
 
 	local kind_icons = {
 		Text = "",
@@ -31,7 +34,7 @@ M.setup = function (_)
 		Operator = "",
 		TypeParameter = ""
 	}
-	
+
 	local cmp_source = {
 		['nvim_lsp'] = 'LSP',
 		['luasnip'] = 'Snip',

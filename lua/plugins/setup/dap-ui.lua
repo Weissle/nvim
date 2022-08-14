@@ -1,6 +1,11 @@
 local M = {}
 
 M.setup = function (_)
+	local ext1, dap = pcall(require,"dap")
+	local ext2, dapui = pcall(require,"dapui")
+	if not ext1 or not ext2 then
+		return
+	end
 	local dap, dapui = require("dap"), require("dapui")
 	dapui.setup()
 	dap.listeners.after.event_initialized["dapui_config"] = function()

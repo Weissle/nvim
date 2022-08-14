@@ -9,37 +9,8 @@ end
 vim.cmd([[
 augroup packer_user_config
 autocmd!
-autocmd BufWritePost init.lua source <afile> | PackerCompile
+autocmd BufWritePost plugins.lua source <afile> | PackerCompile
 augroup end
 ]])
 
-local load_plugins = function(use)
-	local plugins = require("plugins.plugins")
-
-	for plugin_name, plugin_config in pairs(plugins) do
-		plugin_config[1] = plugin_name
-		use(plugin_config)
-	end
-
-	if packer_bootstrap then
-		require("packer").sync({})
-	end
-end
-
-require("packer").init({
-	profile = {
-		enable = true,
-		threshold = 1,
-	},
-})
-
-require("packer").startup({
-	load_plugins,
-	config = {
-		display = {
-			open_fn = function()
-				return require("packer.util").float({ border = "single" })
-			end,
-		},
-	},
-})
+require("plugins.plugins")

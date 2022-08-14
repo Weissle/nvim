@@ -2,6 +2,13 @@ local M = {}
 
 local lazy_event_enter_file = { "BufRead", "BufNewFile" }
 
+require("packer").init({
+	profile = {
+		enable = true,
+		threshold = 1,
+	},
+})
+
 M["kyazdani42/nvim-web-devicons"] = {}
 
 M["nvim-lua/plenary.nvim"] = {}
@@ -82,8 +89,10 @@ M["mrjones2014/smart-splits.nvim"] = {
 	end,
 }
 
+
 M["danymat/neogen"] = {
 	event = lazy_event_enter_file,
+	after = "luasnip",
 	config = function()
 		require("neogen").setup({
 			snippet_engine = "luasnip",
@@ -120,12 +129,14 @@ M["folke/todo-comments.nvim"] = {
 
 M["theHamsta/nvim-dap-virtual-text"] = {
 	event = lazy_event_enter_file,
+	after = 'dap',
 	config = function()
 		require("nvim-dap-virtual-text").setup({})
 	end,
 }
 
 M["rmagatti/session-lens"] = {
+	after = 'telescope.nvim',
 	config = function()
 		require("session-lens").setup({})
 	end,
@@ -162,6 +173,8 @@ M["williamboman/mason.nvim"] = {
 }
 
 M["rcarriga/nvim-notify"] = {
+	disable = true,
+	after = "dap",
 	config = require("plugins.setup.notify").setup({}),
 }
 
@@ -170,12 +183,10 @@ M["kyazdani42/nvim-tree.lua"] = {
 }
 
 M["rcarriga/nvim-dap-ui"] = {
+	after = "dap",
 	config = require("plugins.setup.dap-ui").setup({}),
 }
 
-M["hrsh7th/nvim-cmp"] = {
-	config = require("plugins.setup.nvim-cmp").setup({}),
-}
 
 M["mfussenegger/nvim-dap"] = {
 	config = require("plugins.setup.dap").setup({}),
@@ -195,7 +206,7 @@ M["nvim-telescope/telescope.nvim"] = {
 }
 
 M["nvim-telescope/telescope-fzf-native.nvim"] = {
-	run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+	run = "make",
 	after = "telescope.nvim",
 	config = function()
 		require("telescope").load_extension("fzf")
@@ -208,6 +219,11 @@ M["nvim-treesitter/nvim-treesitter"] = {
 	config = function()
 		require("plugins.setup.treesitter").setup({})
 	end,
+}
+
+M["hrsh7th/nvim-cmp"] = {
+	event = lazy_event_enter_file,
+	config = require("plugins.setup.nvim-cmp").setup({}),
 }
 
 M["hrsh7th/cmp-nvim-lsp"] = {
@@ -244,6 +260,7 @@ M["ray-x/cmp-treesitter"] = {
 	event = lazy_event_enter_file,
 	after = "nvim-cmp",
 }
+
 
 M["L3MON4D3/LuaSnip"] = {
 	event = lazy_event_enter_file,
@@ -283,4 +300,24 @@ M["phaazon/hop.nvim"] = {
 	end,
 }
 
-return M
+function load_plugins(use)
+	for plugin_name, plugin_config in pairs(M) do
+		plugin_config[1] = plugin_name
+		use(plugin_config)
+	end
+
+	if packer_bootstrap then
+		require("packer").sync({})
+	end
+end
+
+require("packer").startup({
+	load_plugins,
+	config = {
+		display = {
+			open_fn = function()
+				return require("packer.util").float({ border = "single" })
+			end,
+		},
+	},
+})

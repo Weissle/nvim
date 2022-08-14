@@ -14,10 +14,14 @@ local close_nvim_tree = function ()
 end
 
 M.setup = function (_)
+	local ext, auto_session = pcall(require,"auto-session")
+	if not ext then
+		return
+	end
 	vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
 	_G.close_all_floating_wins = close_all_floating_wins
 	_G.close_nvim_tree = close_nvim_tree
-	require('auto-session').setup {
+	auto_session.setup {
 		log_level = 'error',
 		auto_session_suppress_dirs = {'~/'},
 		pre_save_cmds = { _G.close_all_floating_wins, _G.close_nvim_tree },

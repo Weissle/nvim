@@ -1,7 +1,8 @@
 local M = {}
 
 M.setup = function (_)
-	require('telescope').setup {
+	telescope = require('telescope')
+	telescope.setup {
 		extensions = {
 			fzf = {
 				fuzzy = true,                    -- false will only do exact matching
@@ -15,6 +16,11 @@ M.setup = function (_)
 			mappings = require('mappings.pl_mappings').telescope()
 		}
 	}
+
+	local notify_ext, _ = pcall(require,"notify")
+	if notify_ext then
+		telescope.load_extension("notify")
+	end
 
 end
 
