@@ -10,7 +10,6 @@ vim.o.guicursor = "n-v-c-sm:blinkon01,i-ci-ve:ver25-blinkon01,r-cr-o:hor20"
 vim.o.jumpoptions = "stack"
 vim.g.mapleader = " "
 
-
-vim.defer_fn(function()
-	vim.cmd('set clipboard+=unnamedplus')
-end, 1000)
+-- vim.defer_fn(function()
+	vim.cmd("set clipboard+=unnamedplus")
+-- end, 1000)

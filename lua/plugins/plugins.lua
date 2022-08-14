@@ -1,13 +1,10 @@
 local M = {}
 
-local lazy_event_enter_file = { "BufRead", "BufNewFile" }
+-- local lazy_event_enter_file = { "UIEnter" }
+local lazy_event_enter_file = { "BufReadPre" }
+-- local lazy_event_enter_file = nil
 
-require("packer").init({
-	profile = {
-		enable = true,
-		threshold = 1,
-	},
-})
+--	load_plugins,
 
 M["kyazdani42/nvim-web-devicons"] = {}
 
@@ -86,22 +83,23 @@ M["ray-x/lsp_signature.nvim"] = {
 M["mrjones2014/smart-splits.nvim"] = {
 	config = function()
 		require("plugins.setup.smart-splits").setup()
+		require("mappings.fl_mappings").smart_split()
 	end,
 }
 
-
 M["danymat/neogen"] = {
 	event = lazy_event_enter_file,
-	after = "luasnip",
+	after = "LuaSnip",
 	config = function()
 		require("neogen").setup({
 			snippet_engine = "luasnip",
 		})
+		require("mappings.fl_mappings").neogen()
 	end,
 }
 
 M["williamboman/mason-lspconfig.nvim"] = {
-	function()
+	config = function()
 		require("mason-lspconfig").setup({
 			ensure_installed = require("common").get_lsp_server_list(),
 		})
@@ -124,32 +122,35 @@ M["folke/trouble.nvim"] = {
 M["folke/todo-comments.nvim"] = {
 	config = function()
 		require("todo-comments").setup({})
+		require("mappings.fl_mappings").todo_comments()
 	end,
 }
 
 M["theHamsta/nvim-dap-virtual-text"] = {
 	event = lazy_event_enter_file,
-	after = 'dap',
+	after = "nvim-dap",
 	config = function()
 		require("nvim-dap-virtual-text").setup({})
 	end,
 }
 
 M["rmagatti/session-lens"] = {
-	after = 'telescope.nvim',
+	after = "telescope.nvim",
 	config = function()
 		require("session-lens").setup({})
+		require("mappings.fl_mappings").session_lens()
 	end,
 }
 
 M["Weissle/persistent-breakpoints.nvim"] = {
 	event = lazy_event_enter_file,
+	after = "nvim-dap",
 	config = function()
+		require("persistent-breakpoints").setup({})
 		vim.api.nvim_create_autocmd(
 			{ "BufReadPost" },
 			{ callback = require("persistent-breakpoints.api").load_breakpoints }
 		)
-		require("persistent-breakpoints").setup({})
 	end,
 }
 
@@ -173,35 +174,50 @@ M["williamboman/mason.nvim"] = {
 }
 
 M["rcarriga/nvim-notify"] = {
-	disable = true,
-	after = "dap",
-	config = require("plugins.setup.notify").setup({}),
+	after = "nvim-dap",
+	config = function()
+		require("plugins.setup.notify").setup({})
+		require("mappings.fl_mappings").notify()
+	end
 }
 
 M["kyazdani42/nvim-tree.lua"] = {
-	config = require("plugins.setup.nvim-tree").setup({}),
+	config = function ()
+		require("plugins.setup.nvim-tree").setup({})
+		require("mappings.fl_mappings").nvim_tree()
+	end
 }
 
 M["rcarriga/nvim-dap-ui"] = {
-	after = "dap",
-	config = require("plugins.setup.dap-ui").setup({}),
+	after = "nvim-dap",
+	config = function()
+		require("plugins.setup.dap-ui").setup({})
+		require("mappings.fl_mappings").dapui()
+	end
 }
 
-
 M["mfussenegger/nvim-dap"] = {
-	config = require("plugins.setup.dap").setup({}),
+	after = "mason.nvim",
+	config = function()
+		require("plugins.setup.dap").setup({})
+		require("mappings.fl_mappings").dap()
+	end
 }
 
 M["neovim/nvim-lspconfig"] = {
-	config = require("plugins.setup.lspconfig").setup({}),
+	after = "cmp-nvim-lsp",
+	config = function()
+		require("plugins.setup.lspconfig").setup({})
+		require("mappings.fl_mappings").lspconfig()
+	end
 }
 
 M["nvim-telescope/telescope.nvim"] = {
-	cmd = "Telescope",
 	branch = "0.1.x",
 	requires = {},
 	config = function()
 		require("plugins.setup.telescope").setup({})
+		require("mappings.fl_mappings").telescope()
 	end,
 }
 
@@ -221,51 +237,49 @@ M["nvim-treesitter/nvim-treesitter"] = {
 	end,
 }
 
-M["hrsh7th/nvim-cmp"] = {
-	event = lazy_event_enter_file,
-	config = require("plugins.setup.nvim-cmp").setup({}),
-}
-
-M["hrsh7th/cmp-nvim-lsp"] = {
-	event = lazy_event_enter_file,
-	after = "nvim-cmp",
-}
-
-M["saadparwaiz1/cmp_luasnip"] = {
-	event = lazy_event_enter_file,
-	after = "nvim-cmp",
-}
-
-M["hrsh7th/cmp-buffer"] = {
-	event = lazy_event_enter_file,
-	after = "nvim-cmp",
-}
-
-M["hrsh7th/cmp-path"] = {
-	event = lazy_event_enter_file,
-	after = "nvim-cmp",
-}
-
-M["hrsh7th/cmp-cmdline"] = {
-	event = lazy_event_enter_file,
-	after = "nvim-cmp",
-}
-
-M["hrsh7th/cmp-nvim-lua"] = {
-	event = lazy_event_enter_file,
-	after = "nvim-cmp",
-}
-
-M["ray-x/cmp-treesitter"] = {
-	event = lazy_event_enter_file,
-	after = "nvim-cmp",
-}
-
-
 M["L3MON4D3/LuaSnip"] = {
 	event = lazy_event_enter_file,
 	config = function()
 		require("luasnip.loaders.from_vscode").lazy_load()
+	end,
+}
+
+M["hrsh7th/cmp-nvim-lsp"] = {
+	event = lazy_event_enter_file,
+}
+
+M["saadparwaiz1/cmp_luasnip"] = {
+	event = lazy_event_enter_file,
+}
+
+M["hrsh7th/cmp-buffer"] = {
+	event = lazy_event_enter_file,
+	config = function ()
+		require("mappings.fl_mappings").bufferline()
+	end
+}
+
+M["hrsh7th/cmp-path"] = {
+	event = lazy_event_enter_file,
+}
+
+M["hrsh7th/cmp-cmdline"] = {
+	event = lazy_event_enter_file,
+}
+
+M["hrsh7th/cmp-nvim-lua"] = {
+	event = lazy_event_enter_file,
+}
+
+M["ray-x/cmp-treesitter"] = {
+	event = lazy_event_enter_file,
+}
+
+M["hrsh7th/nvim-cmp"] = {
+	event = lazy_event_enter_file,
+	after = {"LuaSnip", "cmp-nvim-lsp", "cmp_luasnip","cmp-buffer","cmp-path","cmp-cmdline","cmp-nvim-lua","cmp-treesitter"},
+	config = function()
+		require("plugins.setup.nvim-cmp").setup({})
 	end,
 }
 
@@ -289,35 +303,18 @@ M["akinsho/toggleterm.nvim"] = {
 	tag = "v2.*",
 	config = function()
 		require("plugins.setup.toggleterm").setup({})
+		require("mappings.fl_mappings").toggleterm()
 	end,
 }
 
 M["phaazon/hop.nvim"] = {
+	"phaazon/hop.nvim",
 	branch = "v2", -- optional but strongly recommended
 	event = lazy_event_enter_file,
 	config = function()
 		require("hop").setup({})
+		require("mappings.fl_mappings").hop()
 	end,
 }
 
-function load_plugins(use)
-	for plugin_name, plugin_config in pairs(M) do
-		plugin_config[1] = plugin_name
-		use(plugin_config)
-	end
-
-	if packer_bootstrap then
-		require("packer").sync({})
-	end
-end
-
-require("packer").startup({
-	load_plugins,
-	config = {
-		display = {
-			open_fn = function()
-				return require("packer.util").float({ border = "single" })
-			end,
-		},
-	},
-})
+return M

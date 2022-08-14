@@ -15,6 +15,7 @@ end
 M.cmp = function()
 	local luasnip = require("luasnip")
 	local cmp = require("cmp")
+
 	return {
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then

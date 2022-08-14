@@ -14,10 +14,7 @@ local close_nvim_tree = function ()
 end
 
 M.setup = function (_)
-	local ext, auto_session = pcall(require,"auto-session")
-	if not ext then
-		return
-	end
+	local auto_session = require("auto-session")
 	vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
 	_G.close_all_floating_wins = close_all_floating_wins
 	_G.close_nvim_tree = close_nvim_tree

@@ -1,10 +1,7 @@
 local M = {}
 
 M.setup = function (_)
-	local ext,nvimtree = pcall(require, 'nvim-tree')
-	if not ext then
-		return
-	end
+	local nvimtree = require("nvim-tree")
 
 	nvimtree.setup { -- BEGIN_DEFAULT_OPTS
 	git = {

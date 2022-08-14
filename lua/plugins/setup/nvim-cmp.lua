@@ -1,11 +1,8 @@
 local M = {}
 
 M.setup = function (_)
-	local ext1, luasnip = pcall(require,'luasnip')
-	local ext2, cmp = pcall(require,'cmp')
-	if not ext1 or not ext2 then
-		return
-	end
+	local cmp = require("cmp")
+	local luasnip = require("luasnip")
 
 	local kind_icons = {
 		Text = "",

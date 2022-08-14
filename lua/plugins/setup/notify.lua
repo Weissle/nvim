@@ -1,10 +1,9 @@
 local M = {}
 
 M.setup = function (_)
-	local ext, notify = pcall(require,"notify")
-	if not ext then
-		return
-	end
+	local notify = require("notify")
+	require("telescope").load_extension("notify")
+
 	vim.notify = notify
 	-- Utility functions shared between progress reports for LSP and DAP
 	local client_notifs = {}

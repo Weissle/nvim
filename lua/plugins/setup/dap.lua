@@ -14,11 +14,8 @@ end
 
 
 M.setup = function(_)
-	local ext1, dap = pcall(require,'dap')
-	local ext2, mason_registry = pcall(require,"mason-registry")
-	if not ext1 or not ext2 then
-		return
-	end
+	local dap = require("dap")
+	local mason_registry = require("mason-registry")
 	vim.api.nvim_create_augroup("dap_launchjson", { clear = true })
 	
 	local get_package_dir = function(name)

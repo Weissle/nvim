@@ -17,11 +17,6 @@ M.setup = function (_)
 		}
 	}
 
-	local notify_ext, _ = pcall(require,"notify")
-	if notify_ext then
-		telescope.load_extension("notify")
-	end
-
 end
 
 return M
