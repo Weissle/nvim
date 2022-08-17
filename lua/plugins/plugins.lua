@@ -1,6 +1,10 @@
 local M = {}
 
-local lazy_event_enter_file = { "BufReadPre" }
+local lazy_event_enter_file = { "BufReadPre", "BufNewFile" }
+require("mappings.fl_mappings").nvim_tree()
+require("mappings.fl_mappings").todo_comments()
+
+M["wbthomason/packer.nvim"] = {}
 
 M["kyazdani42/nvim-web-devicons"] = {}
 
@@ -10,14 +14,12 @@ M["lewis6991/impatient.nvim"] = {}
 
 M["rafamadriz/friendly-snippets"] = {}
 
-M["wbthomason/packer.nvim"] = {}
-
 M["famiu/bufdelete.nvim"] = {
 	event = lazy_event_enter_file,
 }
 
 M["lukas-reineke/indent-blankline.nvim"] = {
-	event = lazy_event_enter_file,
+	after = { "tokyonight.nvim" },
 }
 
 M["RRethy/vim-illuminate"] = {
@@ -41,6 +43,7 @@ M["folke/tokyonight.nvim"] = {
 
 M["nvim-lualine/lualine.nvim"] = {
 	event = lazy_event_enter_file,
+	after = { "tokyonight.nvim", "indent-blankline.nvim" },
 	config = function()
 		require("lualine").setup({
 			options = {
@@ -110,12 +113,15 @@ M["windwp/nvim-autopairs"] = {
 }
 
 M["folke/trouble.nvim"] = {
+	event = lazy_event_enter_file,
 	config = function()
 		require("trouble").setup({})
 	end,
 }
 
 M["folke/todo-comments.nvim"] = {
+	event = lazy_event_enter_file,
+	cmd = { "TodoTelescope" },
 	config = function()
 		require("todo-comments").setup({})
 		require("mappings.fl_mappings").todo_comments()
@@ -158,6 +164,7 @@ M["numToStr/Comment.nvim"] = {
 }
 
 M["windwp/nvim-spectre"] = {
+	disable = true,
 	config = function()
 		require("spectre").setup({})
 	end,
@@ -170,17 +177,19 @@ M["williamboman/mason.nvim"] = {
 }
 
 M["rcarriga/nvim-notify"] = {
-	after = "nvim-dap",
+	event = lazy_event_enter_file,
 	config = function()
-		require("plugins.setup.notify").setup({})
-		require("mappings.fl_mappings").notify()
+		vim.defer_fn(function()
+			require("plugins.setup.notify").setup({})
+			require("mappings.fl_mappings").notify()
+		end, 5000)
 	end,
 }
 
 M["kyazdani42/nvim-tree.lua"] = {
+	cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle" },
 	config = function()
 		require("plugins.setup.nvim-tree").setup({})
-		require("mappings.fl_mappings").nvim_tree()
 	end,
 }
 
@@ -193,7 +202,6 @@ M["rcarriga/nvim-dap-ui"] = {
 }
 
 M["mfussenegger/nvim-dap"] = {
-	after = "mason.nvim",
 	config = function()
 		require("plugins.setup.dap").setup({})
 		require("mappings.fl_mappings").dap()
@@ -201,7 +209,7 @@ M["mfussenegger/nvim-dap"] = {
 }
 
 M["neovim/nvim-lspconfig"] = {
-	after = "cmp-nvim-lsp",
+	after = { "mason-lspconfig.nvim", "cmp-nvim-lsp" },
 	config = function()
 		require("plugins.setup.lspconfig").setup({})
 		require("mappings.fl_mappings").lspconfig()
@@ -210,7 +218,6 @@ M["neovim/nvim-lspconfig"] = {
 
 M["nvim-telescope/telescope.nvim"] = {
 	branch = "0.1.x",
-	requires = {},
 	config = function()
 		require("plugins.setup.telescope").setup({})
 		require("mappings.fl_mappings").telescope()
@@ -227,7 +234,6 @@ M["nvim-telescope/telescope-fzf-native.nvim"] = {
 
 M["nvim-treesitter/nvim-treesitter"] = {
 	run = ":TSUpdate",
-	after = "LuaSnip",
 	event = lazy_event_enter_file,
 	config = function()
 		require("plugins.setup.treesitter").setup({})
@@ -286,7 +292,7 @@ M["hrsh7th/nvim-cmp"] = {
 }
 
 M["nvim-telescope/telescope-dap.nvim"] = {
-	after = "telescope.nvim",
+	after = {"telescope.nvim", "nvim-dap"},
 	config = function()
 		require("telescope").load_extension("dap")
 	end,
