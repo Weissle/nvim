@@ -1,10 +1,10 @@
 local M = {}
 
 local lazy_event_enter_file = { "BufReadPre", "BufNewFile" }
-require("mappings.fl_mappings").nvim_tree()
-require("mappings.fl_mappings").todo_comments()
 
-M["wbthomason/packer.nvim"] = {}
+M["wbthomason/packer.nvim"] = {
+	cmd = { "PackerInstall", "PackerSync", "PackerStatus", "PackerCompile" },
+}
 
 M["kyazdani42/nvim-web-devicons"] = {}
 
@@ -80,6 +80,7 @@ M["ray-x/lsp_signature.nvim"] = {
 }
 
 M["mrjones2014/smart-splits.nvim"] = {
+	event = lazy_event_enter_file,
 	config = function()
 		require("plugins.setup.smart-splits").setup()
 		require("mappings.fl_mappings").smart_split()
@@ -241,6 +242,7 @@ M["nvim-treesitter/nvim-treesitter"] = {
 }
 
 M["L3MON4D3/LuaSnip"] = {
+	after = "friendly-snippets",
 	config = function()
 		require("luasnip.loaders.from_vscode").lazy_load()
 	end,
@@ -292,7 +294,7 @@ M["hrsh7th/nvim-cmp"] = {
 }
 
 M["nvim-telescope/telescope-dap.nvim"] = {
-	after = {"telescope.nvim", "nvim-dap"},
+	after = { "telescope.nvim", "nvim-dap" },
 	config = function()
 		require("telescope").load_extension("dap")
 	end,
