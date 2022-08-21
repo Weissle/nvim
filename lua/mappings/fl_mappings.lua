@@ -37,7 +37,7 @@ M.telescope = function()
 	keymap('n','<Leader>fk','<cmd>lua require("telescope.builtin").keymaps{ modes = {"n","i","c","x","v","o"} }<cr>',opts)
 	keymap('n','<Leader>fG','<cmd>Telescope git_status<cr>',opts)
 	keymap('n','<Leader>fr','<cmd>lua require("telescope.builtin").resume()<cr>',opts)
-
+	keymap('n','<Leader>f/','<cmd>Telescope current_buffer_fuzzy_find<cr>',opts)
 end
 
 M.session_lens = function()
