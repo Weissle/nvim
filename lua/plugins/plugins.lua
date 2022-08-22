@@ -22,12 +22,11 @@ M["lukas-reineke/indent-blankline.nvim"] = {
 	after = { "tokyonight.nvim" },
 }
 
-M["RRethy/vim-illuminate"] = {
+M["kylechui/nvim-surround"] = {
 	event = lazy_event_enter_file,
-}
-
-M["tpope/vim-surround"] = {
-	event = lazy_event_enter_file,
+	config = function()
+		require("nvim-surround").setup({})
+	end,
 }
 
 M["tpope/vim-repeat"] = {
@@ -99,6 +98,8 @@ M["danymat/neogen"] = {
 }
 
 M["williamboman/mason-lspconfig.nvim"] = {
+	after = { "mason.nvim" },
+	event = lazy_event_enter_file,
 	config = function()
 		require("mason-lspconfig").setup({
 			ensure_installed = require("common").get_lsp_server_list(),
@@ -203,6 +204,7 @@ M["rcarriga/nvim-dap-ui"] = {
 }
 
 M["mfussenegger/nvim-dap"] = {
+	after = { "mason.nvim" },
 	config = function()
 		require("plugins.setup.dap").setup({})
 		require("mappings.fl_mappings").dap()
@@ -319,12 +321,29 @@ M["akinsho/toggleterm.nvim"] = {
 }
 
 M["phaazon/hop.nvim"] = {
-	"phaazon/hop.nvim",
 	branch = "v2", -- optional but strongly recommended
 	event = lazy_event_enter_file,
 	config = function()
 		require("hop").setup({})
 		require("mappings.fl_mappings").hop()
+	end,
+}
+
+M["karb94/neoscroll.nvim"] = {
+	event = lazy_event_enter_file,
+	config = function()
+		require("neoscroll").setup({ mappings = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "<C-y>", "<C-e>" } })
+	end,
+}
+
+M["echasnovski/mini.nvim"] = {
+	event = lazy_event_enter_file,
+	config = function()
+		require("mini.cursorword").setup({})
+		vim.cmd([[
+			:hi MiniCursorword gui=NONE guifg=NONE guibg=#006677
+			:hi MiniCursorwordCurrent gui=NONE guifg=NONE guibg=#006677
+		]])
 	end,
 }
 
