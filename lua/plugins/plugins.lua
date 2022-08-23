@@ -1,6 +1,9 @@
 local M = {}
 
 local lazy_event_enter_file = { "BufReadPre", "BufNewFile" }
+local module_activate = {
+	debug = false,
+}
 
 M["wbthomason/packer.nvim"] = {
 	cmd = { "PackerInstall", "PackerSync", "PackerStatus", "PackerCompile" },
@@ -13,10 +16,6 @@ M["nvim-lua/plenary.nvim"] = {}
 M["lewis6991/impatient.nvim"] = {}
 
 M["rafamadriz/friendly-snippets"] = {}
-
-M["famiu/bufdelete.nvim"] = {
-	event = lazy_event_enter_file,
-}
 
 M["lukas-reineke/indent-blankline.nvim"] = {
 	after = { "tokyonight.nvim" },
@@ -108,6 +107,7 @@ M["williamboman/mason-lspconfig.nvim"] = {
 }
 
 M["windwp/nvim-autopairs"] = {
+	disable = true,
 	event = lazy_event_enter_file,
 	config = function()
 		require("nvim-autopairs").setup({})
@@ -131,6 +131,7 @@ M["folke/todo-comments.nvim"] = {
 }
 
 M["theHamsta/nvim-dap-virtual-text"] = {
+	disable = not module_activate.debug,
 	event = lazy_event_enter_file,
 	after = "nvim-dap",
 	config = function()
@@ -147,6 +148,7 @@ M["rmagatti/session-lens"] = {
 }
 
 M["Weissle/persistent-breakpoints.nvim"] = {
+	disable = not module_activate.debug,
 	event = lazy_event_enter_file,
 	after = "nvim-dap",
 	config = function()
@@ -196,6 +198,7 @@ M["kyazdani42/nvim-tree.lua"] = {
 }
 
 M["rcarriga/nvim-dap-ui"] = {
+	disable = not module_activate.debug,
 	after = "nvim-dap",
 	config = function()
 		require("plugins.setup.dap-ui").setup({})
@@ -204,6 +207,7 @@ M["rcarriga/nvim-dap-ui"] = {
 }
 
 M["mfussenegger/nvim-dap"] = {
+	disable = not module_activate.debug,
 	after = { "mason.nvim" },
 	config = function()
 		require("plugins.setup.dap").setup({})
@@ -296,6 +300,7 @@ M["hrsh7th/nvim-cmp"] = {
 }
 
 M["nvim-telescope/telescope-dap.nvim"] = {
+	disable = not module_activate.debug,
 	after = { "telescope.nvim", "nvim-dap" },
 	config = function()
 		require("telescope").load_extension("dap")
@@ -339,11 +344,7 @@ M["karb94/neoscroll.nvim"] = {
 M["echasnovski/mini.nvim"] = {
 	event = lazy_event_enter_file,
 	config = function()
-		require("mini.cursorword").setup({})
-		vim.cmd([[
-			:hi MiniCursorword gui=NONE guifg=NONE guibg=#006677
-			:hi MiniCursorwordCurrent gui=NONE guifg=NONE guibg=#006677
-		]])
+		require("plugins.setup.mini").setup({})
 	end,
 }
 

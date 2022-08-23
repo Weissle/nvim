@@ -121,4 +121,8 @@ end
 M.todo_comments = function()
 	keymap('n','<Leader>fT','<cmd>TodoTelescope <cr>',opts)
 end
+
+M.bufremove = function ()
+	keymap('n','<leader>qb',"<cmd>lua require('mini.bufremove').delete(0,false)<cr>", opts)
+end
 return M

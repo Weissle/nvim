@@ -10,7 +10,6 @@ keymap("i", "<C-k>", "<up>", opts)
 keymap("i", "<C-j>", "<down>", opts)
 
 --> Quic or Close
-keymap("n", "<leader>qb", "<cmd>Bdelete<cr>", opts)
 keymap("n", "<leader>qq", "<cmd>wq<cr>", opts)
 --> so long due to the bug of toggleTerm
 keymap("n", "<leader>qa", "<cmd>wa<cr><bar><cmd>qa<cr>", opts)

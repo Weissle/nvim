@@ -1,6 +1,6 @@
 local M = {}
 
-M.setup = function (_)
+M.setup = function(_)
 	local cmp = require("cmp")
 	local luasnip = require("luasnip")
 
@@ -29,61 +29,60 @@ M.setup = function (_)
 		Struct = "",
 		Event = "",
 		Operator = "",
-		TypeParameter = ""
+		TypeParameter = "",
 	}
 
 	local cmp_source = {
-		['nvim_lsp'] = 'LSP',
-		['luasnip'] = 'Snip',
-		['cmp_tabnine'] = 'Tab',
-		['path'] = 'Path',
-		['buffer'] = 'Buf',
-		['treesitter'] = 'TeS',
-		['nvim_lua'] = 'NLua',
-		['cmdline'] = 'Cmd',
+		["nvim_lsp"] = "LSP",
+		["luasnip"] = "Snip",
+		["cmp_tabnine"] = "Tab",
+		["path"] = "Path",
+		["buffer"] = "Buf",
+		["treesitter"] = "TeS",
+		["nvim_lua"] = "NLua",
+		["cmdline"] = "Cmd",
 	}
 
-	cmp.setup {
+	cmp.setup({
 		formatting = {
 			format = function(entry, vim_item)
-				vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
+				vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
 				vim_item.menu = (cmp_source)[entry.source.name]
 				return vim_item
-			end
+			end,
 		},
 		snippet = {
 			expand = function(args)
 				luasnip.lsp_expand(args.body)
 			end,
 		},
-		mapping = require('mappings.pl_mappings').cmp(),
+		mapping = require("mappings.pl_mappings").cmp(),
 		sources = cmp.config.sources({
-			{ name = 'luasnip' },
-			{ name = 'nvim_lsp' },
-			{ name = 'path' },
-			{ name = 'buffer' },
-			{ name = 'treesitter' },
-			{ name = 'nvim_lua' }
-		})
-	}
+			{ name = "luasnip" },
+			{ name = "nvim_lsp" },
+			{ name = "path" },
+			{ name = "buffer" },
+			{ name = "treesitter" },
+			{ name = "nvim_lua" },
+		}),
+	})
 
-	cmp.setup.cmdline('/', {
+	cmp.setup.cmdline("/", {
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = {
-			{ name = 'buffer' }
-		}
+			{ name = "buffer" },
+		},
 	})
 
 	-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-	cmp.setup.cmdline(':', {
+	cmp.setup.cmdline(":", {
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = cmp.config.sources({
-			{ name = 'nvim_lua' },
-			{ name = 'cmdline', keyword_pattern=[=[[^[:blank:]\!]*]=], keyword_length = 3 },
-			{ name = 'path' },
-		})
+			{ name = "nvim_lua" },
+			{ name = "cmdline", keyword_pattern = [=[[^[:blank:]\!]*]=], keyword_length = 3 },
+			{ name = "path" },
+		}),
 	})
-
 end
 
 return M
