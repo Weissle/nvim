@@ -19,6 +19,7 @@ M["rafamadriz/friendly-snippets"] = {}
 
 M["lukas-reineke/indent-blankline.nvim"] = {
 	after = { "tokyonight.nvim" },
+	event = lazy_event_enter_file,
 }
 
 M["kylechui/nvim-surround"] = {
@@ -43,19 +44,7 @@ M["nvim-lualine/lualine.nvim"] = {
 	event = lazy_event_enter_file,
 	after = { "tokyonight.nvim", "indent-blankline.nvim" },
 	config = function()
-		require("lualine").setup({
-			options = {
-				theme = "tokyonight",
-				disabled_filetypes = {
-					"dapui_console",
-					"dap-repl",
-					"dapui_breakpoints",
-					"dapui_stacks",
-					"dapui_scopes",
-					"dapui_watches",
-				},
-			},
-		})
+		require('plugins.setup.lualine').setup({})
 	end,
 }
 
