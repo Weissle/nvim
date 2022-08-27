@@ -307,10 +307,10 @@ M["akinsho/bufferline.nvim"] = {
 }
 
 M["akinsho/toggleterm.nvim"] = {
+	cmd = { "ToggleTerm" },
 	tag = "v2.*",
 	config = function()
 		require("plugins.setup.toggleterm").setup({})
-		require("mappings.fl_mappings").toggleterm()
 	end,
 }
 

@@ -26,3 +26,4 @@ keymap("t", "gT", "<C-\\><C-n><cmd>tabN<cr>", opts)
 
 require("mappings.fl_mappings").nvim_tree()
 require("mappings.fl_mappings").todo_comments()
+require("mappings.fl_mappings").toggleterm()
