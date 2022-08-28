@@ -1,12 +1,13 @@
 local M = {}
 
 local lazy_event_enter_file = { "BufReadPre", "BufNewFile" }
+local lazy_event_start_insert = { "InsertEnter" }
 local module_activate = {
 	debug = false,
 }
 
 M["wbthomason/packer.nvim"] = {
-	cmd = { "PackerInstall", "PackerSync", "PackerStatus", "PackerCompile" },
+	cmd = { "PackerInstall", "PackerSync", "PackerStatus", "PackerCompile", "PackerProfile" },
 }
 
 M["kyazdani42/nvim-web-devicons"] = {}
@@ -15,14 +16,16 @@ M["nvim-lua/plenary.nvim"] = {}
 
 M["lewis6991/impatient.nvim"] = {}
 
-M["rafamadriz/friendly-snippets"] = {}
+M["rafamadriz/friendly-snippets"] = {
+	event = lazy_event_start_insert
+}
 
 M["lukas-reineke/indent-blankline.nvim"] = {
 	event = lazy_event_enter_file,
 }
 
 M["kylechui/nvim-surround"] = {
-	event = lazy_event_enter_file,
+	event = lazy_event_start_insert ,
 	config = function()
 		require("nvim-surround").setup({})
 	end,
@@ -53,7 +56,7 @@ M["rmagatti/auto-session"] = {
 }
 
 M["ray-x/lsp_signature.nvim"] = {
-	event = lazy_event_enter_file,
+	event = lazy_event_start_insert,
 	config = function()
 		require("lsp_signature").setup({
 			bind = true, -- This is mandatory, otherwise border config won't get registered.
@@ -73,7 +76,7 @@ M["mrjones2014/smart-splits.nvim"] = {
 }
 
 M["danymat/neogen"] = {
-	event = lazy_event_enter_file,
+	event = lazy_event_start_insert,
 	after = "LuaSnip",
 	config = function()
 		require("neogen").setup({
@@ -95,7 +98,7 @@ M["williamboman/mason-lspconfig.nvim"] = {
 
 M["windwp/nvim-autopairs"] = {
 	disable = true,
-	event = lazy_event_enter_file,
+	event = lazy_event_start_insert,
 	config = function()
 		require("nvim-autopairs").setup({})
 	end,
@@ -242,35 +245,35 @@ M["L3MON4D3/LuaSnip"] = {
 }
 
 M["hrsh7th/cmp-nvim-lsp"] = {
-	event = lazy_event_enter_file,
+	event = lazy_event_start_insert,
 }
 
 M["saadparwaiz1/cmp_luasnip"] = {
-	event = lazy_event_enter_file,
+	event = lazy_event_start_insert,
 }
 
 M["hrsh7th/cmp-buffer"] = {
-	event = lazy_event_enter_file,
+	event = lazy_event_start_insert,
 }
 
 M["hrsh7th/cmp-path"] = {
-	event = lazy_event_enter_file,
+	event = lazy_event_start_insert,
 }
 
 M["hrsh7th/cmp-cmdline"] = {
-	event = lazy_event_enter_file,
+	event = lazy_event_start_insert,
 }
 
 M["hrsh7th/cmp-nvim-lua"] = {
-	event = lazy_event_enter_file,
+	event = lazy_event_start_insert,
 }
 
 M["ray-x/cmp-treesitter"] = {
-	event = lazy_event_enter_file,
+	event = lazy_event_start_insert,
 }
 
 M["hrsh7th/nvim-cmp"] = {
-	event = lazy_event_enter_file,
+	event = lazy_event_start_insert,
 	after = {
 		"LuaSnip",
 		"cmp-nvim-lsp",
