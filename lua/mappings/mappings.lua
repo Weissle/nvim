@@ -23,7 +23,12 @@ keymap("t", "<C-w>k", "<C-\\><C-n><C-w>k", opts)
 keymap("t", "<C-w>l", "<C-\\><C-n><C-w>l", opts)
 keymap("t", "gt", "<C-\\><C-n><cmd>tabn<cr>", opts)
 keymap("t", "gT", "<C-\\><C-n><cmd>tabN<cr>", opts)
+keymap("t", "<leader>qt", "<cmd>q<cr>", opts)
+keymap("t", "<leader>qq", "exit<cr>", opts)
+
+keymap("n", "<leader>tt", "<cmd>tabnew<cr><bar><cmd>terminal<cr>i", opts)
+keymap("n", "<leader>tx", "<cmd>sp<cr><bar><cmd>terminal<cr>i", opts)
+keymap("n", "<leader>tv", "<cmd>vsp<cr><bar><cmd>terminal<cr>i", opts)
 
 require("mappings.fl_mappings").nvim_tree()
 require("mappings.fl_mappings").todo_comments()
-require("mappings.fl_mappings").toggleterm()

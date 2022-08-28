@@ -100,13 +100,6 @@ M.dapui = function()
 
 end
 
-M.toggleterm = function()
-	keymap("n", "<leader>tt", "<cmd>ToggleTerm direction=tab<cr>", opts)
-	keymap("n", "<leader>tx", "<cmd>ToggleTerm direction=horizontal<cr>", opts)
-	keymap("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical<cr>", opts)
-	keymap("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", opts)
-end
-
 M.neogen = function()
 	keymap("n", "<Leader>of", "<cmd>Neogen func<CR>", opts)
 	keymap("n", "<Leader>oc", "<cmd>Neogen class<CR>", opts)
@@ -124,5 +117,6 @@ end
 
 M.bufremove = function ()
 	keymap('n','<leader>qb',"<cmd>lua require('mini.bufremove').delete(0,false)<cr>", opts)
+	keymap('t','<leader>qb',"<cmd>lua require('mini.bufremove').delete(0,false)<cr>", opts)
 end
 return M

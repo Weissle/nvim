@@ -57,14 +57,14 @@ M.setup = function(_)
 			end,
 		},
 		mapping = require("mappings.pl_mappings").cmp(),
-		sources = cmp.config.sources({
+		sources = {
 			{ name = "luasnip" },
 			{ name = "nvim_lsp" },
 			{ name = "path" },
 			{ name = "buffer" },
 			{ name = "treesitter" },
 			{ name = "nvim_lua" },
-		}),
+		},
 	})
 
 	cmp.setup.cmdline("/", {
@@ -73,7 +73,6 @@ M.setup = function(_)
 			{ name = "buffer" },
 		},
 	})
-
 	-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 	cmp.setup.cmdline(":", {
 		mapping = cmp.mapping.preset.cmdline(),

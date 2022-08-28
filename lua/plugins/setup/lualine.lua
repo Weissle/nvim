@@ -2,11 +2,8 @@ local M = {}
 
 local function location_info()
 	local total_line = tostring(vim.api.nvim_buf_line_count(0))
-	local current_line = tostring(vim.api.nvim_win_get_cursor(0)[1])
-	while #current_line < #total_line do
-		current_line = string.format(" %s", current_line)
-	end
-	return string.format("%s/%s", current_line, total_line)
+	local current_line = '         ' .. tostring(vim.api.nvim_win_get_cursor(0)[1])
+	return string.format("%s/%s", string.sub(current_line, #current_line - #total_line), total_line)
 end
 
 M.setup = function(_)
@@ -22,10 +19,10 @@ M.setup = function(_)
 				"dapui_scopes",
 				"dapui_watches",
 			},
-			globalstatus = true
+			globalstatus = true,
 		},
 		sections = {
-			lualine_c = {'filename'},
+			lualine_c = { "filename" },
 			lualine_z = { location_info },
 		},
 	})

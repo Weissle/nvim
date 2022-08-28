@@ -1,7 +1,7 @@
 local M = {}
 
 M.setup = function(_)
-	telescope = require("telescope")
+	local telescope = require("telescope")
 	telescope.setup({
 		extensions = {
 			fzf = {

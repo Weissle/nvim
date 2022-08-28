@@ -18,7 +18,6 @@ M["lewis6991/impatient.nvim"] = {}
 M["rafamadriz/friendly-snippets"] = {}
 
 M["lukas-reineke/indent-blankline.nvim"] = {
-	after = { "tokyonight.nvim" },
 	event = lazy_event_enter_file,
 }
 
@@ -42,7 +41,6 @@ M["folke/tokyonight.nvim"] = {
 
 M["nvim-lualine/lualine.nvim"] = {
 	event = lazy_event_enter_file,
-	after = { "tokyonight.nvim", "indent-blankline.nvim" },
 	config = function()
 		require('plugins.setup.lualine').setup({})
 	end,
@@ -104,7 +102,7 @@ M["windwp/nvim-autopairs"] = {
 }
 
 M["folke/trouble.nvim"] = {
-	event = lazy_event_enter_file,
+	cmd = { "Trouble", "TroubleToggle"},
 	config = function()
 		require("trouble").setup({})
 	end,
@@ -143,8 +141,8 @@ M["Weissle/persistent-breakpoints.nvim"] = {
 	config = function()
 		require("persistent-breakpoints").setup({})
 		vim.api.nvim_create_autocmd(
-			{ "BufReadPost" },
-			{ callback = require("persistent-breakpoints.api").load_breakpoints }
+		{ "BufReadPost" },
+		{ callback = require("persistent-breakpoints.api").load_breakpoints }
 		)
 	end,
 }
@@ -301,16 +299,7 @@ M["akinsho/bufferline.nvim"] = {
 	event = lazy_event_enter_file,
 	requires = "kyazdani42/nvim-web-devicons",
 	config = function()
-		require("bufferline").setup({})
-		require("mappings.fl_mappings").bufferline()
-	end,
-}
-
-M["akinsho/toggleterm.nvim"] = {
-	cmd = { "ToggleTerm" },
-	tag = "v2.*",
-	config = function()
-		require("plugins.setup.toggleterm").setup({})
+		require("plugins.setup.bufferline").setup({})
 	end,
 }
 
