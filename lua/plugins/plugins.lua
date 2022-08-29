@@ -240,6 +240,9 @@ M["nvim-treesitter/nvim-treesitter"] = {
 M["L3MON4D3/LuaSnip"] = {
 	after = "friendly-snippets",
 	config = function()
+		require("luasnip").setup({
+			region_check_events = "InsertEnter"
+		})
 		require("luasnip.loaders.from_vscode").lazy_load()
 	end,
 }
