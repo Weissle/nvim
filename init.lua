@@ -1,6 +1,5 @@
 pcall(require, "impatient")
 
 require("settings")
-require('plugins')
+require("plugins")
 require("mappings.mappings")
-
