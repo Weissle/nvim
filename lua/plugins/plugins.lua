@@ -17,7 +17,7 @@ M["nvim-lua/plenary.nvim"] = {}
 M["lewis6991/impatient.nvim"] = {}
 
 M["rafamadriz/friendly-snippets"] = {
-	event = lazy_event_start_insert
+	event = lazy_event_start_insert,
 }
 
 M["lukas-reineke/indent-blankline.nvim"] = {
@@ -25,7 +25,7 @@ M["lukas-reineke/indent-blankline.nvim"] = {
 }
 
 M["kylechui/nvim-surround"] = {
-	event = lazy_event_start_insert ,
+	event = lazy_event_start_insert,
 	config = function()
 		require("nvim-surround").setup({})
 	end,
@@ -45,7 +45,7 @@ M["folke/tokyonight.nvim"] = {
 M["nvim-lualine/lualine.nvim"] = {
 	event = lazy_event_enter_file,
 	config = function()
-		require('plugins.setup.lualine').setup({})
+		require("plugins.setup.lualine").setup({})
 	end,
 }
 
@@ -105,7 +105,7 @@ M["windwp/nvim-autopairs"] = {
 }
 
 M["folke/trouble.nvim"] = {
-	cmd = { "Trouble", "TroubleToggle"},
+	cmd = { "Trouble", "TroubleToggle" },
 	config = function()
 		require("trouble").setup({})
 	end,
@@ -144,8 +144,8 @@ M["Weissle/persistent-breakpoints.nvim"] = {
 	config = function()
 		require("persistent-breakpoints").setup({})
 		vim.api.nvim_create_autocmd(
-		{ "BufReadPost" },
-		{ callback = require("persistent-breakpoints.api").load_breakpoints }
+			{ "BufReadPost" },
+			{ callback = require("persistent-breakpoints.api").load_breakpoints }
 		)
 	end,
 }
@@ -241,7 +241,7 @@ M["L3MON4D3/LuaSnip"] = {
 	after = "friendly-snippets",
 	config = function()
 		require("luasnip").setup({
-			region_check_events = "InsertEnter"
+			region_check_events = "InsertEnter",
 		})
 		require("luasnip.loaders.from_vscode").lazy_load()
 	end,
@@ -332,4 +332,14 @@ M["echasnovski/mini.nvim"] = {
 	end,
 }
 
+M["iamcco/markdown-preview.nvim"] = {
+	ft = { "markdown" },
+	run = "cd app && npm install",
+	setup = function()
+		vim.g.mkdp_filetypes = { "markdown" }
+	end,
+	config = function()
+		require("plugins.setup.markdown-preview").setup({})
+	end,
+}
 return M

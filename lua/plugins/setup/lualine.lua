@@ -2,7 +2,7 @@ local M = {}
 
 local function location_info()
 	local total_line = tostring(vim.api.nvim_buf_line_count(0))
-	local current_line = '         ' .. tostring(vim.api.nvim_win_get_cursor(0)[1])
+	local current_line = "         " .. tostring(vim.api.nvim_win_get_cursor(0)[1])
 	return string.format("%s/%s", string.sub(current_line, #current_line - #total_line), total_line)
 end
 
