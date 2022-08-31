@@ -87,8 +87,6 @@ M["danymat/neogen"] = {
 }
 
 M["williamboman/mason-lspconfig.nvim"] = {
-	after = { "mason.nvim" },
-	event = lazy_event_enter_file,
 	config = function()
 		require("mason-lspconfig").setup({
 			ensure_installed = require("common").get_lsp_server_list(),
@@ -206,7 +204,7 @@ M["mfussenegger/nvim-dap"] = {
 }
 
 M["neovim/nvim-lspconfig"] = {
-	after = { "mason-lspconfig.nvim", "cmp-nvim-lsp" },
+	after = {"cmp-nvim-lsp"},
 	config = function()
 		require("plugins.setup.lspconfig").setup({})
 		require("mappings.fl_mappings").lspconfig()
@@ -247,9 +245,7 @@ M["L3MON4D3/LuaSnip"] = {
 	end,
 }
 
-M["hrsh7th/cmp-nvim-lsp"] = {
-	event = lazy_event_start_insert,
-}
+M["hrsh7th/cmp-nvim-lsp"] = {}
 
 M["saadparwaiz1/cmp_luasnip"] = {
 	event = lazy_event_start_insert,
