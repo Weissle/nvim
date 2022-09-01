@@ -338,4 +338,15 @@ M["iamcco/markdown-preview.nvim"] = {
 		require("plugins.setup.markdown-preview").setup({})
 	end,
 }
+
+M['kevinhwang91/nvim-ufo'] = {
+	event = lazy_event_enter_file,
+	requires = 'kevinhwang91/promise-async',
+	config = function ()
+		require("plugins.setup.nvim-ufo").setup({})
+		require("mappings.fl_mappings").ufo()
+	end
+}
+
 return M
+

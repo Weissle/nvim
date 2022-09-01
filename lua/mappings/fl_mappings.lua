@@ -144,4 +144,10 @@ M.bufremove = function()
 	keymap("n", "<leader>qb", "<cmd>lua require('mini.bufremove').delete(0,false)<cr>", opts)
 	keymap("t", "<leader>qb", "<cmd>lua require('mini.bufremove').delete(0,false)<cr>", opts)
 end
+
+M.ufo = function()
+	vim.keymap.set('n', "zR", require('ufo').openAllFolds)
+	vim.keymap.set('n', "zM", require('ufo').closeAllFolds)
+end
+
 return M
