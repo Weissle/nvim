@@ -79,6 +79,7 @@ M["danymat/neogen"] = {
 }
 
 M["williamboman/mason-lspconfig.nvim"] = {
+	after = "mason.nvim",
 	config = function()
 		require("mason-lspconfig").setup({
 			ensure_installed = require("common").get_lsp_server_list(),
@@ -155,6 +156,7 @@ M["windwp/nvim-spectre"] = {
 }
 
 M["williamboman/mason.nvim"] = {
+	event = lazy_event_enter_file,
 	config = function()
 		require("mason").setup({})
 	end,
@@ -196,7 +198,7 @@ M["mfussenegger/nvim-dap"] = {
 }
 
 M["neovim/nvim-lspconfig"] = {
-	after = { "cmp-nvim-lsp" },
+	after = { "cmp-nvim-lsp", "mason-lspconfig.nvim" },
 	config = function()
 		require("plugins.setup.lspconfig").setup({})
 		require("mappings.fl_mappings").lspconfig()
@@ -265,16 +267,7 @@ M["ray-x/cmp-treesitter"] = {
 
 M["hrsh7th/nvim-cmp"] = {
 	event = lazy_event_start_insert,
-	after = {
-		"LuaSnip",
-		"cmp-nvim-lsp",
-		"cmp_luasnip",
-		"cmp-buffer",
-		"cmp-path",
-		"cmp-cmdline",
-		"cmp-nvim-lua",
-		"cmp-treesitter",
-	},
+	after = { "LuaSnip" },
 	config = function()
 		require("plugins.setup.nvim-cmp").setup({})
 	end,

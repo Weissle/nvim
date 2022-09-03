@@ -32,12 +32,7 @@ vim.defer_fn(function()
 	vim.api.nvim_create_autocmd("BufLeave", {
 		group = "autosave",
 		callback = function()
-			local file_name = vim.api.nvim_buf_get_name(0)
-			local f = io.open(file_name, "r")
-			if f ~= nil then
-				io.close(f)
-				pcall(vim.cmd, "write")
-			end
+			pcall(vim.cmd, "write")
 		end,
 	})
 end, 1000)
