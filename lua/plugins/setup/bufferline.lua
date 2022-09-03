@@ -9,7 +9,6 @@ M.setup = function(_)
 					groups.builtin.ungrouped,
 					{
 						name = "Bash",
-						-- auto_close = true,
 						auto_close = false,
 						matcher = function(buf)
 							return buf.filename == "bash"

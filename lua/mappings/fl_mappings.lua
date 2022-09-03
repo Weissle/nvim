@@ -146,8 +146,8 @@ M.bufremove = function()
 end
 
 M.ufo = function()
-	vim.keymap.set('n', "zR", require('ufo').openAllFolds)
-	vim.keymap.set('n', "zM", require('ufo').closeAllFolds)
+	vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+	vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 end
 
 return M

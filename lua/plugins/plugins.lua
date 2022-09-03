@@ -24,21 +24,13 @@ M["lukas-reineke/indent-blankline.nvim"] = {
 	event = lazy_event_enter_file,
 }
 
-M["kylechui/nvim-surround"] = {
-	event = lazy_event_start_insert,
-	config = function()
-		require("nvim-surround").setup({})
-	end,
-}
-
 M["tpope/vim-repeat"] = {
 	event = lazy_event_enter_file,
 }
 
 M["folke/tokyonight.nvim"] = {
 	config = function()
-		vim.cmd("colorscheme tokyonight")
-		vim.cmd("hi Visual guibg=#006699")
+		require("plugins.setup.tokyonight").setup({})
 	end,
 }
 
@@ -204,7 +196,7 @@ M["mfussenegger/nvim-dap"] = {
 }
 
 M["neovim/nvim-lspconfig"] = {
-	after = {"cmp-nvim-lsp"},
+	after = { "cmp-nvim-lsp" },
 	config = function()
 		require("plugins.setup.lspconfig").setup({})
 		require("mappings.fl_mappings").lspconfig()
@@ -339,14 +331,13 @@ M["iamcco/markdown-preview.nvim"] = {
 	end,
 }
 
-M['kevinhwang91/nvim-ufo'] = {
+M["kevinhwang91/nvim-ufo"] = {
 	event = lazy_event_enter_file,
-	requires = 'kevinhwang91/promise-async',
-	config = function ()
+	requires = "kevinhwang91/promise-async",
+	config = function()
 		require("plugins.setup.nvim-ufo").setup({})
 		require("mappings.fl_mappings").ufo()
-	end
+	end,
 }
 
 return M
-

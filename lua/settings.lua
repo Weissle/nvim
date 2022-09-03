@@ -16,6 +16,7 @@ vim.g.mapleader = " "
 
 vim.defer_fn(function()
 	vim.cmd("set clipboard+=unnamedplus")
+
 	vim.api.nvim_create_augroup("move-to-term", { clear = true })
 	vim.api.nvim_create_autocmd("BufEnter", {
 		group = "move-to-term",
@@ -23,6 +24,19 @@ vim.defer_fn(function()
 			local file_name = vim.api.nvim_buf_get_name(0)
 			if string.find(file_name, "^term") then
 				vim.cmd("startinsert")
+			end
+		end,
+	})
+
+	vim.api.nvim_create_augroup("autosave", { clear = true })
+	vim.api.nvim_create_autocmd("BufLeave", {
+		group = "autosave",
+		callback = function()
+			local file_name = vim.api.nvim_buf_get_name(0)
+			local f = io.open(file_name, "r")
+			if f ~= nil then
+				io.close(f)
+				pcall(vim.cmd, "write")
 			end
 		end,
 	})

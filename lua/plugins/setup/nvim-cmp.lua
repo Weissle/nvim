@@ -73,6 +73,7 @@ M.setup = function(_)
 			{ name = "buffer" },
 		},
 	})
+
 	-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 	cmp.setup.cmdline(":", {
 		mapping = cmp.mapping.preset.cmdline(),
@@ -87,7 +88,7 @@ M.setup = function(_)
 		local r, c = unpack(vim.api.nvim_win_get_cursor(0))
 		local line = vim.api.nvim_buf_get_lines(0, r - 1, r, true)[1]
 		local ch1, ch2 = string.sub(line, c, c), string.sub(line, c + 1, c + 1)
-		if ch1 == ch2 then
+		if ch1 == ch2 and (ch1 == '"' or ch1 == "'") then
 			line = string.sub(line, 0, c - 1) .. string.sub(line, c + 1) .. " "
 			vim.api.nvim_buf_set_lines(0, r - 1, r, true, { line })
 		end
