@@ -14,6 +14,14 @@ opt.incsearch = false
 
 vim.g.mapleader = " "
 
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
+	callback = function()
+		vim.defer_fn(function()
+			vim.cmd("set formatoptions-=cro")
+		end, 100)
+	end,
+})
+
 vim.defer_fn(function()
 	vim.cmd("set clipboard+=unnamedplus")
 

@@ -8,9 +8,9 @@ local module_activate = {
 
 M["wbthomason/packer.nvim"] = {
 	cmd = { "PackerInstall", "PackerSync", "PackerStatus", "PackerCompile", "PackerProfile" },
-	config = function ()
+	config = function()
 		require("plugins.setup.packer").setup({})
-	end
+	end,
 }
 
 M["kyazdani42/nvim-web-devicons"] = {}
@@ -317,7 +317,7 @@ M["kevinhwang91/promise-async"] = {
 }
 
 M["kevinhwang91/nvim-ufo"] = {
-	after ={ "promise-async" },
+	after = { "promise-async" },
 	config = function()
 		require("plugins.setup.nvim-ufo").setup({})
 		require("mappings.fl_mappings").ufo()

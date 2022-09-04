@@ -43,7 +43,6 @@ M.hop = function()
 	keymap("", "<leader>h/", "<cmd>HopPatternMW <cr>", opts)
 end
 
-
 M.lspconfig = function()
 	vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action, opts)
 	vim.keymap.set("n", "<Leader>lh", vim.lsp.buf.hover, opts)
