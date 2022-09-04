@@ -1,6 +1,6 @@
 local M = {}
 
-local lazy_event_enter_file = { "BufReadPre", "BufNewFile" }
+local lazy_event_enter_file = { "BufReadPost", "BufNewFile" }
 local lazy_event_start_insert = { "InsertEnter" }
 local module_activate = {
 	debug = false,
@@ -152,10 +152,8 @@ M["williamboman/mason.nvim"] = {
 }
 
 M["rcarriga/nvim-notify"] = {
-	-- event = lazy_event_enter_file,
 	config = function()
-		local notify = require("notify")
-		vim.notify = notify
+		vim.notify = require("notify")
 	end,
 }
 
@@ -313,7 +311,7 @@ M["iamcco/markdown-preview.nvim"] = {
 }
 
 M["kevinhwang91/promise-async"] = {
-	event = lazy_event_enter_file,
+	after = { "nvim-treesitter" }
 }
 
 M["kevinhwang91/nvim-ufo"] = {

@@ -40,11 +40,6 @@ M.setup = function(_)
 		end,
 		fold_virt_text_handler = handler,
 	})
-	-- NOTE: otherwise, the first buffer's will be abnormally displayed.
-	vim.cmd("UfoDisable")
-	vim.defer_fn(function()
-		vim.cmd("UfoEnable")
-	end, 100)
 end
 
 return M
