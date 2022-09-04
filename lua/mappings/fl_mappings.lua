@@ -43,39 +43,6 @@ M.hop = function()
 	keymap("", "<leader>h/", "<cmd>HopPatternMW <cr>", opts)
 end
 
-M.nvim_tree = function()
-	keymap("n", "<C-n>", ":NvimTreeToggle<CR>", opts)
-	keymap("n", "<C-b>", ":NvimTreeFindFileToggle<CR>", opts)
-end
-
-M.telescope = function()
-	keymap("n", "<Leader>ff", "<cmd>Telescope find_files<cr>", opts)
-	keymap("n", "<Leader>fg", "<cmd>Telescope live_grep<cr>", opts)
-	keymap("n", "<Leader>fb", "<cmd>Telescope buffers<cr>", opts)
-	keymap("n", "<Leader>fh", "<cmd>Telescope help_tags<cr>", opts)
-	keymap("n", "<Leader>fc", "<cmd>Telescope commands<cr>", opts)
-	keymap("n", "<Leader>ft", "<cmd>Telescope <cr>", opts)
-	keymap("n", "<Leader>fa", '<cmd>lua require("telescope.builtin").find_files({no_ignore=true}) <cr>', opts)
-	keymap("n", "<Leader>f*", "<cmd>Telescope grep_string<cr>", opts)
-	keymap("n", "<Leader>fo", "<cmd>Telescope oldfiles<cr>", opts)
-	keymap(
-		"n",
-		"<Leader>fk",
-		'<cmd>lua require("telescope.builtin").keymaps{ modes = {"n","i","c","x","v","o"} }<cr>',
-		opts
-	)
-	keymap("n", "<Leader>fG", "<cmd>Telescope git_status<cr>", opts)
-	keymap("n", "<Leader>fr", '<cmd>lua require("telescope.builtin").resume()<cr>', opts)
-	keymap("n", "<Leader>f/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)
-end
-
-M.session_lens = function()
-	keymap("n", "<Leader>fs", "<cmd>Telescope session-lens search_session<cr>", opts)
-end
-
-M.notify = function()
-	keymap("n", "<Leader>fn", "<cmd>Telescope notify<cr>", opts)
-end
 
 M.lspconfig = function()
 	vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action, opts)
@@ -93,7 +60,7 @@ M.lspconfig = function()
 	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
 	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-	keymap("n", "gr", "<cmd>Telescope lsp_references<cr><Esc>", opts)
+	keymap("n", "gr", "<cmd>Telescope lsp_references<cr>", opts)
 end
 
 M.bufferline = function()
@@ -134,10 +101,6 @@ end
 
 M.smart_split = function()
 	keymap("n", "<leader>mw", "<cmd>lua require('smart-splits').start_resize_mode()<cr>", opts)
-end
-
-M.todo_comments = function()
-	keymap("n", "<Leader>fT", "<cmd>TodoTelescope <cr>", opts)
 end
 
 M.bufremove = function()

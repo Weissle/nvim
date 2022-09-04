@@ -16,6 +16,7 @@ M.setup = function(_)
 			mappings = require("mappings.pl_mappings").telescope(),
 		},
 	})
+	require("telescope").load_extension("notify")
 end
 
 return M

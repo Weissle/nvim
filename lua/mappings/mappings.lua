@@ -9,7 +9,7 @@ keymap("i", "<C-l>", "<right>", opts)
 keymap("i", "<C-k>", "<up>", opts)
 keymap("i", "<C-j>", "<down>", opts)
 
---> Quic or Close
+--> Quit or Close
 keymap("n", "<leader>qq", "<cmd>wq<cr>", opts)
 --> so long due to the bug of toggleTerm
 keymap("n", "<leader>qa", "<cmd>wa<cr><bar><cmd>qa<cr>", opts)
@@ -30,5 +30,27 @@ keymap("n", "<leader>tt", "<cmd>tabnew<cr><bar><cmd>terminal<cr>i", opts)
 keymap("n", "<leader>tx", "<cmd>sp<cr><bar><cmd>terminal<cr>i", opts)
 keymap("n", "<leader>tv", "<cmd>vsp<cr><bar><cmd>terminal<cr>i", opts)
 
-require("mappings.fl_mappings").nvim_tree()
-require("mappings.fl_mappings").todo_comments()
+keymap("n", "<Leader>ff", "<cmd>Telescope find_files<cr>", opts)
+keymap("n", "<Leader>fg", "<cmd>Telescope live_grep<cr>", opts)
+keymap("n", "<Leader>fb", "<cmd>Telescope buffers<cr>", opts)
+keymap("n", "<Leader>fh", "<cmd>Telescope help_tags<cr>", opts)
+keymap("n", "<Leader>fc", "<cmd>Telescope commands<cr>", opts)
+keymap("n", "<Leader>ft", "<cmd>Telescope <cr>", opts)
+keymap("n", "<Leader>fa", "<cmd>Telescope find_files no_ignore=true<cr>", opts)
+keymap("n", "<Leader>f*", "<cmd>Telescope grep_string<cr>", opts)
+keymap("n", "<Leader>fo", "<cmd>Telescope oldfiles<cr>", opts)
+keymap(
+	"n",
+	"<Leader>fk",
+	'<cmd>lua require("telescope.builtin").keymaps{ modes = {"n","i","c","x","v","o"} }<cr>',
+	opts
+)
+keymap("n", "<Leader>fG", "<cmd>Telescope git_status<cr>", opts)
+keymap("n", "<Leader>fr", "<cmd>Telescope resume<cr>", opts)
+keymap("n", "<Leader>f/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)
+keymap("n", "<Leader>fs", "<cmd>Telescope session-lens search_session<cr>", opts)
+keymap("n", "<Leader>fn", "<cmd>Telescope notify<cr>", opts)
+keymap("n", "<Leader>fT", "<cmd>TodoTelescope <cr>", opts)
+
+keymap("n", "<C-n>", ":NvimTreeToggle<CR>", opts)
+keymap("n", "<C-b>", ":NvimTreeFindFileToggle<CR>", opts)
