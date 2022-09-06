@@ -98,10 +98,6 @@ M.neogen = function()
 	keymap("n", "<Leader>ot", "<cmd>Neogen type<CR>", opts)
 end
 
-M.smart_split = function()
-	keymap("n", "<leader>mw", "<cmd>lua require('smart-splits').start_resize_mode()<cr>", opts)
-end
-
 M.bufremove = function()
 	keymap("n", "<leader>qb", "<cmd>lua require('mini.bufremove').delete(0,false)<cr>", opts)
 	keymap("t", "<leader>qb", "<cmd>lua require('mini.bufremove').delete(0,false)<cr>", opts)

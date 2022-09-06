@@ -1,13 +1,13 @@
 local M = {}
 
-local lazy_event_enter_file = { "BufReadPost", "BufNewFile" }
+local lazy_event_enter_file = { "BufRead", "BufNewFile" }
 local lazy_event_start_insert = { "InsertEnter" }
 local module_activate = {
 	debug = false,
 }
 
 M["wbthomason/packer.nvim"] = {
-	cmd = { "PackerInstall", "PackerSync", "PackerStatus", "PackerCompile", "PackerProfile" },
+	cmd = { "PackerInstall", "PackerSync", "PackerStatus", "PackerCompile", "PackerProfile", "PackerClean" },
 	config = function()
 		require("plugins.setup.packer").setup({})
 	end,
@@ -61,10 +61,9 @@ M["ray-x/lsp_signature.nvim"] = {
 }
 
 M["mrjones2014/smart-splits.nvim"] = {
-	event = lazy_event_enter_file,
+	cmd = "SmartResizeMode",
 	config = function()
 		require("plugins.setup.smart-splits").setup()
-		require("mappings.fl_mappings").smart_split()
 	end,
 }
 
@@ -95,7 +94,6 @@ M["folke/trouble.nvim"] = {
 }
 
 M["folke/todo-comments.nvim"] = {
-	event = lazy_event_enter_file,
 	cmd = { "TodoTelescope" },
 	config = function()
 		require("todo-comments").setup({})
@@ -227,7 +225,6 @@ M["L3MON4D3/LuaSnip"] = {
 M["hrsh7th/cmp-nvim-lsp"] = {
 	after = "mason-lspconfig.nvim",
 }
-
 M["saadparwaiz1/cmp_luasnip"] = {
 	after = "nvim-cmp",
 }
@@ -249,6 +246,10 @@ M["hrsh7th/cmp-nvim-lua"] = {
 }
 
 M["ray-x/cmp-treesitter"] = {
+	after = "nvim-cmp",
+}
+
+M["kdheepak/cmp-latex-symbols"] = {
 	after = "nvim-cmp",
 }
 
@@ -288,7 +289,7 @@ M["phaazon/hop.nvim"] = {
 M["karb94/neoscroll.nvim"] = {
 	event = lazy_event_enter_file,
 	config = function()
-		require("neoscroll").setup({ mappings = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "<C-y>", "<C-e>" } })
+		require("neoscroll").setup({ mappings = { "<C-u>", "<C-d>", "<C-y>", "<C-e>" } })
 	end,
 }
 
@@ -311,7 +312,7 @@ M["iamcco/markdown-preview.nvim"] = {
 }
 
 M["kevinhwang91/promise-async"] = {
-	after = { "nvim-treesitter" }
+	after = { "nvim-treesitter" },
 }
 
 M["kevinhwang91/nvim-ufo"] = {

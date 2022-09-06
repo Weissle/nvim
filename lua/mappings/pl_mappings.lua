@@ -51,4 +51,15 @@ M.cmp = function()
 	}
 end
 
+M.mini_surround = function()
+	return {
+		add = "<leader>as",
+		delete = "ds",
+		find = "",
+		find_left = "",
+		highlight = "",
+		replace = "cs",
+		update_n_lines = "",
+	}
+end
 return M

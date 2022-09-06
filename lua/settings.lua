@@ -14,21 +14,18 @@ opt.incsearch = false
 
 vim.g.mapleader = " "
 
-vim.cmd[[autocmd FileType * set formatoptions-=cro]]
+vim.cmd([[autocmd FileType * set formatoptions-=cro]])
+
+vim.api.nvim_create_user_command("PluginsSetup", function()
+	require("plugins.setup.packer").setup({})
+	vim.cmd("PackerInstall")
+	vim.cmd("PackerSync")
+end, {})
 
 vim.defer_fn(function()
 	vim.cmd("set clipboard+=unnamedplus")
 
-	vim.api.nvim_create_augroup("move-to-term", { clear = true })
-	vim.api.nvim_create_autocmd("BufEnter", {
-		group = "move-to-term",
-		callback = function()
-			local file_name = vim.api.nvim_buf_get_name(0)
-			if string.find(file_name, "^term") then
-				vim.cmd("startinsert")
-			end
-		end,
-	})
+	require("common").autocmd_enter_term()
 
 	vim.api.nvim_create_augroup("autosave", { clear = true })
 	vim.api.nvim_create_autocmd("BufLeave", {
@@ -38,4 +35,3 @@ vim.defer_fn(function()
 		end,
 	})
 end, 1000)
-

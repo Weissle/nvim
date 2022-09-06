@@ -11,15 +11,7 @@ M.setup = function(_)
 	require("mappings.fl_mappings").bufremove()
 	require("mini.pairs").setup({})
 	require("mini.surround").setup({
-		mappings = {
-			add = "ys",
-			delete = "ds",
-			find = "",
-			find_left = "",
-			highlight = "",
-			replace = "cs",
-			update_n_lines = "",
-		},
+		mappings = require("mappings.pl_mappings").mini_surround(),
 	})
 end
 

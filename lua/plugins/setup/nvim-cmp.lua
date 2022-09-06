@@ -41,6 +41,7 @@ M.setup = function(_)
 		["treesitter"] = "TeS",
 		["nvim_lua"] = "NLua",
 		["cmdline"] = "Cmd",
+		["latex_symbols"] = "Tex",
 	}
 
 	cmp.setup({
@@ -58,12 +59,18 @@ M.setup = function(_)
 		},
 		mapping = require("mappings.pl_mappings").cmp(),
 		sources = {
+			{
+				name = "nvim_lsp",
+				entry_filter = function(entry, ctx)
+					return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Snippet"
+				end,
+			},
 			{ name = "luasnip" },
-			{ name = "nvim_lsp" },
 			{ name = "path" },
 			{ name = "buffer" },
 			{ name = "treesitter" },
 			{ name = "nvim_lua" },
+			{ name = "latex_symbols" },
 		},
 	})
 

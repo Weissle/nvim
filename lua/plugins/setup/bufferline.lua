@@ -11,7 +11,7 @@ M.setup = function(_)
 						name = "Bash",
 						auto_close = false,
 						matcher = function(buf)
-							return buf.filename == "bash"
+							return buf.filename == "bash" or buf.filename == "zsh"
 						end,
 					},
 				},
