@@ -15,7 +15,11 @@ M.setup = function(_)
 	local servers = require("common").get_lsp_server_list()
 	local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-	local special_setup = { ["sumneko_lua"] = true }
+	local special_setup = {
+		sumneko_lua = true,
+		clangd = true
+	}
+
 	for _, lsp in pairs(servers) do
 		if special_setup[lsp] == nil then
 			lspconfig[lsp].setup({
@@ -44,8 +48,17 @@ M.setup = function(_)
 				telemetry = {
 					enable = false,
 				},
+				completion = {
+					autoRequire = false
+				}
 			},
 		},
+	})
+
+	lspconfig.clangd.setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		cmd = { "clangd", "--header-insertion=never" }
 	})
 end
 
