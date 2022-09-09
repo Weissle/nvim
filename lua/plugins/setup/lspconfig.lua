@@ -13,11 +13,13 @@ M.setup = function(_)
 	-- Use a loop to conveniently call 'setup' on multiple servers and
 	-- map buffer local keybindings when the language server attaches
 	local servers = require("common").get_lsp_server_list()
-	local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+	local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities(), {
+		snippetSupport = false,
+	})
 
 	local special_setup = {
 		sumneko_lua = true,
-		clangd = true
+		clangd = true,
 	}
 
 	for _, lsp in pairs(servers) do
@@ -49,16 +51,16 @@ M.setup = function(_)
 					enable = false,
 				},
 				completion = {
-					autoRequire = false
-				}
+					autoRequire = false,
+					keywordSnippet = "Disable",
+				},
 			},
 		},
 	})
-
 	lspconfig.clangd.setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
-		cmd = { "clangd", "--header-insertion=never" }
+		cmd = { "clangd", "--header-insertion=never" },
 	})
 end
 

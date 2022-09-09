@@ -59,12 +59,7 @@ M.setup = function(_)
 		},
 		mapping = require("mappings.pl_mappings").cmp(),
 		sources = {
-			{
-				name = "nvim_lsp",
-				entry_filter = function(entry, ctx)
-					return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Snippet"
-				end,
-			},
+			{ name = "nvim_lsp" },
 			{ name = "luasnip" },
 			{ name = "path" },
 			{ name = "buffer" },

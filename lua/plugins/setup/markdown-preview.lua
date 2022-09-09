@@ -1,5 +1,4 @@
 local M = {}
--- Utility functions shared between progress reports for LSP and DAP
 
 M.setup = function(_)
 	local g = vim.g

@@ -13,9 +13,13 @@ M["wbthomason/packer.nvim"] = {
 	end,
 }
 
-M["kyazdani42/nvim-web-devicons"] = {}
+M["kyazdani42/nvim-web-devicons"] = {
+	module = "nvim-web-devicons",
+}
 
-M["nvim-lua/plenary.nvim"] = {}
+M["nvim-lua/plenary.nvim"] = {
+	module = "plenary",
+}
 
 M["rafamadriz/friendly-snippets"] = {
 	event = lazy_event_start_insert,
@@ -155,6 +159,12 @@ M["rcarriga/nvim-notify"] = {
 	end,
 }
 
+M["stevearc/dressing.nvim"] = {
+	config = function()
+		require("dressing").setup({})
+	end,
+}
+
 M["kyazdani42/nvim-tree.lua"] = {
 	cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle" },
 	config = function()
@@ -215,10 +225,7 @@ M["nvim-treesitter/nvim-treesitter"] = {
 M["L3MON4D3/LuaSnip"] = {
 	after = "friendly-snippets",
 	config = function()
-		require("luasnip").setup({
-			region_check_events = "InsertEnter",
-		})
-		require("luasnip.loaders.from_vscode").lazy_load()
+		require("plugins.setup.luasnip").setup({})
 	end,
 }
 
