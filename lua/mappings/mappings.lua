@@ -63,32 +63,6 @@ keymap("n", "<C-b>", ":NvimTreeFindFileToggle<CR>", opts)
 
 keymap("n", "<leader>mw", "<cmd>SmartResizeMode<cr>", opts)
 
-for _, mode in ipairs({ "n", "x", "o" }) do
-	keymap(
-		mode,
-		"f",
-		"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>",
-		opts
-	)
-	keymap(
-		mode,
-		"F",
-		"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>",
-		opts
-	)
-	keymap(
-		mode,
-		"t",
-		"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>",
-		opts
-	)
-	keymap(
-		mode,
-		"T",
-		"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>",
-		opts
-	)
-end
 keymap("", "<leader>hl", "<cmd>HopLineStartMW<cr>", opts)
 keymap("", "<leader>hw", "<cmd>HopWordMW<cr>", opts)
 keymap(

@@ -186,7 +186,7 @@ M["L3MON4D3/LuaSnip"] = {
 }
 
 M["hrsh7th/cmp-nvim-lsp"] = {
-	module = "cmp_nvim_lsp",
+	after = "nvim-cmp",
 }
 M["saadparwaiz1/cmp_luasnip"] = {
 	after = { "nvim-cmp", "LuaSnip" },
@@ -239,6 +239,7 @@ M["phaazon/hop.nvim"] = {
 	keys = { "f", "F", "t", "T" },
 	config = function()
 		require("hop").setup({})
+		require("mappings.fl_mappings").hop()
 	end,
 }
 

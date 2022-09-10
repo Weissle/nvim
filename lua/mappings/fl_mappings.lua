@@ -41,4 +41,32 @@ M.ufo = function()
 	vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 end
 
+M.hop = function()
+	for _, mode in ipairs({ "n", "x", "o" }) do
+		keymap(
+			mode,
+			"f",
+			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>",
+			opts
+		)
+		keymap(
+			mode,
+			"F",
+			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>",
+			opts
+		)
+		keymap(
+			mode,
+			"t",
+			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>",
+			opts
+		)
+		keymap(
+			mode,
+			"T",
+			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>",
+			opts
+		)
+	end
+end
 return M
