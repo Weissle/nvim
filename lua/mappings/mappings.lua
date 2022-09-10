@@ -52,7 +52,9 @@ keymap(
 keymap("n", "<Leader>fG", "<cmd>Telescope git_status<cr>", opts)
 keymap("n", "<Leader>fr", "<cmd>Telescope resume<cr>", opts)
 keymap("n", "<Leader>f/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)
-keymap("n", "<Leader>fs", "<cmd>Telescope session-lens search_session<cr>", opts)
+if vim.g.auto_session_enabled ~= false then
+	keymap("n", "<Leader>fs", "<cmd>Telescope session-lens search_session<cr>", opts)
+end
 keymap("n", "<Leader>fn", "<cmd>Telescope notify<cr>", opts)
 keymap("n", "<Leader>fT", "<cmd>TodoTelescope <cr>", opts)
 
@@ -60,3 +62,44 @@ keymap("n", "<C-n>", ":NvimTreeToggle<CR>", opts)
 keymap("n", "<C-b>", ":NvimTreeFindFileToggle<CR>", opts)
 
 keymap("n", "<leader>mw", "<cmd>SmartResizeMode<cr>", opts)
+
+for _, mode in ipairs({ "n", "x", "o" }) do
+	keymap(
+		mode,
+		"f",
+		"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>",
+		opts
+	)
+	keymap(
+		mode,
+		"F",
+		"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>",
+		opts
+	)
+	keymap(
+		mode,
+		"t",
+		"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>",
+		opts
+	)
+	keymap(
+		mode,
+		"T",
+		"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>",
+		opts
+	)
+end
+keymap("", "<leader>hl", "<cmd>HopLineStartMW<cr>", opts)
+keymap("", "<leader>hw", "<cmd>HopWordMW<cr>", opts)
+keymap(
+	"",
+	"<leader>he",
+	"<cmd>lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, multi_windows = true })<cr>",
+	opts
+)
+keymap("", "<leader>hx", "<cmd>HopChar2MW <cr>", opts)
+keymap("", "<leader>h/", "<cmd>HopPatternMW <cr>", opts)
+
+keymap("n", "<Leader>of", "<cmd>Neogen func<CR>", opts)
+keymap("n", "<Leader>oc", "<cmd>Neogen class<CR>", opts)
+keymap("n", "<Leader>ot", "<cmd>Neogen type<CR>", opts)

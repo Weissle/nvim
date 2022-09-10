@@ -4,45 +4,6 @@ local M = {}
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 
-M.hop = function()
-	for _, mode in ipairs({ "n", "x", "o" }) do
-		keymap(
-			mode,
-			"f",
-			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>",
-			opts
-		)
-		keymap(
-			mode,
-			"F",
-			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>",
-			opts
-		)
-		keymap(
-			mode,
-			"t",
-			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>",
-			opts
-		)
-		keymap(
-			mode,
-			"T",
-			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>",
-			opts
-		)
-	end
-	keymap("", "<leader>hl", "<cmd>HopLineStartMW<cr>", opts)
-	keymap("", "<leader>hw", "<cmd>HopWordMW<cr>", opts)
-	keymap(
-		"",
-		"<leader>he",
-		"<cmd>lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, multi_windows = true })<cr>",
-		opts
-	)
-	keymap("", "<leader>hx", "<cmd>HopChar2MW <cr>", opts)
-	keymap("", "<leader>h/", "<cmd>HopPatternMW <cr>", opts)
-end
-
 M.lspconfig = function()
 	vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action, opts)
 	vim.keymap.set("n", "<Leader>lh", vim.lsp.buf.hover, opts)
@@ -90,12 +51,6 @@ end
 
 M.dapui = function()
 	keymap("n", "<leader>dk", "<cmd>lua require'dapui'.eval()<cr>", opts)
-end
-
-M.neogen = function()
-	keymap("n", "<Leader>of", "<cmd>Neogen func<CR>", opts)
-	keymap("n", "<Leader>oc", "<cmd>Neogen class<CR>", opts)
-	keymap("n", "<Leader>ot", "<cmd>Neogen type<CR>", opts)
 end
 
 M.bufremove = function()

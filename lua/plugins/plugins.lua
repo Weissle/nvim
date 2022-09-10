@@ -21,15 +21,9 @@ M["nvim-lua/plenary.nvim"] = {
 	module = "plenary",
 }
 
-M["rafamadriz/friendly-snippets"] = {
-	event = lazy_event_start_insert,
-}
+M["rafamadriz/friendly-snippets"] = {}
 
 M["lukas-reineke/indent-blankline.nvim"] = {
-	event = lazy_event_enter_file,
-}
-
-M["tpope/vim-repeat"] = {
 	event = lazy_event_enter_file,
 }
 
@@ -47,13 +41,16 @@ M["nvim-lualine/lualine.nvim"] = {
 }
 
 M["rmagatti/auto-session"] = {
+	cond = function()
+		return vim.g.auto_session_enabled ~= false
+	end,
 	config = function()
 		require("plugins.setup.auto-session").setup()
 	end,
 }
 
 M["ray-x/lsp_signature.nvim"] = {
-	event = lazy_event_start_insert,
+	after = { "nvim-lspconfig" },
 	config = function()
 		require("lsp_signature").setup({
 			bind = true, -- This is mandatory, otherwise border config won't get registered.
@@ -72,12 +69,11 @@ M["mrjones2014/smart-splits.nvim"] = {
 }
 
 M["danymat/neogen"] = {
-	after = "LuaSnip",
+	cmd = { "Neogen" },
 	config = function()
 		require("neogen").setup({
 			snippet_engine = "luasnip",
 		})
-		require("mappings.fl_mappings").neogen()
 	end,
 }
 
@@ -98,6 +94,7 @@ M["folke/trouble.nvim"] = {
 }
 
 M["folke/todo-comments.nvim"] = {
+	event = lazy_event_enter_file,
 	cmd = { "TodoTelescope" },
 	config = function()
 		require("todo-comments").setup({})
@@ -113,7 +110,7 @@ M["theHamsta/nvim-dap-virtual-text"] = {
 }
 
 M["rmagatti/session-lens"] = {
-	after = "telescope.nvim",
+	after = { "telescope.nvim", "auto-session" },
 	config = function()
 		require("session-lens").setup({})
 	end,
@@ -133,7 +130,7 @@ M["Weissle/persistent-breakpoints.nvim"] = {
 }
 
 M["numToStr/Comment.nvim"] = {
-	event = lazy_event_enter_file,
+	keys = { "gcc", "gc", "gb" },
 	config = function()
 		require("Comment").setup({})
 	end,
@@ -191,7 +188,7 @@ M["mfussenegger/nvim-dap"] = {
 }
 
 M["neovim/nvim-lspconfig"] = {
-	after = { "mason-lspconfig.nvim", "cmp-nvim-lsp" },
+	after = { "mason-lspconfig.nvim" },
 	config = function()
 		require("plugins.setup.lspconfig").setup({})
 		require("mappings.fl_mappings").lspconfig()
@@ -223,14 +220,15 @@ M["nvim-treesitter/nvim-treesitter"] = {
 }
 
 M["L3MON4D3/LuaSnip"] = {
-	after = "friendly-snippets",
+	module = "luasnip",
+	event = lazy_event_start_insert,
 	config = function()
 		require("plugins.setup.luasnip").setup({})
 	end,
 }
 
 M["hrsh7th/cmp-nvim-lsp"] = {
-	after = "mason-lspconfig.nvim",
+	module = "cmp_nvim_lsp",
 }
 M["saadparwaiz1/cmp_luasnip"] = {
 	after = "nvim-cmp",
@@ -286,15 +284,15 @@ M["akinsho/bufferline.nvim"] = {
 
 M["phaazon/hop.nvim"] = {
 	branch = "v2", -- optional but strongly recommended
-	event = lazy_event_enter_file,
+	cmd = { "HopLineStartMW", "HopWordMW", "HopChar2MW", "HopPatternMW" },
+	keys = { "f", "F", "t", "T" },
 	config = function()
 		require("hop").setup({})
-		require("mappings.fl_mappings").hop()
 	end,
 }
 
 M["karb94/neoscroll.nvim"] = {
-	event = lazy_event_enter_file,
+	keys = { "<C-u>", "<C-d>", "<C-y>", "<C-e>" },
 	config = function()
 		require("neoscroll").setup({ mappings = { "<C-u>", "<C-d>", "<C-y>", "<C-e>" } })
 	end,
@@ -318,12 +316,14 @@ M["iamcco/markdown-preview.nvim"] = {
 	end,
 }
 
-M["kevinhwang91/promise-async"] = {
-	after = { "nvim-treesitter" },
-}
-
 M["kevinhwang91/nvim-ufo"] = {
-	after = { "promise-async" },
+	after = { "nvim-treesitter" },
+	requires = {
+		{
+			"kevinhwang91/promise-async",
+			module = "promise",
+		},
+	},
 	config = function()
 		require("plugins.setup.nvim-ufo").setup({})
 		require("mappings.fl_mappings").ufo()

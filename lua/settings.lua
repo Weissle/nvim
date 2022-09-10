@@ -13,6 +13,7 @@ opt.splitbelow = true
 opt.incsearch = false
 
 vim.g.mapleader = " "
+-- vim.g.auto_session_enabled = false
 
 vim.cmd([[autocmd FileType * set formatoptions-=cro]])
 
