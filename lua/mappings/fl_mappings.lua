@@ -31,28 +31,6 @@ M.bufferline = function()
 	keymap("n", "<leader>qr", "<cmd>BufferLineCloseRight<cr>", opts)
 end
 
-M.dap = function()
-	keymap("n", "<leader>da", "<cmd>lua require('persistent-breakpoints.api').toggle_breakpoint()<cr>", opts)
-	keymap("n", "<leader>dA", "<cmd>lua require('persistent-breakpoints.api').set_conditional_breakpoint()<cr>", opts)
-	keymap("n", "<leader>dt", "<cmd>lua require'dap'.run_to_cursor()<cr>", opts)
-	keymap("n", "<leader>dp", "<cmd>lua require'dap'.pause()<cr>", opts)
-	keymap("n", "<leader>dT", "<cmd>lua require('dap').terminate(); require('dapui').close()<cr>", opts)
-	keymap("n", "<leader>dc", "<cmd>Telescope dap configurations<cr>", opts)
-	keymap("n", "<leader>dC", "<cmd>Telescope dap commands<cr>", opts)
-	keymap("n", "<leader>dv", "<cmd>Telescope dap variables<cr>", opts)
-	keymap("n", "<leader>db", "<cmd>Telescope dap list_breakpoints<cr>", opts)
-	keymap("n", "<F4>", "<cmd>lua require'dap'.terminate()<cr>", opts)
-	keymap("n", "<F5>", "<cmd>lua require'dap'.continue()<cr>", opts)
-	keymap("n", "<F6>", "<cmd>lua require'dap'.step_over()<cr>", opts)
-	keymap("n", "<F7>", "<cmd>lua require'dap'.step_into()<cr>", opts)
-	keymap("n", "<F8>", "<cmd>lua require'dap'.step_out()<cr>", opts)
-	keymap("n", "<F9>", "<cmd>lua require'dap'.run_last()<cr>", opts)
-end
-
-M.dapui = function()
-	keymap("n", "<leader>dk", "<cmd>lua require'dapui'.eval()<cr>", opts)
-end
-
 M.bufremove = function()
 	keymap("n", "<leader>qb", "<cmd>lua require('mini.bufremove').delete(0,false)<cr>", opts)
 	keymap("t", "<leader>qb", "<cmd>lua require('mini.bufremove').delete(0,false)<cr>", opts)

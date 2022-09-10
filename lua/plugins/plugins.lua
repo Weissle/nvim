@@ -2,9 +2,6 @@ local M = {}
 
 local lazy_event_enter_file = { "BufRead", "BufNewFile" }
 local lazy_event_start_insert = { "InsertEnter" }
-local module_activate = {
-	debug = false,
-}
 
 M["wbthomason/packer.nvim"] = {
 	cmd = { "PackerInstall", "PackerSync", "PackerStatus", "PackerCompile", "PackerProfile", "PackerClean" },
@@ -101,31 +98,10 @@ M["folke/todo-comments.nvim"] = {
 	end,
 }
 
-M["theHamsta/nvim-dap-virtual-text"] = {
-	disable = not module_activate.debug,
-	after = "nvim-dap",
-	config = function()
-		require("nvim-dap-virtual-text").setup({})
-	end,
-}
-
 M["rmagatti/session-lens"] = {
 	after = { "telescope.nvim", "auto-session" },
 	config = function()
 		require("session-lens").setup({})
-	end,
-}
-
-M["Weissle/persistent-breakpoints.nvim"] = {
-	disable = not module_activate.debug,
-	event = lazy_event_enter_file,
-	after = "nvim-dap",
-	config = function()
-		require("persistent-breakpoints").setup({})
-		vim.api.nvim_create_autocmd(
-			{ "BufReadPost" },
-			{ callback = require("persistent-breakpoints.api").load_breakpoints }
-		)
 	end,
 }
 
@@ -166,24 +142,6 @@ M["kyazdani42/nvim-tree.lua"] = {
 	cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle" },
 	config = function()
 		require("plugins.setup.nvim-tree").setup({})
-	end,
-}
-
-M["rcarriga/nvim-dap-ui"] = {
-	disable = not module_activate.debug,
-	after = "nvim-dap",
-	config = function()
-		require("plugins.setup.dap-ui").setup({})
-		require("mappings.fl_mappings").dapui()
-	end,
-}
-
-M["mfussenegger/nvim-dap"] = {
-	disable = not module_activate.debug,
-	after = { "mason.nvim" },
-	config = function()
-		require("plugins.setup.dap").setup({})
-		require("mappings.fl_mappings").dap()
 	end,
 }
 
@@ -262,14 +220,6 @@ M["hrsh7th/nvim-cmp"] = {
 	after = { "LuaSnip" },
 	config = function()
 		require("plugins.setup.nvim-cmp").setup({})
-	end,
-}
-
-M["nvim-telescope/telescope-dap.nvim"] = {
-	disable = not module_activate.debug,
-	after = { "telescope.nvim", "nvim-dap" },
-	config = function()
-		require("telescope").load_extension("dap")
 	end,
 }
 
