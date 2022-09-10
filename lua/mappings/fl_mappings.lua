@@ -15,7 +15,7 @@ M.lspconfig = function()
 	vim.keymap.set("n", "<Leader>dp", vim.diagnostic.goto_prev, opts)
 	vim.keymap.set("n", "<Leader>dn", vim.diagnostic.goto_next, opts)
 	vim.keymap.set("n", "<Leader>do", vim.diagnostic.open_float, opts)
-	keymap("n", "<Leader>dl", "<cmd>Telescope diagnostics<cr>", opts)
+	keymap("n", "<Leader>fd", "<cmd>Telescope diagnostics<cr>", opts)
 	-- frequently use
 	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
 	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
@@ -65,6 +65,12 @@ M.hop = function()
 			mode,
 			"T",
 			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>",
+			opts
+		)
+		keymap(
+			"",
+			"<leader>he",
+			"<cmd>lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, multi_windows = true })<cr>",
 			opts
 		)
 	end

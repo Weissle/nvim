@@ -236,7 +236,7 @@ M["akinsho/bufferline.nvim"] = {
 M["phaazon/hop.nvim"] = {
 	branch = "v2", -- optional but strongly recommended
 	cmd = { "HopLineStartMW", "HopWordMW", "HopChar2MW", "HopPatternMW" },
-	keys = { "f", "F", "t", "T" },
+	keys = { "f", "F", "t", "T", "<leader>he" },
 	config = function()
 		require("hop").setup({})
 		require("mappings.fl_mappings").hop()

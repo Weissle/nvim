@@ -65,12 +65,7 @@ keymap("n", "<leader>mw", "<cmd>SmartResizeMode<cr>", opts)
 
 keymap("", "<leader>hl", "<cmd>HopLineStartMW<cr>", opts)
 keymap("", "<leader>hw", "<cmd>HopWordMW<cr>", opts)
-keymap(
-	"",
-	"<leader>he",
-	"<cmd>lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, multi_windows = true })<cr>",
-	opts
-)
+
 keymap("", "<leader>hx", "<cmd>HopChar2MW <cr>", opts)
 keymap("", "<leader>h/", "<cmd>HopPatternMW <cr>", opts)
 
