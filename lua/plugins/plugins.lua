@@ -189,7 +189,7 @@ M["hrsh7th/cmp-nvim-lsp"] = {
 	module = "cmp_nvim_lsp",
 }
 M["saadparwaiz1/cmp_luasnip"] = {
-	after = "nvim-cmp",
+	after = { "nvim-cmp", "LuaSnip" },
 }
 
 M["hrsh7th/cmp-buffer"] = {
@@ -217,7 +217,8 @@ M["kdheepak/cmp-latex-symbols"] = {
 }
 
 M["hrsh7th/nvim-cmp"] = {
-	after = { "LuaSnip" },
+	event = lazy_event_start_insert,
+	keys = { ":", "/" },
 	config = function()
 		require("plugins.setup.nvim-cmp").setup({})
 	end,
