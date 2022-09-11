@@ -8,6 +8,7 @@ keymap("i", "<C-h>", "<left>", opts)
 keymap("i", "<C-l>", "<right>", opts)
 keymap("i", "<C-k>", "<up>", opts)
 keymap("i", "<C-j>", "<down>", opts)
+keymap("", "J", "gJ", opts)
 
 --> Quit or Close
 keymap("n", "<leader>qq", "<cmd>wq<cr>", opts)
@@ -66,3 +67,5 @@ keymap("", "<leader>h/", "<cmd>HopPatternMW <cr>", opts)
 keymap("n", "<Leader>of", "<cmd>Neogen func<CR>", opts)
 keymap("n", "<Leader>oc", "<cmd>Neogen class<CR>", opts)
 keymap("n", "<Leader>ot", "<cmd>Neogen type<CR>", opts)
+
+keymap("n", "<Leader>lS", "<cmd>SymbolsOutline<CR>", opts)
