@@ -43,12 +43,6 @@ keymap("n", "<Leader>ft", "<cmd>Telescope <cr>", opts)
 keymap("n", "<Leader>fa", "<cmd>Telescope find_files no_ignore=true<cr>", opts)
 keymap("n", "<Leader>f*", "<cmd>Telescope grep_string<cr>", opts)
 keymap("n", "<Leader>fo", "<cmd>Telescope oldfiles<cr>", opts)
-keymap(
-	"n",
-	"<Leader>fk",
-	'<cmd>lua require("telescope.builtin").keymaps{ modes = {"n","i","c","x","v","o"} }<cr>',
-	opts
-)
 keymap("n", "<Leader>fG", "<cmd>Telescope git_status<cr>", opts)
 keymap("n", "<Leader>fr", "<cmd>Telescope resume<cr>", opts)
 keymap("n", "<Leader>f/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)
