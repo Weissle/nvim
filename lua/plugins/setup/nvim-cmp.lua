@@ -43,12 +43,12 @@ M.setup = function(_)
 		["cmdline"] = "Cmd",
 		["latex_symbols"] = "Tex",
 	}
-
+	local cmp_item_kind = require("cmp.types").lsp.CompletionItemKind
 	cmp.setup({
 		formatting = {
 			format = function(entry, vim_item)
 				vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
-				vim_item.menu = (cmp_source)[entry.source.name]
+				vim_item.menu = cmp_source[entry.source.name]
 				return vim_item
 			end,
 		},
@@ -59,7 +59,12 @@ M.setup = function(_)
 		},
 		mapping = require("mappings.pl_mappings").cmp(),
 		sources = {
-			{ name = "nvim_lsp" },
+			{
+				name = "nvim_lsp",
+				entry_filter = function(entry, ctx)
+					return cmp_item_kind[entry:get_kind()] ~= "Snippet"
+				end,
+			},
 			{ name = "luasnip" },
 			{ name = "path" },
 			{ name = "buffer" },

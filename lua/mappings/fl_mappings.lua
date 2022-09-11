@@ -76,12 +76,12 @@ M.hop = function()
 	end
 end
 
-M.telescope = function ()
+M.telescope = function()
 	keymap(
-	"n",
-	"<Leader>fk",
-	'<cmd>lua require("telescope.builtin").keymaps{ modes = {"n","i","c","x","v","o"} }<cr>',
-	opts
+		"n",
+		"<Leader>fk",
+		'<cmd>lua require("telescope.builtin").keymaps{ modes = {"n","i","c","x","v","o"} }<cr>',
+		opts
 	)
 end
 

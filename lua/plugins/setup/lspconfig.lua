@@ -47,9 +47,7 @@ M.setup = function(_)
 	local servers = require("common").get_lsp_server_list()
 
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	update_capabilities(capabilities, {
-		snippetSupport = false,
-	})
+	update_capabilities(capabilities)
 
 	local special_setup = {
 		sumneko_lua = true,

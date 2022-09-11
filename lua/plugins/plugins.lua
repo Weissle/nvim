@@ -155,7 +155,7 @@ M["neovim/nvim-lspconfig"] = {
 
 M["nvim-telescope/telescope.nvim"] = {
 	cmd = { "Telescope" },
-	keys = {"<leader>fk"},
+	keys = { "<leader>fk" },
 	branch = "0.1.x",
 	config = function()
 		require("plugins.setup.telescope").setup({})
