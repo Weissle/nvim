@@ -1,4 +1,4 @@
--- steup when the plugin is loaded.
+-- setup when the plugin is loaded.
 local M = {}
 
 local opts = { noremap = true, silent = true }
@@ -37,8 +37,8 @@ M.bufremove = function()
 end
 
 M.ufo = function()
-	vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-	vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+	vim.keymap.set("n", "zR", require("ufo").openAllFolds, opts)
+	vim.keymap.set("n", "zM", require("ufo").closeAllFolds, opts)
 end
 
 M.hop = function()

@@ -18,7 +18,6 @@ M.setup = function(_)
 			},
 		},
 	})
-	require("mappings.fl_mappings").bufferline()
 end
 
 return M

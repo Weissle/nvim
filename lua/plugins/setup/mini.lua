@@ -8,7 +8,6 @@ M.setup = function(_)
 	:hi MiniCursorwordCurrent gui=NONE guifg=NONE guibg=#41497D
 	]])
 	require("mini.bufremove").setup({})
-	require("mappings.fl_mappings").bufremove()
 	require("mini.pairs").setup({})
 	require("mini.surround").setup({
 		mappings = require("mappings.pl_mappings").mini_surround(),

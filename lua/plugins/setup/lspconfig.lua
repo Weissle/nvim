@@ -85,6 +85,7 @@ M.setup = function(_)
 				completion = {
 					autoRequire = false,
 					keywordSnippet = "Disable",
+					callSnippet = "Replace",
 				},
 			},
 		},

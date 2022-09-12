@@ -35,14 +35,13 @@ M.setup = function(_)
 	local cmp_source = {
 		["nvim_lsp"] = "LSP",
 		["luasnip"] = "Snip",
-		["cmp_tabnine"] = "Tab",
 		["path"] = "Path",
 		["buffer"] = "Buf",
 		["treesitter"] = "TeS",
-		["nvim_lua"] = "NLua",
 		["cmdline"] = "Cmd",
 		["latex_symbols"] = "Tex",
 	}
+
 	local cmp_item_kind = require("cmp.types").lsp.CompletionItemKind
 	cmp.setup({
 		formatting = {
@@ -62,14 +61,14 @@ M.setup = function(_)
 			{
 				name = "nvim_lsp",
 				entry_filter = function(entry, ctx)
-					return cmp_item_kind[entry:get_kind()] ~= "Snippet"
+					local cmp_kind = cmp_item_kind[entry:get_kind()]
+					return cmp_kind ~= "Snippet" and cmp_kind ~= "Text"
 				end,
 			},
 			{ name = "luasnip" },
 			{ name = "path" },
 			{ name = "buffer" },
 			{ name = "treesitter" },
-			{ name = "nvim_lua" },
 			{ name = "latex_symbols" },
 		},
 	})
@@ -81,11 +80,9 @@ M.setup = function(_)
 		},
 	})
 
-	-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 	cmp.setup.cmdline(":", {
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = cmp.config.sources({
-			{ name = "nvim_lua" },
 			{ name = "cmdline", keyword_pattern = [=[[^[:blank:]\!]*]=], keyword_length = 3 },
 			{ name = "path" },
 		}),

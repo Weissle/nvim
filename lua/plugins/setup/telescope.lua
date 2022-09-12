@@ -7,7 +7,10 @@ M.setup = function(_)
 			mappings = require("mappings.pl_mappings").telescope(),
 		},
 	})
-	telescope.load_extension("notify")
+	local ext, _ = pcall(require, "notify")
+	if ext then
+		telescope.load_extension("notify")
+	end
 end
 
 return M
