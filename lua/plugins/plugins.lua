@@ -145,7 +145,6 @@ if group.cmp ~= false then
 
 	M["hrsh7th/cmp-buffer"] = {
 		after = "nvim-cmp",
-		event = lazy_event_start_insert,
 	}
 
 	M["hrsh7th/cmp-path"] = {
