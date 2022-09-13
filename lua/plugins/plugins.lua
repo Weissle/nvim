@@ -114,6 +114,16 @@ if group.lsp ~= false then
 			require("trouble").setup({})
 		end,
 	}
+
+	M["smjonas/inc-rename.nvim"] = {
+		keys = { "<leader>lr" },
+		config = function()
+			require("inc_rename").setup({
+				input_buffer_type = "dressing",
+			})
+			require("mappings.fl_mappings").inc_rename()
+		end,
+	}
 end
 
 if group.cmp ~= false then

@@ -5,6 +5,7 @@ M.setup = function(_)
 
 	nvimtree.setup({ -- BEGIN_DEFAULT_OPTS
 		view = {
+			adaptive_size = true,
 			side = "right",
 		},
 		git = {

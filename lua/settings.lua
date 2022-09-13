@@ -14,6 +14,8 @@ opt.splitbelow = true
 opt.incsearch = false
 
 vim.g.mapleader = " "
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 -- vim.g.auto_session_enabled = false
 
 vim.cmd([[autocmd FileType * set formatoptions-=cro]])

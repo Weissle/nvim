@@ -8,7 +8,7 @@ M.lspconfig = function()
 	vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action, opts)
 	vim.keymap.set("n", "<Leader>lh", vim.lsp.buf.hover, opts)
 	vim.keymap.set("n", "<Leader>ls", vim.lsp.buf.signature_help, opts)
-	vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, opts)
+	-- vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, opts) replace by inc-rename.nvim
 	vim.keymap.set("n", "<Leader>lf", vim.lsp.buf.formatting, opts)
 	vim.keymap.set("n", "<Leader>lt", vim.lsp.buf.type_definition, opts)
 	-- diagnostic
@@ -83,6 +83,10 @@ M.telescope = function()
 		'<cmd>lua require("telescope.builtin").keymaps{ modes = {"n","i","c","x","v","o"} }<cr>',
 		opts
 	)
+end
+
+M.inc_rename = function()
+	vim.keymap.set("n", "<leader>lr", ":IncRename ", opts)
 end
 
 return M
