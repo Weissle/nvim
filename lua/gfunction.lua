@@ -1,9 +1,5 @@
 local M = {}
 
-M.get_lsp_server_list = function()
-	return { "pyright", "clangd", "tsserver", "cmake", "bashls", "lemminx", "sumneko_lua", "texlab" }
-end
-
 M.autocmd_enter_term = function()
 	vim.api.nvim_create_augroup("move-to-term", { clear = true })
 	vim.api.nvim_create_autocmd("BufEnter", {

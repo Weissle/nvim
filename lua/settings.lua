@@ -31,7 +31,7 @@ end, {})
 vim.defer_fn(function()
 	vim.cmd("set clipboard+=unnamedplus")
 
-	require("common").autocmd_enter_term()
+	require("gfunction").autocmd_enter_term()
 
 	vim.api.nvim_create_augroup("autosave", { clear = true })
 	vim.api.nvim_create_autocmd("BufLeave", {

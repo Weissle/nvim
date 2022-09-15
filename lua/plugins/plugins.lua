@@ -69,7 +69,7 @@ if group.lsp ~= false then
 		after = { "mason.nvim" },
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = require("common").get_lsp_server_list(),
+				ensure_installed = require("gconfig").lsp_server_list,
 			})
 		end,
 	}
@@ -116,7 +116,7 @@ if group.lsp ~= false then
 	}
 
 	M["smjonas/inc-rename.nvim"] = {
-		keys = { "<leader>lr" },
+		after = { "nvim-lspconfig" },
 		config = function()
 			require("inc_rename").setup({
 				input_buffer_type = "dressing",
@@ -180,6 +180,9 @@ if group.ui then
 	}
 
 	M["folke/tokyonight.nvim"] = {
+		cond = function()
+			return require("gconfig").colorscheme_plugin == "tokyonight"
+		end,
 		config = function()
 			require("plugins.setup.tokyonight").setup({})
 		end,
@@ -288,7 +291,6 @@ if group.ez ~= false then
 	}
 
 	M["windwp/nvim-spectre"] = {
-		disable = true,
 		config = function()
 			require("spectre").setup({})
 		end,
@@ -324,5 +326,8 @@ if group.doc ~= false then
 		end,
 	}
 end
+
+local custom_plugins = require("custom").plugins or {}
+M = vim.tbl_extend("force", M, custom_plugins)
 
 return M

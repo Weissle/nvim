@@ -44,7 +44,7 @@ M.setup = function(_)
 
 	-- Use a loop to conveniently call 'setup' on multiple servers and
 	-- map buffer local keybindings when the language server attaches
-	local servers = require("common").get_lsp_server_list()
+	local servers = require("gconfig").lsp_server_list
 
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	update_capabilities(capabilities)

@@ -11,7 +11,7 @@ M.setup = function(_)
 			}
 		end,
 	})
-	vim.cmd("colorscheme tokyonight")
+	vim.cmd("colorscheme " .. require("gconfig").colorscheme)
 end
 
 return M

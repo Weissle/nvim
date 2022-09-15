@@ -8,7 +8,7 @@ M.setup = function(_)
 					vim.api.nvim_del_augroup_by_name("move-to-term")
 				end,
 				on_leave = function()
-					require("common").autocmd_enter_term()
+					require("gfunction").autocmd_enter_term()
 				end,
 			},
 		},
