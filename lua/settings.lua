@@ -12,6 +12,7 @@ opt.jumpoptions = "stack"
 opt.splitright = true
 opt.splitbelow = true
 opt.incsearch = false
+opt.fixeol = false
 
 vim.g.mapleader = " "
 vim.g.loaded_netrw = 1
@@ -19,6 +20,7 @@ vim.g.loaded_netrwPlugin = 1
 -- vim.g.auto_session_enabled = false
 
 vim.cmd([[autocmd FileType * set formatoptions-=cro]])
+vim.cmd([[autocmd TermOpen * setlocal nonumber norelativenumber]])
 
 vim.api.nvim_create_user_command("PluginsSetup", function()
 	require("plugins.setup.packer").setup({})

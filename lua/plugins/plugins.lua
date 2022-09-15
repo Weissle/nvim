@@ -229,7 +229,7 @@ if group.ez ~= false then
 	M["phaazon/hop.nvim"] = {
 		branch = "v2",
 		cmd = { "HopLineStartMW", "HopWordMW", "HopChar2MW", "HopPatternMW" },
-		keys = { "f", "F", "t", "T", "<leader>he" },
+		keys = { "<leader>hf", "<leader>hF", "<leader>ht", "<leader>hT", "<leader>he" },
 		config = function()
 			require("hop").setup({})
 			require("mappings.fl_mappings").hop()

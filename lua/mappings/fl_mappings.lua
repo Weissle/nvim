@@ -45,25 +45,25 @@ M.hop = function()
 	for _, mode in ipairs({ "n", "x", "o" }) do
 		keymap(
 			mode,
-			"f",
+			"<leader>hf",
 			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>",
 			opts
 		)
 		keymap(
 			mode,
-			"F",
+			"<leader>hF",
 			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>",
 			opts
 		)
 		keymap(
 			mode,
-			"t",
+			"<leader>ht",
 			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>",
 			opts
 		)
 		keymap(
 			mode,
-			"T",
+			"<leader>hT",
 			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>",
 			opts
 		)

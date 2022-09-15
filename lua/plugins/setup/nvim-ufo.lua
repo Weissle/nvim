@@ -29,7 +29,7 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
 end
 
 M.setup = function(_)
-	vim.o.foldcolumn = "1"
+	vim.o.foldcolumn = "0"
 	vim.o.foldlevel = 99
 	vim.o.foldlevelstart = 99
 	vim.o.foldenable = true
