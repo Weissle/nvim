@@ -116,6 +116,10 @@ if group.lsp ~= false then
 	}
 
 	M["smjonas/inc-rename.nvim"] = {
+		cond = function  ()
+			local vim_version = require("gconfig").vim_version
+			return vim_version.major > 0 or vim_version.minor >= 8
+		end,
 		after = { "nvim-lspconfig" },
 		config = function()
 			require("inc_rename").setup({
