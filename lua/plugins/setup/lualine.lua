@@ -9,7 +9,7 @@ end
 M.setup = function(_)
 	require("lualine").setup({
 		options = {
-			theme = "tokyonight",
+			theme = require("gconfig").colorscheme,
 			ignore_focus = {
 				"NvimTree",
 				"dapui_console",
