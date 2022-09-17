@@ -1,17 +1,31 @@
 local M = {}
-M.setup = function(_)
-	require("mini.cursorword").setup({
+
+M.subplugin_config = {
+	["mini.cursorword"] = {
 		delay = 30,
-	})
+	},
+	["mini.bufremove"] = {},
+	["mini.pairs"] = {},
+	["mini.surround"] = {
+		mappings = require("mappings.plugin_builtin").mini_surround(),
+	},
+}
+
+M.set_cursorword_highlight = function()
 	vim.cmd([[
 	:hi MiniCursorword gui=NONE guifg=NONE guibg=#41497D
 	:hi MiniCursorwordCurrent gui=NONE guifg=NONE guibg=#41497D
 	]])
-	require("mini.bufremove").setup({})
-	require("mini.pairs").setup({})
-	require("mini.surround").setup({
-		mappings = require("mappings.pl_mappings").mini_surround(),
-	})
+end
+
+M.setup = function()
+	for subplugin, config in pairs(M.subplugin_config) do
+		require(subplugin).setup(config)
+	end
+
+	if M.subplugin_config["mini.cursorword"] ~= nil then
+		M.set_cursorword_highlight()
+	end
 end
 
 return M

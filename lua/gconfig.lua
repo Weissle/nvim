@@ -4,12 +4,7 @@ M.lsp_server_list = { "pyright", "clangd", "tsserver", "cmake", "bashls", "lemmi
 
 M.colorscheme_plugin = "tokyonight"
 M.colorscheme = "tokyonight"
-local version = vim.version()
 
-M.vim_version = {
-	major = version.major,
-	minor = version.minor,
-	patch = version.patch
-}
+M = require("core").merge_user_config(M, "gconfig")
 
 return M

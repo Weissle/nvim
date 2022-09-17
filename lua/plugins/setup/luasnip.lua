@@ -1,17 +1,18 @@
 local M = {}
 
-M.setup = function(_)
-	require("luasnip").setup({
-		region_check_events = "InsertEnter",
-	})
-	-- load friendly-snippets
-	require("luasnip.loaders.from_vscode").lazy_load({
-		exclude = { "cpp" },
-	})
-	-- load my snippets
-	require("luasnip.loaders.from_vscode").lazy_load({
-		paths = { "./snippets" },
-	})
+M.config = {
+	region_check_events = "InsertEnter",
+}
+
+M.load_snippets = function()
+	require("luasnip.loaders.from_vscode").lazy_load({})
 end
+
+M.setup = function()
+	require("luasnip").setup(M.config)
+	M.load_snippets()
+end
+
+M = require("core").merge_user_config(M, "plugins.setup.luasnip")
 
 return M

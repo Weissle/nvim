@@ -1,8 +1,8 @@
 local M = {}
-
+local core = require("core")
 M.telescope = function()
 	local action = require("telescope.actions")
-	return {
+	local K = {
 		n = {
 			["q"] = action.close,
 		},
@@ -10,13 +10,14 @@ M.telescope = function()
 			["<ESC>"] = action.close,
 		},
 	}
+	return core.merge_user_config(K, "mappings.plugin_builtin.telescope")
 end
 
 M.cmp = function()
 	local luasnip = require("luasnip")
 	local cmp = require("cmp")
 
-	return {
+	local K = {
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.confirm({ select = true })
@@ -49,10 +50,11 @@ M.cmp = function()
 		end, { "i", "s" }),
 		["<C-\\>"] = cmp.mapping(cmp.mapping.abort(), { "i", "s" }),
 	}
+	return core.merge_user_config(K, "mappings.plugin_builtin.cmp")
 end
 
 M.mini_surround = function()
-	return {
+	local K = {
 		add = "<leader>as",
 		delete = "ds",
 		find = "",
@@ -61,5 +63,7 @@ M.mini_surround = function()
 		replace = "cs",
 		update_n_lines = "",
 	}
+	return core.merge_user_config(K, "mappings.plugin_builtin.mini_surround")
 end
+
 return M

@@ -1,6 +1,14 @@
 local M = {}
 
-local handler = function(virtText, lnum, endLnum, width, truncate)
+M.setup_options = function()
+	vim.o.foldcolumn = "0"
+	vim.o.foldlevel = 99
+	vim.o.foldlevelstart = 99
+	vim.o.foldenable = true
+	vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+end
+
+M.handler = function(virtText, lnum, endLnum, width, truncate)
 	local newVirtText = {}
 	local suffix = ("  %d "):format(endLnum - lnum)
 	local sufWidth = vim.fn.strdisplaywidth(suffix)
@@ -28,18 +36,18 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
 	return newVirtText
 end
 
-M.setup = function(_)
-	vim.o.foldcolumn = "0"
-	vim.o.foldlevel = 99
-	vim.o.foldlevelstart = 99
-	vim.o.foldenable = true
-	vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-	require("ufo").setup({
-		provider_selector = function(bufnr, filetype, buftype)
-			return { "treesitter", "indent" }
-		end,
-		fold_virt_text_handler = handler,
-	})
+M.config = {
+	provider_selector = function(bufnr, filetype, buftype)
+		return { "treesitter", "indent" }
+	end,
+	fold_virt_text_handler = M.handler,
+}
+
+M.setup = function()
+	M.setup_options()
+	require("ufo").setup(M.config)
 end
+
+M = require("core").merge_user_config(M, "plugins.setup.nvim-ufo")
 
 return M

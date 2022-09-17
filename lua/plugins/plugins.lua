@@ -13,10 +13,20 @@ local lazy_event_start_insert = { "InsertEnter" }
 
 M["wbthomason/packer.nvim"] = {
 	cmd = { "PackerInstall", "PackerSync", "PackerStatus", "PackerCompile", "PackerProfile", "PackerClean" },
+	setup = function()
+		vim.cmd([[
+		augroup packer_user_config
+		autocmd!
+		autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+		augroup end
+		]])
+	end,
 	config = function()
-		require("plugins.setup.packer").setup({})
+		require("plugins.setup.packer").setup()
 	end,
 }
+
+M["lewis6991/impatient.nvim"] = {}
 
 M["nvim-lua/plenary.nvim"] = {
 	module = "plenary",
@@ -25,20 +35,28 @@ M["nvim-lua/plenary.nvim"] = {
 M["williamboman/mason.nvim"] = {
 	event = lazy_event_enter_file,
 	config = function()
-		require("mason").setup({})
+		require("mason").setup()
 	end,
 }
 
 M["kyazdani42/nvim-tree.lua"] = {
 	cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle" },
+	setup = function()
+		vim.g.loaded_netrw = 1
+		vim.g.loaded_netrwPlugin = 1
+		require("mappings.plugin_preset").nvim_tree()
+	end,
 	config = function()
-		require("plugins.setup.nvim-tree").setup({})
+		require("plugins.setup.nvim-tree").setup()
 	end,
 }
 
 M["nvim-telescope/telescope.nvim"] = {
 	cmd = { "Telescope" },
 	keys = { "<leader>fk" },
+	setup = function()
+		require("mappings.plugin_preset").telescope()
+	end,
 	branch = "0.1.x",
 	requires = {
 		{
@@ -51,8 +69,8 @@ M["nvim-telescope/telescope.nvim"] = {
 		},
 	},
 	config = function()
-		require("plugins.setup.telescope").setup({})
-		require("mappings.fl_mappings").telescope()
+		require("plugins.setup.telescope").setup()
+		require("mappings.plugin_after").telescope()
 	end,
 }
 
@@ -60,7 +78,7 @@ M["nvim-treesitter/nvim-treesitter"] = {
 	run = ":TSUpdate",
 	event = lazy_event_enter_file,
 	config = function()
-		require("plugins.setup.treesitter").setup({})
+		require("plugins.setup.treesitter").setup()
 	end,
 }
 
@@ -74,18 +92,19 @@ if group.lsp ~= false then
 		end,
 	}
 
+	M["folke/lua-dev.nvim"] = {
+		module = "lua-dev",
+	}
+
 	M["neovim/nvim-lspconfig"] = {
 		after = { "mason-lspconfig.nvim" },
-		requires = {
-			{
-				"folke/lua-dev.nvim",
-				module = "lua-dev",
-			},
-		},
 		config = function()
-			require("lua-dev").setup({})
-			require("plugins.setup.lspconfig").setup({})
-			require("mappings.fl_mappings").lspconfig()
+			local ext, lua_dev = pcall(require, "lua-dev")
+			if ext then
+				lua_dev.setup()
+			end
+			require("plugins.setup.lspconfig").setup()
+			require("mappings.plugin_after").lspconfig()
 		end,
 	}
 
@@ -103,6 +122,9 @@ if group.lsp ~= false then
 
 	M["simrat39/symbols-outline.nvim"] = {
 		cmd = { "SymbolsOutline" },
+		setup = function()
+			require("mappings.plugin_preset").symbols_outline()
+		end,
 		config = function()
 			require("symbols-outline").setup()
 		end,
@@ -111,13 +133,13 @@ if group.lsp ~= false then
 	M["folke/trouble.nvim"] = {
 		cmd = { "Trouble", "TroubleToggle" },
 		config = function()
-			require("trouble").setup({})
+			require("trouble").setup()
 		end,
 	}
 
 	M["smjonas/inc-rename.nvim"] = {
-		cond = function  ()
-			local vim_version = require("gconfig").vim_version
+		cond = function()
+			local vim_version = require("core").vim_version
 			return vim_version.major > 0 or vim_version.minor >= 8
 		end,
 		after = { "nvim-lspconfig" },
@@ -125,7 +147,7 @@ if group.lsp ~= false then
 			require("inc_rename").setup({
 				input_buffer_type = "dressing",
 			})
-			require("mappings.fl_mappings").inc_rename()
+			require("mappings.plugin_after").inc_rename()
 		end,
 	}
 end
@@ -137,7 +159,7 @@ if group.cmp ~= false then
 		module = "luasnip",
 		event = lazy_event_enter_file,
 		config = function()
-			require("plugins.setup.luasnip").setup({})
+			require("plugins.setup.luasnip").setup()
 		end,
 	}
 
@@ -145,11 +167,12 @@ if group.cmp ~= false then
 		after = "LuaSnip",
 		keys = { ":", "/" },
 		config = function()
-			require("plugins.setup.nvim-cmp").setup({})
+			require("plugins.setup.nvim-cmp").setup()
 		end,
 	}
 
 	M["hrsh7th/cmp-nvim-lsp"] = {
+		module = "cmp_nvim_lsp",
 		after = "nvim-cmp",
 	}
 
@@ -188,11 +211,14 @@ if group.ui then
 			return require("gconfig").colorscheme_plugin == "tokyonight"
 		end,
 		config = function()
-			require("plugins.setup.tokyonight").setup({})
+			require("plugins.setup.tokyonight").setup()
 		end,
 	}
 
 	M["rcarriga/nvim-notify"] = {
+		setup = function()
+			require("mappings.plugin_preset").notify()
+		end,
 		config = function()
 			vim.notify = require("notify")
 		end,
@@ -200,7 +226,7 @@ if group.ui then
 
 	M["stevearc/dressing.nvim"] = {
 		config = function()
-			require("dressing").setup({})
+			require("dressing").setup()
 		end,
 	}
 
@@ -211,7 +237,7 @@ if group.ui then
 	M["nvim-lualine/lualine.nvim"] = {
 		event = lazy_event_enter_file,
 		config = function()
-			require("plugins.setup.lualine").setup({})
+			require("plugins.setup.lualine").setup()
 		end,
 	}
 
@@ -219,8 +245,8 @@ if group.ui then
 		tag = "v2.*",
 		event = lazy_event_enter_file,
 		config = function()
-			require("plugins.setup.bufferline").setup({})
-			require("mappings.fl_mappings").bufferline()
+			require("plugins.setup.bufferline").setup()
+			require("mappings.plugin_after").bufferline()
 		end,
 	}
 
@@ -235,19 +261,18 @@ end
 if group.ez ~= false then
 	M["phaazon/hop.nvim"] = {
 		branch = "v2",
-		cmd = { "HopLineStartMW", "HopWordMW", "HopChar2MW", "HopPatternMW" },
-		keys = { "<leader>hf", "<leader>hF", "<leader>ht", "<leader>hT", "<leader>he" },
+		keys = { "<leader>h" },
 		config = function()
-			require("hop").setup({})
-			require("mappings.fl_mappings").hop()
+			require("hop").setup()
+			require("mappings.plugin_after").hop()
 		end,
 	}
 
 	M["echasnovski/mini.nvim"] = {
 		event = lazy_event_enter_file,
 		config = function()
-			require("plugins.setup.mini").setup({})
-			require("mappings.fl_mappings").bufremove()
+			require("plugins.setup.mini").setup()
+			require("mappings.plugin_after").bufremove()
 		end,
 	}
 	M["rmagatti/auto-session"] = {
@@ -261,8 +286,11 @@ if group.ez ~= false then
 
 	M["rmagatti/session-lens"] = {
 		after = { "telescope.nvim", "auto-session" },
+		setup = function()
+			require("mappings.plugin_preset").session_lens()
+		end,
 		config = function()
-			require("session-lens").setup({})
+			require("session-lens").setup()
 		end,
 	}
 
@@ -275,13 +303,16 @@ if group.ez ~= false then
 			},
 		},
 		config = function()
-			require("plugins.setup.nvim-ufo").setup({})
-			require("mappings.fl_mappings").ufo()
+			require("plugins.setup.nvim-ufo").setup()
+			require("mappings.plugin_after").ufo()
 		end,
 	}
 
 	M["mrjones2014/smart-splits.nvim"] = {
 		cmd = "SmartResizeMode",
+		setup = function()
+			require("mappings.plugin_preset").smart_split()
+		end,
 		config = function()
 			require("plugins.setup.smart-splits").setup()
 		end,
@@ -290,13 +321,15 @@ if group.ez ~= false then
 	M["numToStr/Comment.nvim"] = {
 		keys = { "gcc", "gc", "gb" },
 		config = function()
-			require("Comment").setup({})
+			require("Comment").setup()
 		end,
 	}
 
 	M["windwp/nvim-spectre"] = {
+		keys = "<leader>s",
 		config = function()
-			require("spectre").setup({})
+			require("spectre").setup()
+			require("mappings.plugin_after").spectre()
 		end,
 	}
 end
@@ -304,9 +337,12 @@ end
 if group.doc ~= false then
 	M["folke/todo-comments.nvim"] = {
 		event = lazy_event_enter_file,
+		setup = function()
+			require("mappings.plugin_preset").todo_comments()
+		end,
 		cmd = { "TodoTelescope" },
 		config = function()
-			require("todo-comments").setup({})
+			require("todo-comments").setup()
 		end,
 	}
 
@@ -317,12 +353,15 @@ if group.doc ~= false then
 			vim.g.mkdp_filetypes = { "markdown" }
 		end,
 		config = function()
-			require("plugins.setup.markdown-preview").setup({})
+			require("plugins.setup.markdown-preview").setup()
 		end,
 	}
 
 	M["danymat/neogen"] = {
 		cmd = { "Neogen" },
+		setup = function()
+			require("mappings.plugin_preset").neogen()
+		end,
 		config = function()
 			require("neogen").setup({
 				snippet_engine = "luasnip",
@@ -331,7 +370,6 @@ if group.doc ~= false then
 	}
 end
 
-local custom_plugins = require("custom").plugins or {}
-M = vim.tbl_extend("force", M, custom_plugins)
+M = require("core").merge_user_config(M, "plugins.plugins")
 
 return M

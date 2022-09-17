@@ -1,1 +1,1 @@
-nnoremap <buffer> q <cmd>q<CR>
+nnoremap <buffer> q <cmd>q<cr>

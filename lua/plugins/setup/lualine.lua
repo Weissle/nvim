@@ -6,26 +6,27 @@ local function location_info()
 	return string.format("%s/%s", string.sub(current_line, #current_line - #total_line), total_line)
 end
 
-M.setup = function(_)
-	require("lualine").setup({
-		options = {
-			theme = require("gconfig").colorscheme,
-			ignore_focus = {
-				"NvimTree",
-				"dapui_console",
-				"dap-repl",
-				"dapui_breakpoints",
-				"dapui_stacks",
-				"dapui_scopes",
-				"dapui_watches",
-			},
-			globalstatus = true,
+M.config = {
+	options = {
+		theme = require("gconfig").colorscheme,
+		ignore_focus = {
+			"NvimTree",
+			"dapui_console",
+			"dap-repl",
+			"dapui_breakpoints",
+			"dapui_stacks",
+			"dapui_scopes",
+			"dapui_watches",
 		},
-		sections = {
-			lualine_c = { "filename" },
-			lualine_z = { location_info },
-		},
-	})
+	},
+	sections = {
+		lualine_c = { "filename" },
+		lualine_z = { location_info },
+	},
+}
+
+M.setup = function()
+	require("lualine").setup(M.config)
 end
 
 return M
