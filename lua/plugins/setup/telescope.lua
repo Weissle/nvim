@@ -21,4 +21,5 @@ M.setup = function()
 end
 
 M = require("core").merge_user_config(M, "plugins.setup.telescope")
+
 return M

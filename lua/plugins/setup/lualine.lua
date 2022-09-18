@@ -29,4 +29,6 @@ M.setup = function()
 	require("lualine").setup(M.config)
 end
 
+M = require("core").merge_user_config(M, "plugins.setup.lualine")
+
 return M

@@ -9,13 +9,13 @@ M.create_setup_plugins_command = function()
 end
 
 M.enable_unnamedplus = function()
-	vim.defer_fn(function ()
-		vim.cmd([[set clipboard+=unnamedplus]])	
+	vim.defer_fn(function()
+		vim.cmd([[set clipboard+=unnamedplus]])
 	end, 500)
 end
 
 M.setup_startinsert_in_terminal = function()
-	vim.defer_fn(function ()
+	vim.defer_fn(function()
 		vim.api.nvim_create_augroup("move-to-term", { clear = true })
 		vim.api.nvim_create_autocmd("BufEnter", {
 			group = "move-to-term",

@@ -14,7 +14,9 @@ M.merge_user_config = function(default_config, config_name)
 	return vim.tbl_deep_extend("force", default_config, cfg)
 end
 
-M.do_nothing = function(...) end
+M.do_nothing = function(ret, ...)
+	return ret
+end
 
 M.keymap_opts = { noremap = true, silent = true }
 

@@ -61,7 +61,7 @@ end
 
 M.smart_split = function()
 	local K = core.get_keymap_empty_bucket()
-	K["n"]["<leader>mw"] = "<cmd>SmartResizeMode<cr>"
+	K["n"]["<leader>mr"] = "<cmd>SmartResizeMode<cr>"
 	K = core.merge_user_config(K, "mappings.plugin_preset.smart_split")
 	core.set_keymap_bucket(K)
 end
@@ -69,7 +69,7 @@ end
 M.nvim_tree = function()
 	local K = core.get_keymap_empty_bucket()
 	K["n"]["<C-n>"] = ":NvimTreeToggle<cr>"
-	K["n"]["<C-b>"] = ":NvimTreeFindFileToggle<cr>"
+	K["n"]["<C-m>"] = ":NvimTreeFindFileToggle<cr>"
 	K = core.merge_user_config(K, "mappings.plugin_preset.nvim_tree")
 	core.set_keymap_bucket(K)
 end

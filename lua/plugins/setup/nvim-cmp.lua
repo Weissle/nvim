@@ -111,8 +111,16 @@ M.remove_redundant_quota = function()
 	end
 end
 
+M.auto_snip_jump = function(entry)
+	local cmp_kind = cmp_item_kind[entry.entry:get_kind()]
+	if cmp_kind ~= "Snippet" and cmp_kind ~= "Function" and luasnip.jumpable(1) then
+		luasnip.jump(1)
+	end
+end
+
 M.setup_confirm_done_callback = function()
 	cmp.event:on("confirm_done", M.remove_redundant_quota)
+	cmp.event:on("confirm_done", M.auto_snip_jump)
 end
 
 M.setup = function()
@@ -121,5 +129,7 @@ M.setup = function()
 	M.setup_command_mode()
 	M.setup_confirm_done_callback()
 end
+
+require("core").merge_user_config(M, "plugins.setup.nvim-cmp")
 
 return M

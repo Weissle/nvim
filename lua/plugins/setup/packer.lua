@@ -1,16 +1,16 @@
 local M = {}
 
 M.ensure_packer = function()
-	local packer_dir = vim.fn.stdpath("data").."/site/pack/packer/opt/packer.nvim"
-	local packer_exist = not (#vim.fn.glob(packer_dir) == 0) 
+	local packer_dir = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
+	local packer_exist = not (#vim.fn.glob(packer_dir) == 0)
 
 	if packer_exist == false then
-		vim.fn.system({"git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", packer_dir})
-		packer_exist = not (#vim.fn.glob(packer_dir) == 0) 
+		vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", packer_dir })
+		packer_exist = not (#vim.fn.glob(packer_dir) == 0)
 	end
 
 	if packer_exist == true then
-		vim.cmd [[packadd packer.nvim]]
+		vim.cmd([[packadd packer.nvim]])
 		return true
 	end
 

@@ -28,4 +28,6 @@ M.setup = function()
 	end
 end
 
+M = require("core").merge_user_config(M, "plugins.setup.mini")
+
 return M

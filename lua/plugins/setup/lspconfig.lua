@@ -1,6 +1,5 @@
 local M = {}
 
-
 M.capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 M.sumneko_lua_config = {
@@ -35,7 +34,6 @@ M.clangd_config = {
 	cmd = { "clangd", "--header-insertion=never" },
 }
 
-
 M.default_lsp_config = {
 	capabilities = M.capabilities,
 }
@@ -51,5 +49,7 @@ M.setup = function()
 		end
 	end
 end
+
+M = require("core").merge_user_config(M, "plugins.setup.lspconfig")
 
 return M

@@ -1,5 +1,6 @@
 local M = {}
 local core = require("core")
+
 M.telescope = function()
 	local action = require("telescope.actions")
 	local K = {
@@ -16,7 +17,6 @@ end
 M.cmp = function()
 	local luasnip = require("luasnip")
 	local cmp = require("cmp")
-
 	local K = {
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then

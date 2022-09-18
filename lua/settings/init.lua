@@ -20,7 +20,6 @@ opt.fixeol = false
 global.mapleader = " "
 -- global.auto_session_enabled = false
 
-
 opt = core.merge_user_config(opt, "settings.opt")
 global = core.merge_user_config(global, "settings.global")
 

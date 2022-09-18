@@ -251,7 +251,7 @@ if group.ui then
 	}
 
 	M["karb94/neoscroll.nvim"] = {
-		keys = { "<C-u>", "<C-d>", "<C-y>", "<C-e>" },
+		keys = { "<C-u>", "<C-d>", "<C-y>", "<C-e>", "<C-b>", "<C-f>" },
 		config = function()
 			require("neoscroll").setup({ mappings = { "<C-u>", "<C-d>", "<C-y>", "<C-e>" } })
 		end,
@@ -330,6 +330,13 @@ if group.ez ~= false then
 		config = function()
 			require("spectre").setup()
 			require("mappings.plugin_after").spectre()
+		end,
+	}
+
+	M["ethanholz/nvim-lastplace"] = {
+		event = { "BufReadPre" },
+		config = function()
+			require("plugins.setup.nvim-lastplace").setup()
 		end,
 	}
 end

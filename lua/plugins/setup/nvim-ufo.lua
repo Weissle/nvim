@@ -1,6 +1,7 @@
 local M = {}
 
 M.setup_options = function()
+	-- NOTE: change foldcolumn = 1 after the relative PR is merged.
 	vim.o.foldcolumn = "0"
 	vim.o.foldlevel = 99
 	vim.o.foldlevelstart = 99
