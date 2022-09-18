@@ -1,5 +1,5 @@
 local M = {}
-
+local gcfg = require("gconfig")
 local group = {
 	lsp = true,
 	cmp = true,
@@ -8,8 +8,8 @@ local group = {
 	doc = true,
 }
 
-local lazy_event_enter_file = { "BufRead", "BufNewFile" }
-local lazy_event_start_insert = { "InsertEnter" }
+local lazy_event_enter_file = gcfg.lazy_event_enter_file
+local lazy_event_start_insert = gcfg.lazy_event_start_insert
 
 M["wbthomason/packer.nvim"] = {
 	cmd = { "PackerInstall", "PackerSync", "PackerStatus", "PackerCompile", "PackerProfile", "PackerClean" },
@@ -195,10 +195,6 @@ if group.cmp ~= false then
 	M["ray-x/cmp-treesitter"] = {
 		event = lazy_event_start_insert,
 	}
-
-	M["kdheepak/cmp-latex-symbols"] = {
-		event = lazy_event_start_insert,
-	}
 end
 
 if group.ui then
@@ -350,17 +346,6 @@ if group.doc ~= false then
 		cmd = { "TodoTelescope" },
 		config = function()
 			require("todo-comments").setup()
-		end,
-	}
-
-	M["iamcco/markdown-preview.nvim"] = {
-		ft = { "markdown" },
-		run = "cd app && npm install",
-		setup = function()
-			vim.g.mkdp_filetypes = { "markdown" }
-		end,
-		config = function()
-			require("plugins.setup.markdown-preview").setup()
 		end,
 	}
 

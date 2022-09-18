@@ -8,14 +8,27 @@ M.vim_version = {
 }
 
 M.merge_user_config = function(default_config, config_name)
-	local _, user_config = pcall(require, "custom")
-	user_config = user_config or {}
-	local cfg = user_config[config_name] or {}
-	return vim.tbl_deep_extend("force", default_config, cfg)
+	local user_config_exist, user_config = pcall(require, "custom")
+	if user_config_exist and user_config[config_name] then
+		local f = user_config[config_name]
+		assert(
+			type(f) == "function",
+			string.format("type(require('custom').%s) should be function rather than %s", "function", type(f))
+		)
+		local ret = f(default_config)
+		assert(
+			type(ret) == "table",
+			string.format("Your function should return a table rather than %s.", "function", type(ret))
+		)
+		return ret
+	end
+	return default_config
 end
 
-M.do_nothing = function(ret, ...)
-	return ret
+M.do_nothing = function(ret)
+	return function(...)
+		return ret
+	end
 end
 
 M.keymap_opts = { noremap = true, silent = true }

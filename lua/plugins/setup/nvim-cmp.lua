@@ -37,7 +37,6 @@ M.cmp_source = {
 	["buffer"] = "Buf",
 	["treesitter"] = "TeS",
 	["cmdline"] = "Cmd",
-	["latex_symbols"] = "Tex",
 }
 
 -- Moving it out of function makes it faster?
@@ -70,7 +69,6 @@ M.insert_config = {
 		{ name = "path" },
 		{ name = "buffer" },
 		{ name = "treesitter" },
-		{ name = "latex_symbols" },
 	},
 }
 
