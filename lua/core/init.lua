@@ -23,12 +23,6 @@ M.merge_user_config = function(default_config, config_name)
 	return default_config
 end
 
-M.create_empty_function = function(ret)
-	return function(...)
-		return ret
-	end
-end
-
 M.keymap_opts = { noremap = true, silent = true }
 
 M.get_keymap_empty_bucket = function()

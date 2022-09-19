@@ -1,5 +1,11 @@
 local M = {}
 
+local create_empty_function = function(ret)
+	return function(...)
+		return ret
+	end
+end
+
 M["plugins.plugins"] = {
 
 	["lewis6991/impatient.nvim"] = nil,
@@ -68,4 +74,33 @@ M["plugins.setup.lspconfig"] = {
 		cmd = { "clangd", "--header-insertion=never" },
 	},
 }
+
+M["plugins.setup.mini"] = {
+	set_cursorword_highlight = create_empty_function(nil)
+}
+
+M["mappings.mappings"] = function (C)
+
+	C["n"]["<F3>"] = "<cmd>noh<cr>"
+	C["i"]["<C-h>"] = "<left>"
+	C["i"]["<C-l>"] = "<right>"
+	C["i"]["<C-k>"] = "<up>"
+	C["i"]["<C-j>"] = "<down>"
+	C[""]["J"] = "gJ"
+
+	C["t"]["<C-w><C-j>"] = "<C-\\><C-n><C-w>j"
+	C["t"]["<C-w><C-h>"] = "<C-\\><C-n><C-w>h"
+	C["t"]["<C-w><C-k>"] = "<C-\\><C-n><C-w>k"
+	C["t"]["<C-w><C-l>"] = "<C-\\><C-n><C-w>l"
+	C["t"]["<leader>qt"] = "<cmd>q<cr>"
+	C["t"]["<leader>qq"] = "exit<cr>"
+	--> Quit or Close
+	C["n"]["<leader>qq"] = "<cmd>wq<cr>"
+	--> so long due to the bug of terminal mode
+	C["n"]["<leader>qa"] = "<cmd>wa<cr><bar><cmd>qa<cr>"
+	C["n"]["<leader>qt"] = "<cmd>q<cr>"
+	C["n"]["<leader>qw"] = "<cmd>wa<cr>"
+
+end
+
 return M
