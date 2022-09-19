@@ -112,13 +112,6 @@ if group.lsp ~= false then
 		end,
 	}
 
-	M["folke/trouble.nvim"] = {
-		cmd = { "Trouble", "TroubleToggle" },
-		config = function()
-			require("trouble").setup()
-		end,
-	}
-
 	M["smjonas/inc-rename.nvim"] = {
 		cond = function()
 			local vim_version = require("core").vim_version

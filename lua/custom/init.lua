@@ -100,7 +100,8 @@ M["mappings.mappings"] = function (C)
 	C["n"]["<leader>qa"] = "<cmd>wa<cr><bar><cmd>qa<cr>"
 	C["n"]["<leader>qt"] = "<cmd>q<cr>"
 	C["n"]["<leader>qw"] = "<cmd>wa<cr>"
-
+	
+	return C
 end
 
 return M
