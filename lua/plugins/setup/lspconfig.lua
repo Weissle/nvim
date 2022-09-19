@@ -13,10 +13,8 @@ M.sumneko_lua_config = {
 				globals = { "vim" },
 			},
 			workspace = {
-				-- Make the server aware of Neovim runtime files
 				library = vim.api.nvim_get_runtime_file("", true),
 			},
-			-- Do not send telemetry data containing a randomized but unique identifier
 			telemetry = {
 				enable = false,
 			},
@@ -29,19 +27,15 @@ M.sumneko_lua_config = {
 	},
 }
 
-M.clangd_config = {
-	capabilities = M.capabilities,
-	cmd = { "clangd", "--header-insertion=never" },
-}
-
 M.default_lsp_config = {
 	capabilities = M.capabilities,
 }
 
+M.lsp_servers = { "sumneko_lua" }
+
 M.setup = function()
 	local lspconfig = require("lspconfig")
-	local servers = require("gconfig").lsp_server_list
-	for _, lsp in pairs(servers) do
+	for _, lsp in pairs(M.lsp_servers) do
 		if M[lsp .. "_config"] == nil then
 			lspconfig[lsp].setup(M.default_lsp_config)
 		else

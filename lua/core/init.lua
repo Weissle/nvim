@@ -11,21 +11,19 @@ M.merge_user_config = function(default_config, config_name)
 	local user_config_exist, user_config = pcall(require, "custom")
 	if user_config_exist and user_config[config_name] then
 		local f = user_config[config_name]
-		assert(
-			type(f) == "function",
-			string.format("type(require('custom').%s) should be function rather than %s", "function", type(f))
-		)
-		local ret = f(default_config)
-		assert(
-			type(ret) == "table",
-			string.format("Your function should return a table rather than %s.", "function", type(ret))
-		)
-		return ret
+		if type(f) == "function" then
+			return f(default_config)
+		elseif type(f) == "table" then
+			return vim.tbl_deep_extend("force", default_config, f)
+		else
+			vim.notify("type(require('custom').%s) should be function or table rather than %s", "ERROR", nil)
+			return default_config
+		end
 	end
 	return default_config
 end
 
-M.do_nothing = function(ret)
+M.create_empty_function = function(ret)
 	return function(...)
 		return ret
 	end

@@ -1,5 +1,4 @@
 local M = {}
-local gcfg = require("gconfig")
 local group = {
 	lsp = true,
 	cmp = true,
@@ -8,19 +7,11 @@ local group = {
 	doc = true,
 }
 
-local lazy_event_enter_file = gcfg.lazy_event_enter_file
-local lazy_event_start_insert = gcfg.lazy_event_start_insert
+local lazy_event_enter_file = { "BufRead", "BufNewFile" }
+local lazy_event_start_insert = { "InsertEnter" }
 
 M["wbthomason/packer.nvim"] = {
 	cmd = { "PackerInstall", "PackerSync", "PackerStatus", "PackerCompile", "PackerProfile", "PackerClean" },
-	setup = function()
-		vim.cmd([[
-		augroup packer_user_config
-		autocmd!
-		autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-		augroup end
-		]])
-	end,
 	config = function()
 		require("plugins.setup.packer").setup()
 	end,
@@ -30,13 +21,6 @@ M["lewis6991/impatient.nvim"] = {}
 
 M["nvim-lua/plenary.nvim"] = {
 	module = "plenary",
-}
-
-M["williamboman/mason.nvim"] = {
-	event = lazy_event_enter_file,
-	config = function()
-		require("mason").setup()
-	end,
 }
 
 M["kyazdani42/nvim-tree.lua"] = {
@@ -86,9 +70,7 @@ if group.lsp ~= false then
 	M["williamboman/mason-lspconfig.nvim"] = {
 		after = { "mason.nvim" },
 		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = require("gconfig").lsp_server_list,
-			})
+			require("plugins.setup.mason-lspconfig").setup()
 		end,
 	}
 
@@ -203,9 +185,6 @@ if group.ui then
 	}
 
 	M["folke/tokyonight.nvim"] = {
-		cond = function()
-			return require("gconfig").colorscheme_plugin == "tokyonight"
-		end,
 		config = function()
 			require("plugins.setup.tokyonight").setup()
 		end,
@@ -249,7 +228,7 @@ if group.ui then
 	M["karb94/neoscroll.nvim"] = {
 		keys = { "<C-u>", "<C-d>", "<C-y>", "<C-e>", "<C-b>", "<C-f>" },
 		config = function()
-			require("neoscroll").setup({ mappings = { "<C-u>", "<C-d>", "<C-y>", "<C-e>" } })
+			require("neoscroll").setup({ mappings = { "<C-u>", "<C-d>", "<C-y>", "<C-e>", "<C-b>", "<C-f>" } })
 		end,
 	}
 end
@@ -275,18 +254,25 @@ if group.ez ~= false then
 		cond = function()
 			return vim.g.auto_session_enabled ~= false
 		end,
+		requires = {
+			"rmagatti/session-lens",
+			after = { "telescope.nvim", "auto-session" },
+			setup = function()
+				require("mappings.plugin_preset").session_lens()
+			end,
+			config = function()
+				require("session-lens").setup()
+			end,
+		},
 		config = function()
 			require("plugins.setup.auto-session").setup()
 		end,
 	}
 
-	M["rmagatti/session-lens"] = {
-		after = { "telescope.nvim", "auto-session" },
-		setup = function()
-			require("mappings.plugin_preset").session_lens()
-		end,
+	M["williamboman/mason.nvim"] = {
+		event = lazy_event_enter_file,
 		config = function()
-			require("session-lens").setup()
+			require("mason").setup()
 		end,
 	}
 

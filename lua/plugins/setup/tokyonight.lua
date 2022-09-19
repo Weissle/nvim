@@ -2,9 +2,6 @@ local M = {}
 
 M.config = {
 	on_highlights = function(highlights, colors)
-		highlights.VertSplit = {
-			fg = "#6699FF",
-		}
 		highlights.WinSeparator = {
 			fg = "#6699FF",
 		}
@@ -12,7 +9,7 @@ M.config = {
 }
 
 M.set_colorscheme = function()
-	vim.cmd("colorscheme " .. require("gconfig").colorscheme)
+	vim.cmd("colorscheme tokyonight")
 end
 M.setup = function()
 	require("tokyonight").setup(M.config)

@@ -1,12 +1,10 @@
 local M = {}
-local gcfg = require("gconfig")
 
-M["plugins.plugins"] = function(C)
-	C["lewis6991/impatient.nvim"] = {
-		disable = true,
-	}
+M["plugins.plugins"] = {
 
-	C["iamcco/markdown-preview.nvim"] = {
+	["lewis6991/impatient.nvim"] = nil,
+
+	["iamcco/markdown-preview.nvim"] = {
 		ft = { "markdown" },
 		run = "cd app && npm install",
 		setup = function()
@@ -16,27 +14,40 @@ M["plugins.plugins"] = function(C)
 			vim.g.mkdp_auto_close = 0
 			vim.g.mkdp_open_to_the_world = 1
 		end,
-	}
+	},
 
-	C["kdheepak/cmp-latex-symbols"] = {
-		event = gcfg.lazy_event_start_insert,
-	}
+	["kdheepak/cmp-latex-symbols"] = {
+		event = { "InsertEnter" },
+	},
 
-	return C
-end
+	["williamboman/mason-lspconfig.nvim"] = {
+		config = function()
+			require("mason-lspconfig").setup({
+				ensure_installed = {
+					"pyright",
+					"clangd",
+					"tsserver",
+					"cmake",
+					"bashls",
+					"lemminx",
+					"sumneko_lua",
+					"texlab",
+				},
+			})
+		end,
+	},
+}
 
-M["plugins.setup.luasnip"] = function(C)
-	C.load_snippets = function()
+M["plugins.setup.luasnip"] = {
+	load_snippets = function()
 		require("luasnip.loaders.from_vscode").lazy_load({
 			exclude = { "cpp" },
 		})
 		require("luasnip.loaders.from_vscode").lazy_load({
 			paths = { "./snippets" },
 		})
-	end
-
-	return C
-end
+	end,
+}
 
 M["plugins.setup.nvim-cmp"] = function(C)
 	C.cmp_source.latex_symbols = "Tex"
@@ -45,4 +56,16 @@ M["plugins.setup.nvim-cmp"] = function(C)
 	return C
 end
 
+M["plugins.setup.treesitter"] = function(C)
+	C.config.ensure_installed = { "c", "lua", "cpp", "json", "python", "cmake", "markdown" }
+	return C
+end
+
+M["plugins.setup.lspconfig"] = {
+	servers = { "pyright", "clangd", "tsserver", "cmake", "bashls", "lemminx", "sumneko_lua", "texlab" },
+	clangd_config = {
+		capabilities = M.capabilities,
+		cmd = { "clangd", "--header-insertion=never" },
+	},
+}
 return M
