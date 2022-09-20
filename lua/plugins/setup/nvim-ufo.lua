@@ -9,7 +9,7 @@ M.setup_options = function()
 	vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 end
 
-M.handler = function(virtText, lnum, endLnum, width, truncate)
+local function handler(virtText, lnum, endLnum, width, truncate)
 	local newVirtText = {}
 	local suffix = ("  %d "):format(endLnum - lnum)
 	local sufWidth = vim.fn.strdisplaywidth(suffix)
@@ -41,7 +41,7 @@ M.config = {
 	provider_selector = function(bufnr, filetype, buftype)
 		return { "treesitter", "indent" }
 	end,
-	fold_virt_text_handler = M.handler,
+	fold_virt_text_handler = handler,
 }
 
 M.setup = function()

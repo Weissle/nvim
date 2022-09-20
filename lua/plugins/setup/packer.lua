@@ -17,14 +17,6 @@ M.ensure_packer = function()
 	return false
 end
 
-M.load_plugins = function(use)
-	M = require("plugins.plugins")
-	for plugin_name, plugin_config in pairs(M) do
-		plugin_config[1] = plugin_name
-		use(plugin_config)
-	end
-end
-
 M.init_config = {
 	profile = {
 		enable = true,
@@ -32,8 +24,16 @@ M.init_config = {
 	},
 }
 
+local function load_plugins(use)
+	local P = require("plugins.plugins")
+	for plugin_name, plugin_config in pairs(P) do
+		plugin_config[1] = plugin_name
+		use(plugin_config)
+	end
+end
+
 M.startup_config = {
-	M.load_plugins,
+	load_plugins,
 	config = {
 		display = {
 			open_fn = function()

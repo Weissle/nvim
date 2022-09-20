@@ -8,7 +8,9 @@ end
 
 M["plugins.plugins"] = {
 
-	["lewis6991/impatient.nvim"] = nil,
+	["lewis6991/impatient.nvim"] = {
+		disable = true,
+	},
 
 	["iamcco/markdown-preview.nvim"] = {
 		ft = { "markdown" },
@@ -25,25 +27,22 @@ M["plugins.plugins"] = {
 	["kdheepak/cmp-latex-symbols"] = {
 		event = { "InsertEnter" },
 	},
-
-	["williamboman/mason-lspconfig.nvim"] = {
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = {
-					"pyright",
-					"clangd",
-					"tsserver",
-					"cmake",
-					"bashls",
-					"lemminx",
-					"sumneko_lua",
-					"texlab",
-				},
-			})
-		end,
-	},
 }
 
+M["plugins.setup.mason-lspconfig"] = {
+	config = {
+		ensure_installed = {
+			"pyright",
+			"clangd",
+			"tsserver",
+			"cmake",
+			"bashls",
+			"lemminx",
+			"sumneko_lua",
+			"texlab",
+		},
+	},
+}
 M["plugins.setup.luasnip"] = {
 	load_snippets = function()
 		require("luasnip.loaders.from_vscode").lazy_load({
@@ -67,20 +66,20 @@ M["plugins.setup.treesitter"] = function(C)
 	return C
 end
 
-M["plugins.setup.lspconfig"] = {
-	servers = { "pyright", "clangd", "tsserver", "cmake", "bashls", "lemminx", "sumneko_lua", "texlab" },
-	clangd_config = {
-		capabilities = M.capabilities,
+M["plugins.setup.lspconfig"] = function(C)
+	C.lsp_servers = { "pyright", "clangd", "tsserver", "cmake", "bashls", "lemminx", "sumneko_lua", "texlab" }
+	C.clangd_config = {
+		capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
 		cmd = { "clangd", "--header-insertion=never" },
-	},
-}
+	}
+	return C
+end
 
 M["plugins.setup.mini"] = {
-	set_cursorword_highlight = create_empty_function(nil)
+	set_cursorword_highlight = create_empty_function(nil),
 }
 
-M["mappings.mappings"] = function (C)
-
+M["mappings.mappings"] = function(C)
 	C["n"]["<F3>"] = "<cmd>noh<cr>"
 	C["i"]["<C-h>"] = "<left>"
 	C["i"]["<C-l>"] = "<right>"
@@ -100,7 +99,7 @@ M["mappings.mappings"] = function (C)
 	C["n"]["<leader>qa"] = "<cmd>wa<cr><bar><cmd>qa<cr>"
 	C["n"]["<leader>qt"] = "<cmd>q<cr>"
 	C["n"]["<leader>qw"] = "<cmd>wa<cr>"
-	
+
 	return C
 end
 

@@ -1,7 +1,5 @@
 local M = {}
 
-local telescope = require("telescope")
-
 M.config = {
 	defaults = {
 		mappings = require("mappings.plugin_builtin").telescope(),
@@ -11,12 +9,12 @@ M.config = {
 M.load_notify = function()
 	local ext, _ = pcall(require, "notify")
 	if ext then
-		telescope.load_extension("notify")
+		require("telescope").load_extension("notify")
 	end
 end
 
 M.setup = function()
-	telescope.setup(M.config)
+	require("telescope").setup(M.config)
 	M.load_notify()
 end
 

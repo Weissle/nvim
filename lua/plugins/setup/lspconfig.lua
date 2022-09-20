@@ -1,9 +1,9 @@
 local M = {}
 
-M.capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 M.sumneko_lua_config = {
-	capabilities = M.capabilities,
+	capabilities = capabilities,
 	settings = {
 		Lua = {
 			runtime = {
@@ -28,7 +28,7 @@ M.sumneko_lua_config = {
 }
 
 M.default_lsp_config = {
-	capabilities = M.capabilities,
+	capabilities = capabilities,
 }
 
 M.lsp_servers = { "sumneko_lua" }

@@ -111,7 +111,9 @@ end
 
 M.auto_snip_jump = function(entry)
 	local cmp_kind = cmp_item_kind[entry.entry:get_kind()]
-	if cmp_kind ~= "Snippet" and cmp_kind ~= "Function" and luasnip.jumpable(1) then
+	-- Don't jump when the completion item is snippet or now is the select mode.
+	local dont_jump = cmp_kind ~= "Snippet" or vim.api.nvim_get_mode().mode == "s"
+	if not dont_jump and luasnip.locally_jumpable(1) then
 		luasnip.jump(1)
 	end
 end

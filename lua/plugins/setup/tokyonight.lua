@@ -11,6 +11,7 @@ M.config = {
 M.set_colorscheme = function()
 	vim.cmd("colorscheme tokyonight-moon")
 end
+
 M.setup = function()
 	require("tokyonight").setup(M.config)
 	M.set_colorscheme()
