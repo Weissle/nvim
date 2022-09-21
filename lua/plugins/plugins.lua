@@ -314,6 +314,13 @@ if group.ez ~= false then
 			require("plugins.setup.nvim-lastplace").setup()
 		end,
 	}
+
+	M["kwkarlwang/bufjump.nvim"] = {
+		keys = { "<leader>bo", "<leader>bi" },
+		config = function()
+			require("plugins.setup.bufjump").setup()
+		end,
+	}
 end
 
 if group.doc ~= false then

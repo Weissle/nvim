@@ -69,22 +69,14 @@ end
 M["plugins.setup.lspconfig"] = function(C)
 	C.lsp_servers = { "pyright", "clangd", "tsserver", "cmake", "bashls", "lemminx", "sumneko_lua", "texlab" }
 	C.clangd_config = {
-		capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+		capabilities = C.default_capabilites,
 		cmd = { "clangd", "--header-insertion=never" },
 	}
 	return C
 end
 
-M["plugins.setup.mini"] = {
-	set_cursorword_highlight = create_empty_function(nil),
-}
-
 M["mappings.mappings"] = function(C)
 	C["n"]["<F3>"] = "<cmd>noh<cr>"
-	C["i"]["<C-h>"] = "<left>"
-	C["i"]["<C-l>"] = "<right>"
-	C["i"]["<C-k>"] = "<up>"
-	C["i"]["<C-j>"] = "<down>"
 	C[""]["J"] = "gJ"
 
 	C["t"]["<C-w><C-j>"] = "<C-\\><C-n><C-w>j"
@@ -100,6 +92,17 @@ M["mappings.mappings"] = function(C)
 	C["n"]["<leader>qt"] = "<cmd>q<cr>"
 	C["n"]["<leader>qw"] = "<cmd>wa<cr>"
 
+	return C
+end
+
+M["plugins.setup.telescope"] = function(C)
+	C.config.defaults.path_display = {
+
+		shorten = {
+			len = 3,
+			exclude = { 1, -1 },
+		},
+	}
 	return C
 end
 

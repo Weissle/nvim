@@ -66,4 +66,12 @@ M.mini_surround = function()
 	return core.merge_user_config(K, "mappings.plugin_builtin.mini_surround")
 end
 
+M.bufjump = function()
+	local K = {
+		forward = "<leader>bi",
+		backward = "<leader>bo",
+	}
+	return core.merge_user_config(K, "mappings.plugin_builtin.bufjump")
+end
+
 return M
