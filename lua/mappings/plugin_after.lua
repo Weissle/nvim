@@ -103,4 +103,12 @@ M.spectre = function()
 	K = core.merge_user_config(K, "mappings.plugin_preset.spectre")
 	core.set_keymap_bucket(K)
 end
+
+M.harpoon = function ()
+	local K = core.get_keymap_empty_bucket()
+	K["n"]["<leader>fH"] = "<cmd>Telescope harpoon marks<cr>"
+	K = core.merge_user_config(K, "mappings.plugin_preset.spectre")
+	core.set_keymap_bucket(K)
+end
+
 return M

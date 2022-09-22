@@ -41,6 +41,7 @@ M["nvim-telescope/telescope.nvim"] = {
 	setup = function()
 		require("mappings.plugin_preset").telescope()
 	end,
+	module = "telescope",
 	branch = "0.1.x",
 	requires = {
 		{
@@ -130,9 +131,13 @@ end
 if group.cmp ~= false then
 	M["rafamadriz/friendly-snippets"] = {}
 
+	local luasnip_event = vim.deepcopy(lazy_event_enter_file)
+	luasnip_event = vim.list_extend(luasnip_event, lazy_event_start_insert, nil, nil)
+	print(vim.inspect(luasnip_event))
+
 	M["L3MON4D3/LuaSnip"] = {
 		module = "luasnip",
-		event = lazy_event_enter_file,
+		event = luasnip_event,
 		config = function()
 			require("plugins.setup.luasnip").setup()
 		end,
@@ -321,6 +326,19 @@ if group.ez ~= false then
 			require("plugins.setup.bufjump").setup()
 		end,
 	}
+
+	M["ThePrimeagen/harpoon"] = {
+		keys = {"<leader>fH"},
+		setup = function ()
+			require("mappings.plugin_preset").harpoon()
+		end,
+		module_pattern = {"harpoon.*"},
+		config = function ()
+			require("harpoon").setup({})
+			require("mappings.plugin_after").harpoon()
+			require("telescope").load_extension("harpoon")
+		end
+	}
 end
 
 if group.doc ~= false then
@@ -331,6 +349,7 @@ if group.doc ~= false then
 		end,
 		cmd = { "TodoTelescope" },
 		config = function()
+			require("telescope")
 			require("todo-comments").setup()
 		end,
 	}

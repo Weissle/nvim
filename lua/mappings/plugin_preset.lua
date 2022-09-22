@@ -15,6 +15,7 @@ M.telescope = function()
 	K["n"]["<leader>fr"] = "<cmd>Telescope resume<cr>"
 	K["n"]["<leader>f/"] = "<cmd>Telescope current_buffer_fuzzy_find<cr>"
 	K["n"]["<leader>fd"] = "<cmd>Telescope diagnostics<cr>"
+	K["n"]["<leader>fm"] = "<cmd>Telescope marks<cr>"
 	K["n"]["gr"] = "<cmd>Telescope lsp_references<cr>"
 	K = core.merge_user_config(K, "mappings.plugin_preset.telescope")
 	core.set_keymap_bucket(K)
@@ -74,4 +75,13 @@ M.nvim_tree = function()
 	core.set_keymap_bucket(K)
 end
 
+M.harpoon = function ()
+	local K = core.get_keymap_empty_bucket()
+	K["n"]["<leader>ha"] = "<cmd>lua require('harpoon.mark').add_file()<cr>"
+	K["n"]["<leader>hC"] = "<cmd>lua require('harpoon.mark').clear_all()<cr>"
+	K["n"]["<leader>hn"] = "<cmd>lua require('harpoon.ui').nav_next()<cr>"
+	K["n"]["<leader>hp"] = "<cmd>lua require('harpoon.ui').nav_prev()<cr>"
+	K = core.merge_user_config(K, "mappings.plugin_preset.spectre")
+	core.set_keymap_bucket(K)
+end
 return M
