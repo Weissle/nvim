@@ -87,7 +87,7 @@ M["mappings.mappings"] = function(C)
 	C["t"]["<leader>qq"] = "exit<cr>"
 
 	--> so long due to the bug of terminal mode
-	C["n"]["<leader>qa"] = "<cmd>qa<cr>"
+	C["n"]["<leader>qa"] = "<cmd>wa<cr><bar><cmd>qa<cr>"
 	C["n"]["<leader>qt"] = "<cmd>q<cr>"
 	C["n"]["<leader>qw"] = "<cmd>wa<cr>"
 

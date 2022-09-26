@@ -20,5 +20,3 @@ ln -s compile_commands.json {PROJECT_ROOT}/.
 ```
 
 ## TODO
-1. When session is disabled and we has not opened any file yet, if we use `TodoTelescope`, error occurs.
-2. Tab key don't add a <TAB>, strange...
