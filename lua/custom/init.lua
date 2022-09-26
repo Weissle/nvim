@@ -85,10 +85,9 @@ M["mappings.mappings"] = function(C)
 	C["t"]["<C-w><C-l>"] = "<C-\\><C-n><C-w>l"
 	C["t"]["<leader>qt"] = "<cmd>q<cr>"
 	C["t"]["<leader>qq"] = "exit<cr>"
-	--> Quit or Close
-	C["n"]["<leader>qq"] = "<cmd>wq<cr>"
+
 	--> so long due to the bug of terminal mode
-	C["n"]["<leader>qa"] = "<cmd>wa<cr><bar><cmd>qa<cr>"
+	C["n"]["<leader>qa"] = "<cmd>qa<cr>"
 	C["n"]["<leader>qt"] = "<cmd>q<cr>"
 	C["n"]["<leader>qw"] = "<cmd>wa<cr>"
 
@@ -97,7 +96,6 @@ end
 
 M["plugins.setup.telescope"] = function(C)
 	C.config.defaults.path_display = {
-
 		shorten = {
 			len = 3,
 			exclude = { 1, -1 },

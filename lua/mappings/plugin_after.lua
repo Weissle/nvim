@@ -104,9 +104,13 @@ M.spectre = function()
 	core.set_keymap_bucket(K)
 end
 
-M.harpoon = function ()
+M.harpoon = function()
 	local K = core.get_keymap_empty_bucket()
 	K["n"]["<leader>fH"] = "<cmd>Telescope harpoon marks<cr>"
+	K["n"]["<leader>ha"] = "<cmd>lua require('harpoon.mark').add_file()<cr>"
+	K["n"]["<leader>hC"] = "<cmd>lua require('harpoon.mark').clear_all()<cr>"
+	K["n"]["<leader>hn"] = "<cmd>lua require('harpoon.ui').nav_next()<cr>"
+	K["n"]["<leader>hp"] = "<cmd>lua require('harpoon.ui').nav_prev()<cr>"
 	K = core.merge_user_config(K, "mappings.plugin_preset.spectre")
 	core.set_keymap_bucket(K)
 end

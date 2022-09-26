@@ -328,16 +328,10 @@ if group.ez ~= false then
 	}
 
 	M["ThePrimeagen/harpoon"] = {
-		keys = {"<leader>fH"},
-		setup = function ()
-			require("mappings.plugin_preset").harpoon()
-		end,
-		module_pattern = {"harpoon.*"},
-		config = function ()
+		config = function()
 			require("harpoon").setup({})
 			require("mappings.plugin_after").harpoon()
-			require("telescope").load_extension("harpoon")
-		end
+		end,
 	}
 end
 
