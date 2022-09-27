@@ -1,15 +1,5 @@
 local M = {}
-
-M.subplugin_config = {
-	["mini.cursorword"] = {
-		delay = 30,
-	},
-	["mini.bufremove"] = {},
-	["mini.pairs"] = {},
-	["mini.surround"] = {
-		mappings = require("mappings.plugin_builtin").mini_surround(),
-	},
-}
+local core = require("core")
 
 M.unhighlight_inactivate_buffer = function()
 	vim.api.nvim_create_augroup("unhighlight_inactivate_buffer", { clear = true })
@@ -20,11 +10,24 @@ M.unhighlight_inactivate_buffer = function()
 	})
 end
 
+M.subplugin_config = {
+	["mini.cursorword"] = {
+		config = { delay = 30 },
+		after = { M.unhighlight_inactivate_buffer },
+	},
+	["mini.bufremove"] = {},
+	["mini.pairs"] = {},
+	["mini.surround"] = {
+		config = { mappings = require("mappings.plugin_builtin").mini_surround() },
+	},
+}
+
 M.setup = function()
-	for subplugin, config in pairs(M.subplugin_config) do
-		require(subplugin).setup(config)
+	for subplugin, cfg in pairs(M.subplugin_config) do
+		core.call(cfg.preset or {})
+		require(subplugin).setup(cfg.config)
+		core.call(cfg.after or {})
 	end
-	M.unhighlight_inactivate_buffer()
 end
 
 M = require("core").merge_user_config(M, "plugins.setup.mini")

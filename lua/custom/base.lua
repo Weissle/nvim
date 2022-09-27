@@ -17,7 +17,6 @@ M["plugins.plugins"] = {
 			vim.g.mkdp_open_to_the_world = 1
 		end,
 	},
-
 }
 
 M["plugins.setup.mason-lspconfig"] = {
@@ -46,12 +45,12 @@ M["plugins.setup.luasnip"] = {
 }
 
 M["plugins.setup.treesitter"] = function(C)
-	C.config.ensure_installed = { "c", "lua", "cpp", "json", "python", "cmake", "markdown"} 
+	C.config.ensure_installed = { "c", "lua", "cpp", "json", "python", "cmake", "markdown" }
 	return C
 end
 
 M["plugins.setup.lspconfig"] = function(C)
-	C.lsp_servers = { "pyright", "clangd", "tsserver", "cmake", "bashls", "lemminx", "sumneko_lua"}
+	C.lsp_servers = { "pyright", "clangd", "tsserver", "cmake", "bashls", "lemminx", "sumneko_lua" }
 	C.clangd_config = {
 		capabilities = C.default_capabilites,
 		cmd = { "clangd", "--header-insertion=never" },

@@ -173,7 +173,7 @@ if group.cmp ~= false then
 	}
 
 	M["ray-x/cmp-treesitter"] = {
-		event = lazy_event_start_insert,
+		after = "nvim-cmp",
 	}
 end
 
@@ -343,7 +343,6 @@ if group.doc ~= false then
 		end,
 		cmd = { "TodoTelescope" },
 		config = function()
-			require("telescope")
 			require("todo-comments").setup()
 		end,
 	}

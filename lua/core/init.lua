@@ -50,4 +50,16 @@ M.set_keymap_bucket = function(cfg)
 	end
 end
 
+M.call = function(cmd)
+	if type(cmd) == "string" then
+		vim.cmd(cmd)
+	elseif type(cmd) == "function" then
+		cmd()
+	elseif type(cmd) == "table" then
+		for _, v in pairs(cmd) do
+			M.call(v)
+		end
+	end
+end
+
 return M

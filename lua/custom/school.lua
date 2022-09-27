@@ -4,7 +4,7 @@ assert(type(base) == "table")
 local M = vim.fn.copy(base)
 
 M["plugins.plugins"]["kdheepak/cmp-latex-symbols"] = {
-	after = "nvim-cmp"
+	after = "nvim-cmp",
 }
 
 M["plugins.setup.nvim-cmp"] = function(C)

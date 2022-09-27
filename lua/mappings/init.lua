@@ -9,7 +9,6 @@ M["i"]["<C-l>"] = "<right>"
 M["i"]["<C-k>"] = "<up>"
 M["i"]["<C-j>"] = "<down>"
 M["i"]["<C-a>"] = "<C-o>A"
--- M["i"]["<C-i>"] = "<C-o>I"  Tab will not insert a tab char if use this keymap.
 
 M["s"]["<BS>"] = "<Space><BS>"
 
