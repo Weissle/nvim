@@ -1,6 +1,11 @@
 local M = {}
 
-M.default_capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local ext, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if ext then
+	M.default_capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+else
+	M.default_capabilities = vim.lsp.protocol.make_client_capabilities()
+end
 
 M.sumneko_lua_config = {
 	capabilities = M.default_capabilities,
