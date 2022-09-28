@@ -8,8 +8,7 @@ M["plugins.plugins"] = {
 
 M["plugins.setup.nvim-cmp"] = function(C)
 	C.cmp_source.latex_symbols = "Tex"
-	local insert_source = C.insert_config.sources
-	insert_source[#insert_source + 1] = { name = "latex_symbols" }
+	table.insert(C.insert_config.sources, { name = "latex_symbols" })
 	return C
 end
 

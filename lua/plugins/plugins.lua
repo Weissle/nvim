@@ -144,8 +144,7 @@ if group.cmp ~= false then
 	M["rafamadriz/friendly-snippets"] = {}
 
 	local luasnip_event = vim.deepcopy(lazy_event_enter_file)
-	luasnip_event = vim.list_extend(luasnip_event, lazy_event_start_insert, nil, nil)
-	print(vim.inspect(luasnip_event))
+	luasnip_event = vim.list_extend(luasnip_event, lazy_event_start_insert)
 
 	M["L3MON4D3/LuaSnip"] = {
 		module = "luasnip",

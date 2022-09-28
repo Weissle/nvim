@@ -8,7 +8,7 @@ local override_config_list = {}
 
 M.register_override_config = function(cfg)
 	assert(type(cfg) == "table")
-	override_config_list[#override_config_list + 1] = cfg
+	table.insert(override_config_list, cfg)
 end
 
 M.merge_configs = function(config, config_name)
