@@ -49,6 +49,6 @@ M.setup = function()
 	require("packer").startup(M.startup_config)
 end
 
-M = require("core").merge_user_config(M, "plugins.setup.packer")
+M = require("core").merge_configs(M, "plugins.setup.packer")
 
 return M

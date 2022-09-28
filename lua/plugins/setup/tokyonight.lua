@@ -17,6 +17,6 @@ M.setup = function()
 	M.set_colorscheme()
 end
 
-M = require("core").merge_user_config(M, "plugins.setup.tokyonight")
+M = require("core").merge_configs(M, "plugins.setup.tokyonight")
 
 return M

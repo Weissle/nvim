@@ -6,6 +6,6 @@ M.setup = function()
 	require("bufjump").setup(M.config)
 end
 
-M = require("core").merge_user_config(M, "plugins.setup.bufjump")
+M = require("core").merge_configs(M, "plugins.setup.bufjump")
 
 return M

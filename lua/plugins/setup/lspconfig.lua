@@ -49,6 +49,6 @@ M.setup = function()
 	end
 end
 
-M = require("core").merge_user_config(M, "plugins.setup.lspconfig")
+M = require("core").merge_configs(M, "plugins.setup.lspconfig")
 
 return M

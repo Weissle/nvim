@@ -24,7 +24,7 @@ M["nvim-lua/plenary.nvim"] = {
 }
 
 M["kyazdani42/nvim-tree.lua"] = {
-	cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle" },
+	cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle", "NvimTreeFocus" },
 	setup = function()
 		vim.g.loaded_netrw = 1
 		vim.g.loaded_netrwPlugin = 1
@@ -50,6 +50,16 @@ M["nvim-telescope/telescope.nvim"] = {
 			after = "telescope.nvim",
 			config = function()
 				require("telescope").load_extension("fzf")
+			end,
+		},
+		{
+			"nvim-telescope/telescope-live-grep-args.nvim",
+			after = "telescope.nvim",
+			setup = function()
+				vim.g._telescope_live_grep_args_exists = true
+			end,
+			config = function()
+				require("telescope").load_extension("live_grep_args")
 			end,
 		},
 	},
@@ -115,8 +125,10 @@ if group.lsp ~= false then
 
 	M["smjonas/inc-rename.nvim"] = {
 		cond = function()
-			local vim_version = require("core").vim_version
-			return vim_version.major > 0 or vim_version.minor >= 8
+			return require("core").vim_version >= "0.8.0"
+		end,
+		setup = function()
+			vim.g._inc_rename_exists = true
 		end,
 		after = { "nvim-lspconfig" },
 		config = function()
@@ -299,7 +311,7 @@ if group.ez ~= false then
 	}
 
 	M["numToStr/Comment.nvim"] = {
-		keys = { "gcc", "gc", "gb" },
+		event = lazy_event_enter_file,
 		config = function()
 			require("Comment").setup()
 		end,
@@ -360,6 +372,6 @@ if group.doc ~= false then
 	}
 end
 
-M = require("core").merge_user_config(M, "plugins.plugins")
+M = require("core").merge_configs(M, "plugins.plugins")
 
 return M

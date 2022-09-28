@@ -49,6 +49,6 @@ M.setup = function()
 	require("ufo").setup(M.config)
 end
 
-M = require("core").merge_user_config(M, "plugins.setup.nvim-ufo")
+M = require("core").merge_configs(M, "plugins.setup.nvim-ufo")
 
 return M

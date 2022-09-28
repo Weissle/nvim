@@ -25,6 +25,6 @@ M.setup = function()
 	require("auto-session").setup(M.config)
 end
 
-M = require("core").merge_user_config(M, "plugins.setup.auto-session")
+M = require("core").merge_configs(M, "plugins.setup.auto-session")
 
 return M

@@ -17,6 +17,6 @@ M.setup = function()
 	require("smart-splits").setup(M.config)
 end
 
-M = require("core").merge_user_config(M, "plugins.setup.smart-splits")
+M = require("core").merge_configs(M, "plugins.setup.smart-splits")
 
 return M

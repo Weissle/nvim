@@ -1,10 +1,9 @@
-local base = require("custom.base")
-assert(type(base) == "table")
+local M = {}
 
-local M = vim.fn.copy(base)
-
-M["plugins.plugins"]["kdheepak/cmp-latex-symbols"] = {
-	after = "nvim-cmp",
+M["plugins.plugins"] = {
+	["kdheepak/cmp-latex-symbols"] = {
+		after = "nvim-cmp",
+	},
 }
 
 M["plugins.setup.nvim-cmp"] = function(C)
@@ -30,7 +29,6 @@ M["plugins.setup.mason-lspconfig"] = {
 }
 
 M["plugins.setup.lspconfig"] = function(C)
-	C = base["plugins.setup.lspconfig"](C)
 	C.lsp_servers = { "pyright", "clangd", "tsserver", "cmake", "bashls", "lemminx", "sumneko_lua", "texlab" }
 	return C
 end

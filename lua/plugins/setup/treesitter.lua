@@ -18,6 +18,6 @@ M.setup = function()
 	M.prefer_git()
 end
 
-M = require("core").merge_user_config(M, "plugins.setup.treesitter")
+M = require("core").merge_configs(M, "plugins.setup.treesitter")
 
 return M

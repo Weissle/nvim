@@ -13,6 +13,6 @@ M.setup = function()
 	M.load_snippets()
 end
 
-M = require("core").merge_user_config(M, "plugins.setup.luasnip")
+M = require("core").merge_configs(M, "plugins.setup.luasnip")
 
 return M

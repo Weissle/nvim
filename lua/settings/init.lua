@@ -20,8 +20,8 @@ opt.fixeol = false
 global.mapleader = " "
 -- global.auto_session_enabled = false
 
-opt = core.merge_user_config(opt, "settings.opt")
-global = core.merge_user_config(global, "settings.global")
+opt = core.merge_configs(opt, "settings.opt")
+global = core.merge_configs(global, "settings.global")
 
 for k, v in pairs(opt) do
 	vim.o[k] = v

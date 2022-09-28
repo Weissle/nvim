@@ -130,6 +130,6 @@ M.setup = function()
 	M.setup_confirm_done_callback()
 end
 
-require("core").merge_user_config(M, "plugins.setup.nvim-cmp")
+require("core").merge_configs(M, "plugins.setup.nvim-cmp")
 
 return M

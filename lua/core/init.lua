@@ -1,26 +1,32 @@
 local M = {}
 
 local version = vim.version()
-M.vim_version = {
-	major = version.major,
-	minor = version.minor,
-	patch = version.patch,
-}
 
-M.merge_user_config = function(default_config, config_name)
-	local user_config_exist, user_config = pcall(require, "custom")
-	if user_config_exist and user_config[config_name] then
-		local f = user_config[config_name]
-		if type(f) == "function" then
-			return f(default_config)
-		elseif type(f) == "table" then
-			return vim.tbl_deep_extend("force", default_config, f)
-		else
-			vim.notify("type(require('custom').%s) should be function or table rather than %s", "ERROR", nil)
-			return default_config
+M.vim_version = string.format("%d.%d.%d", version.major, version.minor, version.patch)
+
+local override_config_list = {}
+
+M.register_override_config = function(cfg)
+	assert(type(cfg) == "table")
+	override_config_list[#override_config_list + 1] = cfg
+end
+
+M.merge_configs = function(config, config_name)
+	for _, cfg in ipairs(override_config_list) do
+		local ext = cfg[config_name]
+		if type(ext) == "function" then
+			config = ext(config)
+		elseif type(ext) == "table" then
+			config = vim.tbl_deep_extend("force", config, ext)
+		elseif ext ~= nil then
+			vim.notify(
+				"type(require('custom').%s) should be function or table rather than %s",
+				vim.log.levels.ERROR,
+				nil
+			)
 		end
 	end
-	return default_config
+	return config
 end
 
 M.keymap_opts = { noremap = true, silent = true }

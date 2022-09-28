@@ -47,6 +47,6 @@ M.setup_autosave = function()
 	})
 end
 
-M = require("core").merge_user_config(M, "settings.functions")
+M = require("core").merge_configs(M, "settings.functions")
 
 return M

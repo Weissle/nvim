@@ -11,7 +11,7 @@ M.telescope = function()
 			["<ESC>"] = action.close,
 		},
 	}
-	return core.merge_user_config(K, "mappings.plugin_builtin.telescope")
+	return core.merge_configs(K, "mappings.plugin_builtin.telescope")
 end
 
 M.cmp = function()
@@ -50,7 +50,7 @@ M.cmp = function()
 		end, { "i", "s" }),
 		["<C-\\>"] = cmp.mapping(cmp.mapping.abort(), { "i", "s" }),
 	}
-	return core.merge_user_config(K, "mappings.plugin_builtin.cmp")
+	return core.merge_configs(K, "mappings.plugin_builtin.cmp")
 end
 
 M.mini_surround = function()
@@ -63,7 +63,7 @@ M.mini_surround = function()
 		replace = "cs",
 		update_n_lines = "",
 	}
-	return core.merge_user_config(K, "mappings.plugin_builtin.mini_surround")
+	return core.merge_configs(K, "mappings.plugin_builtin.mini_surround")
 end
 
 M.bufjump = function()
@@ -71,7 +71,7 @@ M.bufjump = function()
 		forward = "<leader>bi",
 		backward = "<leader>bo",
 	}
-	return core.merge_user_config(K, "mappings.plugin_builtin.bufjump")
+	return core.merge_configs(K, "mappings.plugin_builtin.bufjump")
 end
 
 return M

@@ -10,6 +10,6 @@ M.setup = function()
 	require("nvim-lastplace").setup(M.config)
 end
 
-M = require("core").merge_user_config(M, "plugins.setup.nvim-lastplace")
+M = require("core").merge_configs(M, "plugins.setup.nvim-lastplace")
 
 return M
