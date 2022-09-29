@@ -12,6 +12,7 @@ M.load_notify = function()
 		require("telescope").load_extension("notify")
 	end
 end
+
 M.load_harpoon = function()
 	local ext, _ = pcall(require, "harpoon")
 	if ext then

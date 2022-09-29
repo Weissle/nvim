@@ -1,5 +1,14 @@
 local M = {}
 
+local lsp_servers = {
+	"pyright",
+	"clangd",
+	"cmake",
+	"bashls",
+	"sumneko_lua",
+	"texlab",
+}
+
 M["plugins.plugins"] = {
 	["kdheepak/cmp-latex-symbols"] = {
 		after = "nvim-cmp",
@@ -14,21 +23,12 @@ end
 
 M["plugins.setup.mason-lspconfig"] = {
 	config = {
-		ensure_installed = {
-			"pyright",
-			"clangd",
-			"tsserver",
-			"cmake",
-			"bashls",
-			"lemminx",
-			"sumneko_lua",
-			"texlab",
-		},
+		ensure_installed = lsp_servers,
 	},
 }
 
 M["plugins.setup.lspconfig"] = function(C)
-	C.lsp_servers = { "pyright", "clangd", "tsserver", "cmake", "bashls", "lemminx", "sumneko_lua", "texlab" }
+	C.lsp_servers = lsp_servers
 	return C
 end
 

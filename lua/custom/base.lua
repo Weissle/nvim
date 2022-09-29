@@ -1,5 +1,13 @@
 local M = {}
 
+local lsp_servers = {
+	"pyright",
+	"clangd",
+	"cmake",
+	"bashls",
+	"sumneko_lua",
+}
+
 M["plugins.plugins"] = {
 
 	["lewis6991/impatient.nvim"] = {
@@ -21,15 +29,7 @@ M["plugins.plugins"] = {
 
 M["plugins.setup.mason-lspconfig"] = {
 	config = {
-		ensure_installed = {
-			"pyright",
-			"clangd",
-			"tsserver",
-			"cmake",
-			"bashls",
-			"lemminx",
-			"sumneko_lua",
-		},
+		ensure_installed = lsp_servers,
 	},
 }
 
@@ -50,9 +50,9 @@ M["plugins.setup.treesitter"] = function(C)
 end
 
 M["plugins.setup.lspconfig"] = function(C)
-	C.lsp_servers = { "pyright", "clangd", "tsserver", "cmake", "bashls", "lemminx", "sumneko_lua" }
+	C.lsp_servers = lsp_servers
 	C.clangd_config = {
-		capabilities = C.default_capabilites,
+		capabilities = C.default_capabilities,
 		cmd = { "clangd", "--header-insertion=never" },
 	}
 	return C

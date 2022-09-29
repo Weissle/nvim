@@ -35,6 +35,13 @@ M["kyazdani42/nvim-tree.lua"] = {
 	end,
 }
 
+M["williamboman/mason.nvim"] = {
+	event = lazy_event_enter_file,
+	config = function()
+		require("mason").setup()
+	end,
+}
+
 M["nvim-telescope/telescope.nvim"] = {
 	cmd = { "Telescope" },
 	keys = { "<leader>fk" },
@@ -94,7 +101,7 @@ if group.lsp ~= false then
 		config = function()
 			local ext, lua_dev = pcall(require, "lua-dev")
 			if ext then
-				lua_dev.setup()
+				lua_dev.setup({})
 			end
 			require("plugins.setup.lspconfig").setup()
 			require("mappings.plugin_after").lspconfig()
@@ -245,7 +252,7 @@ end
 if group.ez ~= false then
 	M["phaazon/hop.nvim"] = {
 		branch = "v2",
-		keys = { "<leader>h" },
+		event = lazy_event_enter_file,
 		config = function()
 			require("hop").setup()
 			require("mappings.plugin_after").hop()
@@ -275,13 +282,6 @@ if group.ez ~= false then
 		},
 		config = function()
 			require("plugins.setup.auto-session").setup()
-		end,
-	}
-
-	M["williamboman/mason.nvim"] = {
-		event = lazy_event_enter_file,
-		config = function()
-			require("mason").setup()
 		end,
 	}
 
@@ -317,7 +317,6 @@ if group.ez ~= false then
 	}
 
 	M["windwp/nvim-spectre"] = {
-		keys = "<leader>s",
 		config = function()
 			require("spectre").setup()
 			require("mappings.plugin_after").spectre()

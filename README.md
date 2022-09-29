@@ -20,3 +20,4 @@ ln -s compile_commands.json {PROJECT_ROOT}/.
 ```
 
 ## TODO
+- [ ] About Hop:https://github.com/phaazon/hop.nvim/pull/314
