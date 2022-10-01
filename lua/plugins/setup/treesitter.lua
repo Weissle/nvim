@@ -1,7 +1,7 @@
 local M = {}
 
 M.config = {
-	ensure_installed = { "lua" },
+	ensure_installed = require("gconfig").treesitter_required,
 	sync_install = false,
 	highlight = {
 		enable = true,

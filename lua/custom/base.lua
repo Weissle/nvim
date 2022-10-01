@@ -1,11 +1,14 @@
 local M = {}
 
-local lsp_servers = {
-	"pyright",
-	"clangd",
-	"cmake",
-	"bashls",
-	"sumneko_lua",
+M["gconfig"] = {
+	lsp_servers = {
+		"pyright",
+		"clangd",
+		"cmake",
+		"bashls",
+		"sumneko_lua",
+	},
+	treesitter_required = { "c", "lua", "cpp", "json", "python", "cmake", "markdown" },
 }
 
 M["plugins.plugins"] = {
@@ -27,12 +30,6 @@ M["plugins.plugins"] = {
 	},
 }
 
-M["plugins.setup.mason-lspconfig"] = {
-	config = {
-		ensure_installed = lsp_servers,
-	},
-}
-
 M["plugins.setup.luasnip"] = {
 	load_snippets = function()
 		require("luasnip.loaders.from_vscode").lazy_load({
@@ -44,13 +41,7 @@ M["plugins.setup.luasnip"] = {
 	end,
 }
 
-M["plugins.setup.treesitter"] = function(C)
-	C.config.ensure_installed = { "c", "lua", "cpp", "json", "python", "cmake", "markdown" }
-	return C
-end
-
 M["plugins.setup.lspconfig"] = function(C)
-	C.lsp_servers = lsp_servers
 	C.clangd_config = {
 		capabilities = C.default_capabilities,
 		cmd = { "clangd", "--header-insertion=never" },

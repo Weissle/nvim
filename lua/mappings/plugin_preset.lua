@@ -22,6 +22,7 @@ M.telescope = function()
 	K["n"]["<leader>f/"] = "<cmd>Telescope current_buffer_fuzzy_find<cr>"
 	K["n"]["<leader>fd"] = "<cmd>Telescope diagnostics<cr>"
 	K["n"]["<leader>fm"] = "<cmd>Telescope marks<cr>"
+	K["n"]["<leader>fk"] = "<cmd>lua require('telescope.builtin').keymaps{ modes = {'n','i','c','x','v','o'} }<cr>"
 	K["n"]["gr"] = "<cmd>Telescope lsp_references<cr>"
 	K = core.merge_configs(K, "mappings.plugin_preset.telescope")
 	core.set_keymap_bucket(K)
@@ -80,6 +81,26 @@ M.nvim_tree = function()
 	K["n"]["<leader>nm"] = "<cmd>NvimTreeFindFile<cr>"
 	K["n"]["<leader>nf"] = "<cmd>NvimTreeFocus<cr>"
 	K = core.merge_configs(K, "mappings.plugin_preset.nvim_tree")
+	core.set_keymap_bucket(K)
+end
+
+M.spectre = function()
+	local K = core.get_keymap_empty_bucket()
+	K["n"]["<leader>so"] = "<cmd>lua require('spectre').open()<cr>"
+	K["n"]["<leader>sw"] = "<cmd>lua require('spectre').open_visual({select_word=true})<cr>"
+	K["n"]["<leader>sf"] = "<cmd>lua require('spectre').open_file_search()<cr>"
+	K["x"]["<leader>sf"] = "<cmd>lua require('spectre').open_visual()<cr>"
+	K = core.merge_configs(K, "mappings.plugin_preset.spectre")
+	core.set_keymap_bucket(K)
+end
+
+M.harpoon = function()
+	local K = core.get_keymap_empty_bucket()
+	K["n"]["<leader>ha"] = "<cmd>lua require('harpoon.mark').add_file()<cr>"
+	K["n"]["<leader>hC"] = "<cmd>lua require('harpoon.mark').clear_all()<cr>"
+	K["n"]["<leader>hn"] = "<cmd>lua require('harpoon.ui').nav_next()<cr>"
+	K["n"]["<leader>hp"] = "<cmd>lua require('harpoon.ui').nav_prev()<cr>"
+	K = core.merge_configs(K, "mappings.plugin_preset.spectre")
 	core.set_keymap_bucket(K)
 end
 

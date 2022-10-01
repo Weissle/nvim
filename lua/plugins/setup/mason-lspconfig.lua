@@ -1,6 +1,6 @@
 local M = {}
 
-M.config = { ensure_installed = { "sumnko_lua" } }
+M.config = { ensure_installed = require("gconfig").lsp_servers }
 
 M.setup = function()
 	require("mason-lspconfig").setup(M.config)

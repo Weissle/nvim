@@ -36,7 +36,7 @@ M.default_lsp_config = {
 	capabilities = M.default_capabilities,
 }
 
-M.lsp_servers = { "sumneko_lua" }
+M.lsp_servers = require("gconfig").lsp_servers
 
 M.setup = function()
 	local lspconfig = require("lspconfig")

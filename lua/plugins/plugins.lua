@@ -44,7 +44,6 @@ M["williamboman/mason.nvim"] = {
 
 M["nvim-telescope/telescope.nvim"] = {
 	cmd = { "Telescope" },
-	keys = { "<leader>fk" },
 	setup = function()
 		require("mappings.plugin_preset").telescope()
 	end,
@@ -72,7 +71,6 @@ M["nvim-telescope/telescope.nvim"] = {
 	},
 	config = function()
 		require("plugins.setup.telescope").setup()
-		require("mappings.plugin_after").telescope()
 	end,
 }
 
@@ -81,6 +79,14 @@ M["nvim-treesitter/nvim-treesitter"] = {
 	event = lazy_event_enter_file,
 	config = function()
 		require("plugins.setup.treesitter").setup()
+	end,
+}
+
+M["L3MON4D3/LuaSnip"] = {
+	module = "luasnip",
+	event = { "BufRead", "BufNewFile", "InsertEnter" },
+	config = function()
+		require("plugins.setup.luasnip").setup()
 	end,
 }
 
@@ -149,17 +155,6 @@ end
 
 if group.cmp ~= false then
 	M["rafamadriz/friendly-snippets"] = {}
-
-	local luasnip_event = vim.deepcopy(lazy_event_enter_file)
-	luasnip_event = vim.list_extend(luasnip_event, lazy_event_start_insert)
-
-	M["L3MON4D3/LuaSnip"] = {
-		module = "luasnip",
-		event = luasnip_event,
-		config = function()
-			require("plugins.setup.luasnip").setup()
-		end,
-	}
 
 	M["hrsh7th/nvim-cmp"] = {
 		after = "LuaSnip",
@@ -266,6 +261,7 @@ if group.ez ~= false then
 			require("mappings.plugin_after").bufremove()
 		end,
 	}
+
 	M["rmagatti/auto-session"] = {
 		cond = function()
 			return vim.g.auto_session_enabled ~= false
@@ -310,16 +306,19 @@ if group.ez ~= false then
 	}
 
 	M["numToStr/Comment.nvim"] = {
-		event = lazy_event_enter_file,
+		keys = { "gc", "gb" },
 		config = function()
 			require("Comment").setup()
 		end,
 	}
 
 	M["windwp/nvim-spectre"] = {
+		module = "spectre",
+		setup = function()
+			require("mappings.plugin_preset").spectre()
+		end,
 		config = function()
 			require("spectre").setup()
-			require("mappings.plugin_after").spectre()
 		end,
 	}
 
@@ -338,6 +337,11 @@ if group.ez ~= false then
 	}
 
 	M["ThePrimeagen/harpoon"] = {
+		keys = { "<leader>fl" },
+		module = { "harpoon.mark", "harpoon.ui" },
+		setup = function()
+			require("mappings.plugin_preset").harpoon()
+		end,
 		config = function()
 			require("harpoon").setup({})
 			require("mappings.plugin_after").harpoon()

@@ -20,7 +20,7 @@ M.lspconfig = function()
 	K["n"]["gi"] = vim.lsp.buf.implementation
 	K["n"]["gD"] = vim.lsp.buf.declaration
 	K["n"]["gd"] = vim.lsp.buf.definition
-	K = core.merge_configs(K, "mappings.plugin_preset.lspconfig")
+	K = core.merge_configs(K, "mappings.plugin_after.lspconfig")
 	core.set_keymap_bucket(K)
 end
 
@@ -47,7 +47,7 @@ M.ufo = function()
 	local K = core.get_keymap_empty_bucket()
 	K["n"]["zR"] = require("ufo").openAllFolds
 	K["n"]["zM"] = require("ufo").closeAllFolds
-	K = core.merge_configs(K, "mappings.plugin_preset.ufo")
+	K = core.merge_configs(K, "mappings.plugin_after.ufo")
 	core.set_keymap_bucket(K)
 end
 
@@ -73,13 +73,6 @@ M.hop = function()
 	core.set_keymap_bucket(K)
 end
 
-M.telescope = function()
-	local K = core.get_keymap_empty_bucket()
-	K["n"]["<leader>fk"] = "<cmd>lua require('telescope.builtin').keymaps{ modes = {'n','i','c','x','v','o'} }<cr>"
-	K = core.merge_configs(K, "mappings.plugin_after.telescope")
-	core.set_keymap_bucket(K)
-end
-
 M.inc_rename = function()
 	local K = core.get_keymap_empty_bucket()
 	local opts = vim.deepcopy(core.keymap_opts)
@@ -90,28 +83,14 @@ M.inc_rename = function()
 		end,
 		opts = opts,
 	}
-	K = core.merge_configs(K, "mappings.plugin_preset.inc_rename")
-	core.set_keymap_bucket(K)
-end
-
-M.spectre = function()
-	local K = core.get_keymap_empty_bucket()
-	K["n"]["<leader>so"] = "<cmd>lua require('spectre').open()<cr>"
-	K["n"]["<leader>sw"] = "<cmd>lua require('spectre').open_visual({select_word=true})<cr>"
-	K["n"]["<leader>sf"] = "<cmd>lua require('spectre').open_file_search()<cr>"
-	K["x"]["<leader>sf"] = "<cmd>lua require('spectre').open_visual()<cr>"
-	K = core.merge_configs(K, "mappings.plugin_preset.spectre")
+	K = core.merge_configs(K, "mappings.plugin_after.inc_rename")
 	core.set_keymap_bucket(K)
 end
 
 M.harpoon = function()
 	local K = core.get_keymap_empty_bucket()
 	K["n"]["<leader>fl"] = "<cmd>Telescope harpoon marks<cr>"
-	K["n"]["<leader>ha"] = "<cmd>lua require('harpoon.mark').add_file()<cr>"
-	K["n"]["<leader>hC"] = "<cmd>lua require('harpoon.mark').clear_all()<cr>"
-	K["n"]["<leader>hn"] = "<cmd>lua require('harpoon.ui').nav_next()<cr>"
-	K["n"]["<leader>hp"] = "<cmd>lua require('harpoon.ui').nav_prev()<cr>"
-	K = core.merge_configs(K, "mappings.plugin_preset.spectre")
+	K = core.merge_configs(K, "mappings.plugin_after.spectre")
 	core.set_keymap_bucket(K)
 end
 
