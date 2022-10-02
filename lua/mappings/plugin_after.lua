@@ -31,10 +31,11 @@ M.bufferline = function()
 	K["n"]["<leader>bp"] = "<cmd>BufferLineCyclePrev<cr>"
 	K["n"]["<leader>ql"] = "<cmd>BufferLineCloseLeft<cr>"
 	K["n"]["<leader>qr"] = "<cmd>BufferLineCloseRight<cr>"
-	K = core.merge_configs(K, "mappings.plugin_after.buferline")
+	K = core.merge_configs(K, "mappings.plugin_after.bufferline")
 	core.set_keymap_bucket(K)
 end
 
+-- called at file `plugins.setup.mini.lua`
 M.bufremove = function()
 	local K = core.get_keymap_empty_bucket()
 	K["n"]["<leader>qb"] = "<cmd>lua require('mini.bufremove').delete(0)<cr>"
@@ -48,28 +49,6 @@ M.ufo = function()
 	K["n"]["zR"] = require("ufo").openAllFolds
 	K["n"]["zM"] = require("ufo").closeAllFolds
 	K = core.merge_configs(K, "mappings.plugin_after.ufo")
-	core.set_keymap_bucket(K)
-end
-
-M.hop = function()
-	local K = core.get_keymap_empty_bucket()
-	K[""]["<leader>hl"] = "<cmd>HopLineStartMW<cr>"
-	K[""]["<leader>hw"] = "<cmd>HopWordMW<cr>"
-	K[""]["<leader>hx"] = "<cmd>HopChar2MW <cr>"
-	K[""]["<leader>h/"] = "<cmd>HopPatternMW <cr>"
-	for _, mode in ipairs({ "n", "x", "o" }) do
-		K[mode]["<leader>hf"] =
-			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
-		K[mode]["<leader>hF"] =
-			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
-		K[mode]["<leader>ht"] =
-			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>"
-		K[mode]["<leader>hT"] =
-			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>"
-		K[mode]["<leader>he"] =
-			"<cmd>lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, multi_windows = true })<cr>"
-	end
-	K = core.merge_configs(K, "mappings.plugin_after.hop")
 	core.set_keymap_bucket(K)
 end
 
@@ -90,7 +69,7 @@ end
 M.harpoon = function()
 	local K = core.get_keymap_empty_bucket()
 	K["n"]["<leader>fl"] = "<cmd>Telescope harpoon marks<cr>"
-	K = core.merge_configs(K, "mappings.plugin_after.spectre")
+	K = core.merge_configs(K, "mappings.plugin_after.harpoon")
 	core.set_keymap_bucket(K)
 end
 

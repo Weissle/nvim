@@ -5,6 +5,7 @@ local group = {
 	ui = true,
 	ez = true,
 	doc = true,
+	session = true,
 }
 
 local lazy_event_enter_file = { "BufRead", "BufNewFile" }
@@ -247,10 +248,13 @@ end
 if group.ez ~= false then
 	M["phaazon/hop.nvim"] = {
 		branch = "v2",
-		event = lazy_event_enter_file,
+		module = "hop",
+		cmd = { "HopLineStartMW", "HopWordMW" },
+		setup = function()
+			require("mappings.plugin_preset").hop()
+		end,
 		config = function()
 			require("hop").setup()
-			require("mappings.plugin_after").hop()
 		end,
 	}
 
@@ -258,26 +262,6 @@ if group.ez ~= false then
 		event = lazy_event_enter_file,
 		config = function()
 			require("plugins.setup.mini").setup()
-			require("mappings.plugin_after").bufremove()
-		end,
-	}
-
-	M["rmagatti/auto-session"] = {
-		cond = function()
-			return vim.g.auto_session_enabled ~= false
-		end,
-		requires = {
-			"rmagatti/session-lens",
-			after = { "telescope.nvim", "auto-session" },
-			setup = function()
-				require("mappings.plugin_preset").session_lens()
-			end,
-			config = function()
-				require("session-lens").setup()
-			end,
-		},
-		config = function()
-			require("plugins.setup.auto-session").setup()
 		end,
 	}
 
@@ -302,13 +286,6 @@ if group.ez ~= false then
 		end,
 		config = function()
 			require("plugins.setup.smart-splits").setup()
-		end,
-	}
-
-	M["numToStr/Comment.nvim"] = {
-		keys = { "gc", "gb" },
-		config = function()
-			require("Comment").setup()
 		end,
 	}
 
@@ -370,6 +347,34 @@ if group.doc ~= false then
 			require("neogen").setup({
 				snippet_engine = "luasnip",
 			})
+		end,
+	}
+
+	M["numToStr/Comment.nvim"] = {
+		keys = { "gc", "gb" },
+		config = function()
+			require("Comment").setup()
+		end,
+	}
+end
+
+if group.session ~= false then
+	M["rmagatti/auto-session"] = {
+		cond = function()
+			return vim.g.auto_session_enabled ~= false
+		end,
+		requires = {
+			"rmagatti/session-lens",
+			after = { "telescope.nvim", "auto-session" },
+			setup = function()
+				require("mappings.plugin_preset").session_lens()
+			end,
+			config = function()
+				require("session-lens").setup()
+			end,
+		},
+		config = function()
+			require("plugins.setup.auto-session").setup()
 		end,
 	}
 end

@@ -1,5 +1,6 @@
 local M = {}
 local core = require("core")
+
 M.telescope = function()
 	local K = core.get_keymap_empty_bucket()
 	K["n"]["<leader>ff"] = "<cmd>Telescope find_files<cr>"
@@ -100,7 +101,27 @@ M.harpoon = function()
 	K["n"]["<leader>hC"] = "<cmd>lua require('harpoon.mark').clear_all()<cr>"
 	K["n"]["<leader>hn"] = "<cmd>lua require('harpoon.ui').nav_next()<cr>"
 	K["n"]["<leader>hp"] = "<cmd>lua require('harpoon.ui').nav_prev()<cr>"
-	K = core.merge_configs(K, "mappings.plugin_preset.spectre")
+	K = core.merge_configs(K, "mappings.plugin_preset.harpoon")
+	core.set_keymap_bucket(K)
+end
+
+M.hop = function()
+	local K = core.get_keymap_empty_bucket()
+	K[""]["<leader>hl"] = "<cmd>HopLineStartMW<cr>"
+	K[""]["<leader>hw"] = "<cmd>HopWordMW<cr>"
+	for _, mode in ipairs({ "n", "x", "o" }) do
+		K[mode]["<leader>hf"] =
+			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
+		K[mode]["<leader>hF"] =
+			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
+		K[mode]["<leader>ht"] =
+			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>"
+		K[mode]["<leader>hT"] =
+			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>"
+		K[mode]["<leader>he"] =
+			"<cmd>lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, multi_windows = true })<cr>"
+	end
+	K = core.merge_configs(K, "mappings.plugin_preset.hop")
 	core.set_keymap_bucket(K)
 end
 
