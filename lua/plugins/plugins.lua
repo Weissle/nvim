@@ -1,15 +1,6 @@
 local M = {}
-local group = {
-	lsp = true,
-	cmp = true,
-	ui = true,
-	ez = true,
-	doc = true,
-	session = true,
-}
-
-local lazy_event_enter_file = { "BufRead", "BufNewFile" }
-local lazy_event_start_insert = { "InsertEnter" }
+local config = require("plugins.config")
+local lazy_event_enter_file = config.lazy_event_enter_file
 
 M["wbthomason/packer.nvim"] = {
 	cmd = { "PackerInstall", "PackerSync", "PackerStatus", "PackerCompile", "PackerProfile", "PackerClean" },
@@ -91,7 +82,7 @@ M["L3MON4D3/LuaSnip"] = {
 	end,
 }
 
-if group.lsp ~= false then
+if config.group.lsp ~= false then
 	M["williamboman/mason-lspconfig.nvim"] = {
 		after = { "mason.nvim" },
 		config = function()
@@ -154,7 +145,7 @@ if group.lsp ~= false then
 	}
 end
 
-if group.cmp ~= false then
+if config.group.cmp ~= false then
 	M["rafamadriz/friendly-snippets"] = {}
 
 	M["hrsh7th/nvim-cmp"] = {
@@ -191,7 +182,7 @@ if group.cmp ~= false then
 	}
 end
 
-if group.ui then
+if config.group.ui then
 	M["kyazdani42/nvim-web-devicons"] = {
 		module = "nvim-web-devicons",
 	}
@@ -245,7 +236,7 @@ if group.ui then
 	}
 end
 
-if group.ez ~= false then
+if config.group.ez ~= false then
 	M["phaazon/hop.nvim"] = {
 		branch = "v2",
 		module = "hop",
@@ -326,9 +317,9 @@ if group.ez ~= false then
 	}
 end
 
-if group.doc ~= false then
+if config.group.doc ~= false then
 	M["folke/todo-comments.nvim"] = {
-		event = lazy_event_enter_file,
+		-- event = lazy_event_enter_file,
 		setup = function()
 			require("mappings.plugin_preset").todo_comments()
 		end,
@@ -358,7 +349,7 @@ if group.doc ~= false then
 	}
 end
 
-if group.session ~= false then
+if config.group.session ~= false then
 	M["rmagatti/auto-session"] = {
 		cond = function()
 			return vim.g.auto_session_enabled ~= false

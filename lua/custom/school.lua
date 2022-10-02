@@ -1,7 +1,7 @@
 local M = {}
 
-M["gconfig"] = {
-	lsp_servers = {
+M["plugins.config"] = {
+	lsp_servers_required = {
 		"pyright",
 		"clangd",
 		"cmake",

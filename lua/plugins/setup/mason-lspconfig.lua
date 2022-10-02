@@ -1,6 +1,6 @@
 local M = {}
 
-M.config = { ensure_installed = require("gconfig").lsp_servers }
+M.config = { ensure_installed = require("plugins.config").lsp_servers_required }
 
 M.setup = function()
 	require("mason-lspconfig").setup(M.config)

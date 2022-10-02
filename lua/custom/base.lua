@@ -1,14 +1,14 @@
 local M = {}
 
-M["gconfig"] = {
-	lsp_servers = {
+M["plugins.config"] = {
+	lsp_servers_required = {
 		"pyright",
 		"clangd",
 		"cmake",
 		"bashls",
 		"sumneko_lua",
 	},
-	treesitter_required = { "c", "lua", "cpp", "json", "python", "cmake", "markdown" },
+	treesitter_parsers_required = { "c", "lua", "cpp", "json", "python", "cmake", "markdown" },
 }
 
 M["plugins.plugins"] = {

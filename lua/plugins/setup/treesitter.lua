@@ -1,7 +1,7 @@
 local M = {}
 
 M.config = {
-	ensure_installed = require("gconfig").treesitter_required,
+	ensure_installed = require("plugins.config").treesitter_parsers_required,
 	sync_install = false,
 	highlight = {
 		enable = true,

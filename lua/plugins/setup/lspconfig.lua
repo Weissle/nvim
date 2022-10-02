@@ -36,7 +36,7 @@ M.default_lsp_config = {
 	capabilities = M.default_capabilities,
 }
 
-M.lsp_servers = require("gconfig").lsp_servers
+M.lsp_servers = require("plugins.config").lsp_servers_required
 
 M.setup = function()
 	local lspconfig = require("lspconfig")
