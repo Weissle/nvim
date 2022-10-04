@@ -32,14 +32,18 @@ end
 M.keymap_opts = { noremap = true, silent = true }
 
 M.get_keymap_empty_bucket = function()
-	local ret = {}
-	setmetatable(ret, {
-		__index = function(_, d)
-			ret[d] = {}
-			return ret[d]
-		end,
-	})
-	return ret
+	if M.vim_version >= "0.8.0" then
+		return vim.defaulttable({})
+	else
+		local ret = {}
+		setmetatable(ret, {
+			__index = function(_, d)
+				ret[d] = {}
+				return ret[d]
+			end,
+		})
+		return ret
+	end
 end
 
 M.set_keymap_bucket = function(cfg)

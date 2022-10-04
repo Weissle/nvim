@@ -42,10 +42,8 @@ M["plugins.setup.luasnip"] = {
 }
 
 M["plugins.setup.lspconfig"] = function(C)
-	C.clangd_config = {
-		capabilities = C.default_capabilities,
-		cmd = { "clangd", "--header-insertion=never" },
-	}
+	C.clangd_config = vim.deepcopy(C.default_lsp_config)
+	C.cmd = { "clangd", "--header-insertion=never" }
 	return C
 end
 

@@ -1,4 +1,5 @@
 local M = {}
+local core = require("core")
 
 M.create_setup_plugins_command = function()
 	vim.api.nvim_create_user_command("PluginsSetup", function()
@@ -43,6 +44,28 @@ M.setup_autosave = function()
 		group = "autosave",
 		callback = function()
 			pcall(vim.cmd, "write")
+		end,
+	})
+end
+
+M.setup_auto_format = function()
+	vim.api.nvim_create_augroup("autoformat", { clear = true })
+	vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+		group = "autoformat",
+		callback = function()
+			local clients = vim.lsp.buf_get_clients()
+			local formatable = false
+			for k, v in pairs(clients) do
+				formatable = v.resolved_capabilities.document_formatting or formatable
+			end
+			if formatable == false then
+				return
+			elseif core.vim_version >= "0.8.0" then
+				--HACK: need test
+				vim.lsp.format()
+			else
+				vim.lsp.buf.formatting_sync()
+			end
 		end,
 	})
 end

@@ -1,10 +1,19 @@
 local M = {}
+local pcfg = require("plugins.config")
 
 local ext, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+-- INFO: Change default_capabilities will not effect other variables which alread directly use default_capabilities like default_lsp_config.
 if ext then
 	M.default_capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
 else
 	M.default_capabilities = vim.lsp.protocol.make_client_capabilities()
+end
+
+M.on_attach = function(client, bufnr)
+	if pcfg.clients_format_disabled[client.name] ~= nil then
+		client.resolved_capabilities.document_formatting = false
+		client.resolved_capabilities.document_range_formatting = false
+	end
 end
 
 M.sumneko_lua_config = {
@@ -30,10 +39,12 @@ M.sumneko_lua_config = {
 			},
 		},
 	},
+	on_attach = M.on_attach,
 }
 
 M.default_lsp_config = {
 	capabilities = M.default_capabilities,
+	on_attach = M.on_attach,
 }
 
 M.lsp_servers = require("plugins.config").lsp_servers_required

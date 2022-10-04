@@ -44,6 +44,6 @@ M.setup = function()
 	end
 end
 
-M = require("core").merge_configs(M, "plugins.setup.mini")
+M = core.merge_configs(M, "plugins.setup.mini")
 
 return M

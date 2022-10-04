@@ -143,6 +143,13 @@ if config.group.lsp ~= false then
 			require("mappings.plugin_after").inc_rename()
 		end,
 	}
+
+	M["jose-elias-alvarez/null-ls.nvim"] = {
+		after = { "mason-lspconfig.nvim" },
+		config = function()
+			require("plugins.setup.null-ls").setup()
+		end,
+	}
 end
 
 if config.group.cmp ~= false then
@@ -319,7 +326,7 @@ end
 
 if config.group.doc ~= false then
 	M["folke/todo-comments.nvim"] = {
-		-- event = lazy_event_enter_file,
+		event = lazy_event_enter_file,
 		setup = function()
 			require("mappings.plugin_preset").todo_comments()
 		end,
