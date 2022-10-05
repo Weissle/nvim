@@ -13,11 +13,11 @@ end
 
 M.merge_configs = function(config, config_name)
 	for _, cfg in ipairs(override_config_list) do
-		local ext = cfg[config_name]
+		local ext, ret = cfg[config_name], nil
 		if type(ext) == "function" then
-			config = ext(config)
+			ret = ext(config)
 		elseif type(ext) == "table" then
-			config = vim.tbl_deep_extend("force", config, ext)
+			ret = vim.tbl_deep_extend("force", config, ext)
 		elseif ext ~= nil then
 			vim.notify(
 				"type(require('custom').%s) should be function or table rather than %s",
@@ -26,7 +26,7 @@ M.merge_configs = function(config, config_name)
 			)
 		end
 	end
-	return config
+	return ret or config
 end
 
 M.keymap_opts = { noremap = true, silent = true }

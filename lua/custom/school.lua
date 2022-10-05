@@ -1,6 +1,6 @@
 local M = {}
 
-M["plugins.config"] = {
+M["plugins.lsp.config"] = {
 	lsp_servers_required = {
 		"pyright",
 		"clangd",
@@ -20,7 +20,6 @@ M["plugins.plugins"] = {
 M["plugins.setup.nvim-cmp"] = function(C)
 	C.cmp_source.latex_symbols = "Tex"
 	table.insert(C.insert_config.sources, { name = "latex_symbols" })
-	return C
 end
 
 return M

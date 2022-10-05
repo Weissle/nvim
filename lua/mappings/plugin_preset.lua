@@ -23,8 +23,8 @@ M.telescope = function()
 	K["n"]["<leader>f/"] = "<cmd>Telescope current_buffer_fuzzy_find<cr>"
 	K["n"]["<leader>fd"] = "<cmd>Telescope diagnostics<cr>"
 	K["n"]["<leader>fm"] = "<cmd>Telescope marks<cr>"
-	K["n"]["<leader>fk"] = "<cmd>lua require('telescope.builtin').keymaps{ modes = {'n','i','c','x','v','o'} }<cr>"
-	K["n"]["gr"] = "<cmd>Telescope lsp_references<cr>"
+	K["n"]["<leader>fk"] = "<cmd>lua require('telescope.builtin').keymaps{ modes = {'n','i','c','x','v','o'}}<cr>"
+	K["n"]["gr"] = "<cmd>Telescope lsp_references initial_mode=normal<cr>"
 	K = core.merge_configs(K, "mappings.plugin_preset.telescope")
 	core.set_keymap_bucket(K)
 end

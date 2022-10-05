@@ -1,15 +1,24 @@
 local M = {}
 
-M["plugins.config"] = {
-	lsp_servers_required = {
+M["plugins.setup.treesitter"] = function(C)
+	C.config.ensure_installed = { "c", "lua", "cpp", "json", "python", "cmake", "markdown" }
+end
+
+M["plugins.lsp.config"] = function(C)
+	C.lsp_servers_required = {
 		"pyright",
 		"clangd",
 		"cmake",
 		"bashls",
 		"sumneko_lua",
-	},
-	treesitter_parsers_required = { "c", "lua", "cpp", "json", "python", "cmake", "markdown" },
-}
+	}
+	C.clients_format_disabled["clangd"] = true
+end
+
+M["plugins.lsp.null-ls"] = function(C)
+	local formatting = require("null-ls").builtins.formatting
+	table.insert(C.config.sources, formatting.clang_format)
+end
 
 M["plugins.plugins"] = {
 
@@ -41,10 +50,9 @@ M["plugins.setup.luasnip"] = {
 	end,
 }
 
-M["plugins.setup.lspconfig"] = function(C)
+M["plugins.lsp.lspconfig"] = function(C)
 	C.clangd_config = vim.deepcopy(C.default_lsp_config)
-	C.cmd = { "clangd", "--header-insertion=never" }
-	return C
+	C.clangd_config.cmd = { "clangd", "--header-insertion=never" }
 end
 
 M["mappings.mappings"] = function(C)
@@ -62,8 +70,6 @@ M["mappings.mappings"] = function(C)
 	C["n"]["<leader>qa"] = "<cmd>wa<cr><bar><cmd>qa<cr>"
 	C["n"]["<leader>qt"] = "<cmd>q<cr>"
 	C["n"]["<leader>qw"] = "<cmd>wa<cr>"
-
-	return C
 end
 
 M["plugins.setup.telescope"] = function(C)
@@ -73,7 +79,6 @@ M["plugins.setup.telescope"] = function(C)
 			exclude = { 1, -1 },
 		},
 	}
-	return C
 end
 
 return M

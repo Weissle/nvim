@@ -86,7 +86,7 @@ if config.group.lsp ~= false then
 	M["williamboman/mason-lspconfig.nvim"] = {
 		after = { "mason.nvim" },
 		config = function()
-			require("plugins.setup.mason-lspconfig").setup()
+			require("plugins.lsp.mason-lspconfig").setup()
 		end,
 	}
 
@@ -101,7 +101,7 @@ if config.group.lsp ~= false then
 			if ext then
 				lua_dev.setup({})
 			end
-			require("plugins.setup.lspconfig").setup()
+			require("plugins.lsp.lspconfig").setup()
 			require("mappings.plugin_after").lspconfig()
 		end,
 	}
@@ -133,7 +133,9 @@ if config.group.lsp ~= false then
 			return require("core").vim_version >= "0.8.0"
 		end,
 		setup = function()
-			vim.g._inc_rename_exists = true
+			if require("core").vim_version >= "0.8.0" then
+				vim.g._inc_rename_exists = true
+			end
 		end,
 		after = { "nvim-lspconfig" },
 		config = function()
@@ -147,7 +149,7 @@ if config.group.lsp ~= false then
 	M["jose-elias-alvarez/null-ls.nvim"] = {
 		after = { "mason-lspconfig.nvim" },
 		config = function()
-			require("plugins.setup.null-ls").setup()
+			require("plugins.lsp.null-ls").setup()
 		end,
 	}
 end

@@ -1,5 +1,6 @@
 local M = {}
-local pcfg = require("plugins.config")
+local plc = require("plugins.lsp.config")
+local core = require("core")
 
 local ext, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 -- INFO: Change default_capabilities will not effect other variables which alread directly use default_capabilities like default_lsp_config.
@@ -10,9 +11,17 @@ else
 end
 
 M.on_attach = function(client, bufnr)
-	if pcfg.clients_format_disabled[client.name] ~= nil then
-		client.resolved_capabilities.document_formatting = false
-		client.resolved_capabilities.document_range_formatting = false
+	if core.vim_version >= "0.8.0" then
+		-- HACK: Need test.
+		if plc.clients_format_disabled[client.name] ~= nil then
+			client.server_capabilities.documentFormattingProvider = false
+			client.server_capabilities.documentRangeFormattingProvider = false
+		end
+	else
+		if plc.clients_format_disabled[client.name] ~= nil then
+			client.resolved_capabilities.document_formatting = false
+			client.resolved_capabilities.document_range_formatting = false
+		end
 	end
 end
 
@@ -47,7 +56,7 @@ M.default_lsp_config = {
 	on_attach = M.on_attach,
 }
 
-M.lsp_servers = require("plugins.config").lsp_servers_required
+M.lsp_servers = require("plugins.lsp.config").lsp_servers_required
 
 M.setup = function()
 	local lspconfig = require("lspconfig")
@@ -60,6 +69,6 @@ M.setup = function()
 	end
 end
 
-M = require("core").merge_configs(M, "plugins.setup.lspconfig")
+M = require("core").merge_configs(M, "plugins.lsp.lspconfig")
 
 return M
