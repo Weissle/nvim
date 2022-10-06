@@ -1,14 +1,6 @@
 local M = {}
 local core = require("core")
 
-M.create_setup_plugins_command = function()
-	vim.api.nvim_create_user_command("PluginsSetup", function()
-		require("plugins.setup.packer").setup({})
-		vim.cmd("PackerInstall")
-		vim.cmd("PackerSync")
-	end, {})
-end
-
 M.enable_unnamedplus = function()
 	vim.defer_fn(function()
 		vim.cmd([[set clipboard+=unnamedplus]])

@@ -1,0 +1,10 @@
+vim.api.nvim_create_user_command("YuePluginsSync", function()
+	require("plugins.setup.packer").setup({})
+	vim.cmd("PackerInstall")
+	vim.cmd("PackerSync")
+end, {})
+
+vim.api.nvim_create_user_command("YuePluginsCompile", function()
+	require("plugins.setup.packer").setup({})
+	vim.cmd("PackerCompile")
+end, {})

@@ -1,4 +1,4 @@
--- setup when the plugin is loaded.
+-- called if the corresponding plugin is loaded.
 local M = {}
 local core = require("core")
 

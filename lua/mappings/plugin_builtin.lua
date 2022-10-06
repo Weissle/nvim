@@ -1,3 +1,4 @@
+-- Plugin set the keymaps by themselves.
 local M = {}
 local core = require("core")
 

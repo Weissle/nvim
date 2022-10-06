@@ -1,5 +1,17 @@
 local M = {}
-local config = require("plugins.config")
+local config = {
+	group = {
+		lsp = true,
+		cmp = true,
+		ui = true,
+		ez = true,
+		doc = true,
+		session = true,
+	},
+	lazy_event_enter_file = { "BufRead", "BufNewFile" },
+}
+
+require("core").merge_configs(config, "plugins.plugins.config")
 local lazy_event_enter_file = config.lazy_event_enter_file
 
 M["wbthomason/packer.nvim"] = {

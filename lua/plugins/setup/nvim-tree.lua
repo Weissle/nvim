@@ -1,10 +1,6 @@
 local M = {}
 
 M.config = {
-	view = {
-		adaptive_size = true,
-		side = "right",
-	},
 	git = {
 		ignore = false,
 	},

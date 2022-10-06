@@ -81,4 +81,11 @@ M["plugins.setup.telescope"] = function(C)
 	}
 end
 
+M["plugins.setup.nvim-tree"] = function(C)
+	C.config.view = {
+		adaptive_size = true,
+		side = "right",
+	}
+end
+
 return M

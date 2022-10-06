@@ -1,3 +1,4 @@
+-- called if the corresponding plugin exists.
 local M = {}
 local core = require("core")
 
