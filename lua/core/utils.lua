@@ -3,14 +3,14 @@ local version = vim.version()
 
 M.vim_version = string.format("%d.%d.%d", version.major, version.minor, version.patch)
 
-M.create_default_table = function(default)
+M.create_default_table = function()
 	if M.vim_version >= "0.8.0" then
-		return vim.defaulttable(default)
+		return vim.defaulttable()
 	else
 		local ret = {}
 		setmetatable(ret, {
 			__index = function(_, d)
-				ret[d] = vim.deepcopy(default)
+				ret[d] = {}
 				return ret[d]
 			end,
 		})

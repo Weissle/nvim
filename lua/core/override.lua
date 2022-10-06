@@ -14,7 +14,7 @@ M.merge_configs = function(config, config_name)
 		if type(ext) == "function" then
 			ret = ext(ret) or ret
 		elseif type(ext) == "table" then
-			ret = vim.tbl_deep_extend("force", config, ext)
+			ret = vim.tbl_deep_extend("force", ret, ext)
 		elseif ext ~= nil then
 			vim.notify(
 				"type(require('custom').%s) should be function or table rather than %s",

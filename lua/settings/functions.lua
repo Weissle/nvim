@@ -47,14 +47,17 @@ M.setup_auto_format = function()
 		callback = function()
 			local clients = vim.lsp.buf_get_clients()
 			local formatable = false
-			for k, v in pairs(clients) do
-				formatable = v.resolved_capabilities.document_formatting or formatable
+			for _, v in pairs(clients) do
+				if core.vim_version >= "0.8.0" then
+					formatable = v.server_capabilities.documentFormattingProvider or formatable
+				else
+					formatable = v.resolved_capabilities.document_formatting or formatable
+				end
 			end
 			if formatable == false then
 				return
 			elseif core.vim_version >= "0.8.0" then
-				--HACK: need test
-				vim.lsp.format()
+				vim.lsp.buf.format()
 			else
 				vim.lsp.buf.formatting_sync()
 			end

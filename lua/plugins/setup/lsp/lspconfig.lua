@@ -12,7 +12,6 @@ end
 
 M.on_attach = function(client, bufnr)
 	if core.vim_version >= "0.8.0" then
-		-- HACK: Need test.
 		if pslc.clients_format_disabled[client.name] ~= nil then
 			client.server_capabilities.documentFormattingProvider = false
 			client.server_capabilities.documentRangeFormattingProvider = false

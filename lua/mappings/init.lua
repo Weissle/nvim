@@ -23,6 +23,6 @@ M["n"]["<leader>tt"] = "<cmd>tabnew<cr><bar><cmd>terminal<cr>i"
 M["n"]["<leader>tx"] = "<cmd>sp<cr><bar><cmd>terminal<cr>i"
 M["n"]["<leader>tv"] = "<cmd>vsp<cr><bar><cmd>terminal<cr>i"
 
-M = core.merge_configs(M, "mappings.mappings")
+M = core.merge_configs(M, "mappings.init")
 
 core.set_keymap_bucket(M)

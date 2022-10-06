@@ -55,7 +55,7 @@ M["plugins.setup.lsp.lspconfig"] = function(C)
 	C.clangd_config.cmd = { "clangd", "--header-insertion=never" }
 end
 
-M["mappings.mappings"] = function(C)
+M["mappings.init"] = function(C)
 	C["n"]["<F3>"] = "<cmd>noh<cr>"
 	C[""]["J"] = "gJ"
 

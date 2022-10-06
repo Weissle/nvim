@@ -4,7 +4,7 @@ local utils = require("core.utils")
 M.keymap_opts = { noremap = true, silent = true }
 
 M.get_keymap_empty_bucket = function()
-	return utils.create_default_table({})
+	return utils.create_default_table()
 end
 
 M.set_keymap_bucket = function(cfg)
