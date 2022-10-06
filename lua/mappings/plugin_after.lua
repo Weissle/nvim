@@ -31,6 +31,7 @@ M.bufferline = function()
 	K["n"]["<leader>bp"] = "<cmd>BufferLineCyclePrev<cr>"
 	K["n"]["<leader>ql"] = "<cmd>BufferLineCloseLeft<cr>"
 	K["n"]["<leader>qr"] = "<cmd>BufferLineCloseRight<cr>"
+	K["n"]["<leader>qo"] = "<cmd>BufferLineCloseRight<cr><bar><cmd>BufferLineCloseLeft<cr>"
 	K = core.merge_configs(K, "mappings.plugin_after.bufferline")
 	core.set_keymap_bucket(K)
 end

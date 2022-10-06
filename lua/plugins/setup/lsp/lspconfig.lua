@@ -1,5 +1,5 @@
 local M = {}
-local plc = require("plugins.lsp.config")
+local pslc = require("plugins.setup.lsp.config")
 local core = require("core")
 
 local ext, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
@@ -13,12 +13,12 @@ end
 M.on_attach = function(client, bufnr)
 	if core.vim_version >= "0.8.0" then
 		-- HACK: Need test.
-		if plc.clients_format_disabled[client.name] ~= nil then
+		if pslc.clients_format_disabled[client.name] ~= nil then
 			client.server_capabilities.documentFormattingProvider = false
 			client.server_capabilities.documentRangeFormattingProvider = false
 		end
 	else
-		if plc.clients_format_disabled[client.name] ~= nil then
+		if pslc.clients_format_disabled[client.name] ~= nil then
 			client.resolved_capabilities.document_formatting = false
 			client.resolved_capabilities.document_range_formatting = false
 		end
@@ -56,7 +56,7 @@ M.default_lsp_config = {
 	on_attach = M.on_attach,
 }
 
-M.lsp_servers = require("plugins.lsp.config").lsp_servers_required
+M.lsp_servers = pslc.lsp_servers_required
 
 M.setup = function()
 	local lspconfig = require("lspconfig")
@@ -69,6 +69,6 @@ M.setup = function()
 	end
 end
 
-M = require("core").merge_configs(M, "plugins.lsp.lspconfig")
+M = require("core").merge_configs(M, "plugins.setup.lsp.lspconfig")
 
 return M

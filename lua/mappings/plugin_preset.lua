@@ -107,20 +107,20 @@ end
 
 M.hop = function()
 	local K = core.get_keymap_empty_bucket()
-	K[""]["<leader>hl"] = "<cmd>HopLineStartMW<cr>"
-	K[""]["<leader>hw"] = "<cmd>HopWordMW<cr>"
-	for _, mode in ipairs({ "n", "x", "o" }) do
-		K[mode]["<leader>hf"] =
-			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
-		K[mode]["<leader>hF"] =
-			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
-		K[mode]["<leader>ht"] =
-			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>"
-		K[mode]["<leader>hT"] =
-			"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>"
-		K[mode]["<leader>he"] =
-			"<cmd>lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, multi_windows = true })<cr>"
-	end
+	local mode = { "n", "x", "o" }
+	K[mode]["<leader>hl"] = "<cmd>HopLineStartMW<cr>"
+	K[mode]["<leader>hw"] = "<cmd>HopWordMW<cr>"
+	-- HACK: Keymaps is changed to f,F,t,T after the relative PR is merged.
+	K[mode]["<leader>hf"] =
+		"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
+	K[mode]["<leader>hF"] =
+		"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
+	K[mode]["<leader>ht"] =
+		"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>"
+	K[mode]["<leader>hT"] =
+		"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>"
+	K[mode]["<leader>he"] =
+		"<cmd>lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, multi_windows = true })<cr>"
 	K = core.merge_configs(K, "mappings.plugin_preset.hop")
 	core.set_keymap_bucket(K)
 end

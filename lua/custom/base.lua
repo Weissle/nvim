@@ -4,7 +4,7 @@ M["plugins.setup.treesitter"] = function(C)
 	C.config.ensure_installed = { "c", "lua", "cpp", "json", "python", "cmake", "markdown" }
 end
 
-M["plugins.lsp.config"] = function(C)
+M["plugins.setup.lsp.config"] = function(C)
 	C.lsp_servers_required = {
 		"pyright",
 		"clangd",
@@ -15,7 +15,7 @@ M["plugins.lsp.config"] = function(C)
 	C.clients_format_disabled["clangd"] = true
 end
 
-M["plugins.lsp.null-ls"] = function(C)
+M["plugins.setup.lsp.null-ls"] = function(C)
 	local formatting = require("null-ls").builtins.formatting
 	table.insert(C.config.sources, formatting.clang_format)
 end
@@ -50,7 +50,7 @@ M["plugins.setup.luasnip"] = {
 	end,
 }
 
-M["plugins.lsp.lspconfig"] = function(C)
+M["plugins.setup.lsp.lspconfig"] = function(C)
 	C.clangd_config = vim.deepcopy(C.default_lsp_config)
 	C.clangd_config.cmd = { "clangd", "--header-insertion=never" }
 end

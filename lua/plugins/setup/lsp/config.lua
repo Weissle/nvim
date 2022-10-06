@@ -7,6 +7,6 @@ M.clients_format_disabled = {
 	sumneko_lua = true,
 }
 
-M = require("core").merge_configs(M, "plugins.lsp.config")
+M = require("core").merge_configs(M, "plugins.setup.lsp.config")
 
 return M

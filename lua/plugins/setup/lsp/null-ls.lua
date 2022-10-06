@@ -13,6 +13,6 @@ M.setup = function()
 	nl.setup(M.config)
 end
 
-M = core.merge_configs(M, "plugins.lsp.null-ls")
+M = core.merge_configs(M, "plugins.setup.lsp.null-ls")
 
 return M

@@ -1,6 +1,6 @@
 local M = {}
 
-M["plugins.lsp.config"] = {
+M["plugins.setup.lsp.config"] = {
 	lsp_servers_required = {
 		"pyright",
 		"clangd",
