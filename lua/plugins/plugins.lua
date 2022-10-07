@@ -164,6 +164,13 @@ if config.group.lsp ~= false then
 			require("plugins.setup.null-ls").setup()
 		end,
 	}
+
+	M["jayp0521/mason-null-ls.nvim"] = {
+		after = { "null-ls.nvim" },
+		config = function()
+			require("plugins.setup.mason-null-ls").setup()
+		end,
+	}
 end
 
 if config.group.cmp ~= false then
@@ -197,7 +204,6 @@ if config.group.cmp ~= false then
 	M["hrsh7th/cmp-cmdline"] = {
 		after = "nvim-cmp",
 	}
-
 end
 
 if config.group.ui then

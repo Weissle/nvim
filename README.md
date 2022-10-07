@@ -1,12 +1,15 @@
 # Yue
+If you see this sentence, it means that Yue is not totally ready.
+It should be placed to a new repo.
+
 Yep. Another neovim framework. 
 
 ## Features
 :book: LSP, Completion, Beautiful UI...  
-:cake: Easy to config.  
-:gear: Almost all config can be changed.  
-:zap: Fast starts up.  
-:electric_plug: Removing the plugins is painless. (All the relative keymaps and settings are gone if a plugin is disabled.)
+:gear: Easy to config and almost all config can be changed.  
+:zap: Fast startup.  
+:electric_plug: Removing the plugins is painless. (All the relative keymaps and settings are gone if a plugin is disabled.)  
+:dash: Backward compatibility. Support Neovim >= 0.7.0. (The plugins require neovim >= 0.8.0 will be disable automatically.)
 
 ## Yue is for?
 * For user who just begin to use neovim, Yue directly provides rich features and saves your precious time.
@@ -55,19 +58,24 @@ require("core").register_override_config(my_config)
 ```
 
 You can also use a `table` to override the default config.
-But this way is not recommended.
-The advantages of using function:
+But this way is not recommended. Since using function
 1. You can return a totally new config rather than change the original config.
-```lua
-my_config["settings.opt"] = function(C)
-	-- the opt table is replaced by the {}.
-	return {} 
-end
-```
+	```lua
+	my_config["settings.opt"] = function(C)
+		-- the opt table is replaced by the {}.
+		return {} 
+	end
+	```
 2. Avoid the missing module problem.
 Some plugins are lazy loaded and the runtime paths don't include their path at first.
-Require them in the table meets errors.
 In function, these modules are required when the function is called.
+
+## You May Ask
+* **A startup plugin?**  
+Since we have the session manager plugin, the startup page is redundant.
+* **Debug in Neovim**  
+Will have this feature in the future.
+
 
 ## About Yue.
 Yue was my neovim config but not a framework at first.
@@ -76,6 +84,7 @@ I spent time on it and tried to make it better and better.
 Four months past (Oct 2022), Yue fits my requirements now
 and I believe it can be better if more people use it.
 I do appreciate anyone who try it, use it and give me the feedback.
+
 
 ## TODO
 - [ ] About Hop:https://github.com/phaazon/hop.nvim/pull/314

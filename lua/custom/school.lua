@@ -1,9 +1,5 @@
 local M = {}
 
-M["plugins.setup.mason-lspconfig"] = function(C)
-	table.insert(C.config.ensure_installed, "texlab")
-end
-
 M["plugins.setup.lspconfig"] = function(C)
 	table.insert(C.lsp_servers, "texlab")
 end

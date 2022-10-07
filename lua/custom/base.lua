@@ -17,19 +17,9 @@ M["plugins.setup.lspconfig"] = function(C)
 	C.clangd_config.cmd = { "clangd", "--header-insertion=never" }
 end
 
-M["plugins.setup.mason-lspconfig"] = function(C)
-	C.config.ensure_installed = {
-		"pyright",
-		"clangd",
-		"cmake",
-		"bashls",
-		"sumneko_lua",
-	}
-end
-
-
 M["plugins.setup.null-ls"] = function(C)
-	local formatting = require("null-ls").builtins.formatting
+	local nl = require("null-ls")
+	local formatting = nl.builtins.formatting
 	table.insert(C.config.sources, formatting.clang_format)
 end
 
