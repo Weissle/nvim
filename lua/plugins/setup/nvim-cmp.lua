@@ -35,7 +35,6 @@ M.cmp_source = {
 	["luasnip"] = "Snip",
 	["path"] = "Path",
 	["buffer"] = "Buf",
-	["treesitter"] = "TeS",
 	["cmdline"] = "Cmd",
 }
 

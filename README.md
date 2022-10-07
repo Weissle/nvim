@@ -45,7 +45,7 @@ my_config["plugins.setup.treesitter"] = function(C)
 end
 
 -- The config of LSP in lua/plugins/setup/lspconfig.lua 
--- Let us use `pyright` as python LSP
+-- Let us use `pyright` as python LSP server.
 my_config["plugins.setup.lspconfig"] = function(C)
 	C.config.lsp_servers = {"sumneko_lua", "pyright"}
 end
