@@ -98,7 +98,7 @@ if config.group.lsp ~= false then
 	M["williamboman/mason-lspconfig.nvim"] = {
 		after = { "mason.nvim" },
 		config = function()
-			require("plugins.setup.lsp.mason-lspconfig").setup()
+			require("plugins.setup.mason-lspconfig").setup()
 		end,
 	}
 
@@ -113,7 +113,7 @@ if config.group.lsp ~= false then
 			if ext then
 				lua_dev.setup({})
 			end
-			require("plugins.setup.lsp.lspconfig").setup()
+			require("plugins.setup.lspconfig").setup()
 			require("mappings.plugin_after").lspconfig()
 		end,
 	}
@@ -161,7 +161,7 @@ if config.group.lsp ~= false then
 	M["jose-elias-alvarez/null-ls.nvim"] = {
 		after = { "mason-lspconfig.nvim" },
 		config = function()
-			require("plugins.setup.lsp.null-ls").setup()
+			require("plugins.setup.null-ls").setup()
 		end,
 	}
 end
@@ -198,9 +198,6 @@ if config.group.cmp ~= false then
 		after = "nvim-cmp",
 	}
 
-	M["ray-x/cmp-treesitter"] = {
-		after = "nvim-cmp",
-	}
 end
 
 if config.group.ui then

@@ -4,8 +4,8 @@ M["plugins.setup.treesitter"] = function(C)
 	C.config.ensure_installed = { "c", "lua", "cpp", "json", "python", "cmake", "markdown" }
 end
 
-M["plugins.setup.lsp.config"] = function(C)
-	C.lsp_servers_required = {
+M["plugins.setup.lspconfig"] = function(C)
+	C.lsp_servers = {
 		"pyright",
 		"clangd",
 		"cmake",
@@ -13,9 +13,22 @@ M["plugins.setup.lsp.config"] = function(C)
 		"sumneko_lua",
 	}
 	C.clients_format_disabled["clangd"] = true
+	C.clangd_config = vim.deepcopy(C.default_lsp_config)
+	C.clangd_config.cmd = { "clangd", "--header-insertion=never" }
 end
 
-M["plugins.setup.lsp.null-ls"] = function(C)
+M["plugins.setup.mason-lspconfig"] = function(C)
+	C.config.ensure_installed = {
+		"pyright",
+		"clangd",
+		"cmake",
+		"bashls",
+		"sumneko_lua",
+	}
+end
+
+
+M["plugins.setup.null-ls"] = function(C)
 	local formatting = require("null-ls").builtins.formatting
 	table.insert(C.config.sources, formatting.clang_format)
 end
@@ -49,11 +62,6 @@ M["plugins.setup.luasnip"] = {
 		})
 	end,
 }
-
-M["plugins.setup.lsp.lspconfig"] = function(C)
-	C.clangd_config = vim.deepcopy(C.default_lsp_config)
-	C.clangd_config.cmd = { "clangd", "--header-insertion=never" }
-end
 
 M["mappings.init"] = function(C)
 	C["n"]["<F3>"] = "<cmd>noh<cr>"

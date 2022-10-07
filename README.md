@@ -1,50 +1,61 @@
 # Yue
 Yep. Another neovim framework. 
----
 
 ## Features
-1. LSP, Completion, ...(I believe other frameworks have them too.)
-2. Easy to config.
-3. Fast starts up.
+:book: LSP, Completion, Beautiful UI...  
+:cake: Easy to config.  
+:gear: Almost all config can be changed.  
+:zap: Fast starts up.  
+:electric_plug: Removing the plugins is painless. (All the relative keymaps and settings are gone if a plugin is disabled.)
 
 ## Yue is for?
 * For user who just begin to use neovim, Yue directly provides rich features and saves your precious time.
 * For user who are already having your own config or using other framework, Yue is a good reference for improving your vim experience. 
 
 ## How to use Yue?
-1. clone this repo to your `~/.config/nvim`.
+<!-- 1. clone this repo to your `~/.config/nvim`. -->
+<!-- 2. create your config. -->
 
 ### Walk Through
-**lua/custom/**: Place your config in here.
-**lua/core/**: The core of Yue.
-**lua/mappings/**: The common and plugins' specific keymaps.
-**lua/plugins/plugins.lua**: All used plugins are declared here.
-**lua/plugins/setup/**: The plugins' setup function.
-**lua/setting/**: The common and basic setting.
+| Folder or File | Usage |
+| -- | -- |
+|**lua/custom/** | Place your config here.  
+|**lua/core/** | The core of Yue.  
+|**lua/setting/** | The common and basic setting.  
+|**lua/mappings/** | The common and plugins' specific keymaps.  
+|**lua/plugins/plugins.lua** | All used plugins are declared here.  
+|**lua/plugins/setup/** | The plugins' setup function.  
 
-### Create you config.
-If you want to change something, find the relative part first.
-You should see its default config and `require("core").merge_config(X, "{config_name}")`
-For example, the vim option `relativenumber` ad `number` is set to `true` in Yue.
-If you don't like it, you can change.
-You should see `opt = core.merge_configs(opt, "settings.opt")` in the file `lua/settings/init.lua` as well as `opt.relativenumber = true` and `opt.number = true`.
-You have two ways to override the `opt`, function (highly recommand) or table.
-1. function
+### Create you config
+If you want to change something, find the relative part firstly.
+You should see its default config and something like `require("core").merge_config(M, "{config_name}")`.
+To override the content of M, you should create a function accept the M, and change it inside the function.  
+Here is an example how to employ your config to Yue's.
+By default, LSP and treesitter only support lua language.
+Assuming we need python's LSP and treesitter.
 ```lua
-my_config["settings.opt"] = function(C)
-	C.relativenumber = false
-	C.number = false
+-- lua/custom/init.lua
+my_config = {}
+
+-- The config of treesitter in lua/plugins/setup/treesitter.lua 
+-- We should add `python` to the config.ensure_installed field
+my_config["plugins.setup.treesitter"] = function(C)
+	table.insert(C.config.ensure_installed,"python")
+	-- C.config.ensure_installed = {"lua", "python"} works too.
 end
+
+-- The config of LSP in lua/plugins/setup/lspconfig.lua 
+-- Let us use `pyright` as python LSP
+my_config["plugins.setup.lspconfig"] = function(C)
+	C.config.lsp_servers = {"sumneko_lua", "pyright"}
+end
+
+-- Let Yue know your config
+require("core").register_override_config(my_config)
 ```
 
-2. table
-```lua
-my_config["settings.opt"] = {
-	relativenumber = false,
-	number = true,
-}
-```
-
+You can also use a `table` to override the default config.
+But this way is not recommended.
 The advantages of using function:
 1. You can return a totally new config rather than change the original config.
 ```lua
@@ -57,12 +68,6 @@ end
 Some plugins are lazy loaded and the runtime paths don't include their path at first.
 Require them in the table meets errors.
 In function, these modules are required when the function is called.
-
-### Register you config.
-`require("core").register_override_config(my_config)`.  
-It's all right if you register more than one config. 
-The late registered config have higher priority.
-
 
 ## About Yue.
 Yue was my neovim config but not a framework at first.

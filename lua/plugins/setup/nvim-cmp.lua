@@ -69,17 +69,13 @@ M.insert_config = {
 		{ name = "path" },
 		{
 			name = "buffer",
-			-- option = {
-			-- 	get_bufnrs = function()
-			-- 		local bufs = {}
-			-- 		for _, win in ipairs(vim.api.nvim_list_wins()) do
-			-- 			bufs[vim.api.nvim_win_get_buf(win)] = true
-			-- 		end
-			-- 		return vim.tbl_keys(bufs)
-			-- 	end,
-			-- },
+			option = {
+				-- PERF: It may slows down you paste and delete motion.
+				get_bufnrs = function()
+					return vim.api.nvim_list_bufs()
+				end,
+			},
 		},
-		{ name = "treesitter" },
 	},
 }
 
