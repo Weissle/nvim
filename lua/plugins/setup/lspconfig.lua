@@ -8,9 +8,9 @@ M.clients_format_disabled = {
 	sumneko_lua = true,
 }
 
-local ext, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+local cmp_nvim_lsp_ext, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 -- Change default_capabilities will not effect other variables which alread directly use default_capabilities like default_lsp_config.
-if ext then
+if cmp_nvim_lsp_ext then
 	M.default_capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
 else
 	M.default_capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -61,7 +61,15 @@ M.default_lsp_config = {
 	on_attach = M.on_attach,
 }
 
+M.load_lua_dev = function()
+	local lua_dev_ext, lua_dev = pcall(require, "lua-dev")
+	if lua_dev_ext then
+		lua_dev.setup({})
+	end
+end
+
 M.setup = function()
+	M.load_lua_dev()
 	local lspconfig = require("lspconfig")
 	for _, lsp in pairs(M.lsp_servers) do
 		if M[lsp .. "_config"] == nil then

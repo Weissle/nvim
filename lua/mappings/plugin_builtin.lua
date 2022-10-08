@@ -1,4 +1,4 @@
--- Plugin set the keymaps by themselves.
+-- Plugins' keymap which are set by themselves.
 local M = {}
 local core = require("core")
 

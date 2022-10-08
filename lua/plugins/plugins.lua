@@ -47,11 +47,6 @@ M["williamboman/mason.nvim"] = {
 }
 
 M["nvim-telescope/telescope.nvim"] = {
-	cmd = { "Telescope" },
-	setup = function()
-		require("mappings.plugin_preset").telescope()
-	end,
-	module = "telescope",
 	branch = "0.1.x",
 	requires = {
 		{
@@ -65,9 +60,6 @@ M["nvim-telescope/telescope.nvim"] = {
 		{
 			"nvim-telescope/telescope-live-grep-args.nvim",
 			after = "telescope.nvim",
-			setup = function()
-				vim.g._telescope_live_grep_args_exists = true
-			end,
 			config = function()
 				require("telescope").load_extension("live_grep_args")
 			end,
@@ -75,6 +67,7 @@ M["nvim-telescope/telescope.nvim"] = {
 	},
 	config = function()
 		require("plugins.setup.telescope").setup()
+		require("mappings.plugin_after").telescope()
 	end,
 }
 
@@ -109,10 +102,6 @@ if config.group.lsp ~= false then
 	M["neovim/nvim-lspconfig"] = {
 		after = { "mason-lspconfig.nvim" },
 		config = function()
-			local ext, lua_dev = pcall(require, "lua-dev")
-			if ext then
-				lua_dev.setup({})
-			end
 			require("plugins.setup.lspconfig").setup()
 			require("mappings.plugin_after").lspconfig()
 		end,
@@ -141,20 +130,13 @@ if config.group.lsp ~= false then
 	}
 
 	M["smjonas/inc-rename.nvim"] = {
-		cond = function()
-			return require("core").vim_version >= "0.8.0"
-		end,
+		disable = require("core").vim_version < "0.8.0",
 		setup = function()
-			if require("core").vim_version >= "0.8.0" then
-				vim.g._inc_rename_exists = true
-			end
+			vim.g._inc_rename_exists = true
 		end,
 		after = { "nvim-lspconfig" },
 		config = function()
-			require("inc_rename").setup({
-				input_buffer_type = "dressing",
-			})
-			require("mappings.plugin_after").inc_rename()
+			require("plugins.setup.inc-rename")
 		end,
 	}
 
@@ -223,6 +205,7 @@ if config.group.ui then
 		end,
 		config = function()
 			vim.notify = require("notify")
+			require("telescope").load_extension("notify")
 		end,
 	}
 
@@ -324,19 +307,8 @@ if config.group.ez ~= false then
 	M["kwkarlwang/bufjump.nvim"] = {
 		keys = { "<leader>bo", "<leader>bi" },
 		config = function()
-			require("plugins.setup.bufjump").setup()
-		end,
-	}
-
-	M["ThePrimeagen/harpoon"] = {
-		keys = { "<leader>fl" },
-		module = { "harpoon.mark", "harpoon.ui" },
-		setup = function()
-			require("mappings.plugin_preset").harpoon()
-		end,
-		config = function()
-			require("harpoon").setup({})
-			require("mappings.plugin_after").harpoon()
+			local k = require("mappings.plugin_builtin").bufjump()
+			require("bufjump").setup(k)
 		end,
 	}
 end

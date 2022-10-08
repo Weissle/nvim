@@ -2,34 +2,6 @@
 local M = {}
 local core = require("core")
 
-M.telescope = function()
-	local K = core.get_keymap_empty_bucket()
-	K["n"]["<leader>ff"] = "<cmd>Telescope find_files<cr>"
-
-	if vim.g._telescope_live_grep_args_exists ~= true then
-		K["n"]["<leader>fg"] = "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>"
-	else
-		K["n"]["<leader>fg"] = "<cmd>Telescope live_grep<cr>"
-	end
-
-	K["n"]["<leader>fb"] = "<cmd>Telescope buffers<cr>"
-	K["n"]["<leader>fh"] = "<cmd>Telescope help_tags<cr>"
-	K["n"]["<leader>fc"] = "<cmd>Telescope commands<cr>"
-	K["n"]["<leader>ft"] = "<cmd>Telescope <cr>"
-	K["n"]["<leader>fa"] = "<cmd>Telescope find_files no_ignore=true<cr>"
-	K["n"]["<leader>f*"] = "<cmd>Telescope grep_string<cr>"
-	K["n"]["<leader>fo"] = "<cmd>Telescope oldfiles<cr>"
-	K["n"]["<leader>fG"] = "<cmd>Telescope git_status<cr>"
-	K["n"]["<leader>fr"] = "<cmd>Telescope resume<cr>"
-	K["n"]["<leader>f/"] = "<cmd>Telescope current_buffer_fuzzy_find<cr>"
-	K["n"]["<leader>fd"] = "<cmd>Telescope diagnostics<cr>"
-	K["n"]["<leader>fm"] = "<cmd>Telescope marks<cr>"
-	K["n"]["<leader>fk"] = "<cmd>lua require('telescope.builtin').keymaps{ modes = {'n','i','c','x','v','o'}}<cr>"
-	K["n"]["gr"] = "<cmd>Telescope lsp_references initial_mode=normal<cr>"
-	K = core.merge_configs(K, "mappings.plugin_preset.telescope")
-	core.set_keymap_bucket(K)
-end
-
 M.todo_comments = function()
 	local K = core.get_keymap_empty_bucket()
 	K["n"]["<leader>fT"] = "<cmd>TodoTelescope <cr>"
