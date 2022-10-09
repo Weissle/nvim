@@ -245,7 +245,6 @@ end
 
 if config.group.ez ~= false then
 	M["phaazon/hop.nvim"] = {
-		branch = "v2",
 		module = "hop",
 		cmd = { "HopLineStartMW", "HopWordMW" },
 		setup = function()

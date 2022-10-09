@@ -84,13 +84,13 @@ M.hop = function()
 	K[mode]["<leader>hl"] = "<cmd>HopLineStartMW<cr>"
 	K[mode]["<leader>hw"] = "<cmd>HopWordMW<cr>"
 	-- HACK: Keymaps is changed to f,F,t,T after the relative PR is merged.
-	K[mode]["<leader>hf"] =
+	K[mode]["f"] =
 		"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
-	K[mode]["<leader>hF"] =
+	K[mode]["F"] =
 		"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
-	K[mode]["<leader>ht"] =
+	K[mode]["t"] =
 		"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>"
-	K[mode]["<leader>hT"] =
+	K[mode]["T"] =
 		"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>"
 	K[mode]["<leader>he"] =
 		"<cmd>lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, multi_windows = true })<cr>"
