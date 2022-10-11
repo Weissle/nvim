@@ -68,6 +68,9 @@ M["mappings.init"] = function(C)
 	C["n"]["<leader>qa"] = "<cmd>wa<cr><bar><cmd>qa<cr>"
 	C["n"]["<leader>qt"] = "<cmd>q<cr>"
 	C["n"]["<leader>qw"] = "<cmd>wa<cr>"
+
+	C["n"]["gcp"] = "yygccp"
+	C["n"]["gcP"] = "yygccP"
 end
 
 M["plugins.setup.telescope"] = function(C)

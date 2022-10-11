@@ -22,9 +22,9 @@ M.lspconfig = function()
 	K["n"]["<leader>lf"] = vim.lsp.buf.formatting
 	K["n"]["<leader>lt"] = vim.lsp.buf.type_definition
 	-- diagnostic
-	K["n"]["<leader>dp"] = vim.diagnostic.goto_prev
-	K["n"]["<leader>dn"] = vim.diagnostic.goto_next
-	K["n"]["<leader>do"] = vim.diagnostic.open_float
+	K["n"]["[d"] = vim.diagnostic.goto_prev
+	K["n"]["]d"] = vim.diagnostic.goto_next
+	K["n"]["<leader>lo"] = vim.diagnostic.open_float
 	-- frequently use
 	K["n"]["gi"] = vim.lsp.buf.implementation
 	K["n"]["gD"] = vim.lsp.buf.declaration
@@ -87,4 +87,17 @@ M.telescope = function()
 	core.set_keymap_bucket(K)
 end
 
+M.yanky = function()
+	local K = core.get_keymap_empty_bucket()
+	K[{ "n", "x" }]["y"] = "<Plug>(YankyYank)"
+	K[{ "n", "x" }]["p"] = "<Plug>(YankyPutAfter)"
+	K[{ "n", "x" }]["P"] = "<Plug>(YankyPutBefore)"
+	K[{ "n", "x" }]["gp"] = "<Plug>(YankyGPutAfter)"
+	K[{ "n", "x" }]["gP"] = "<Plug>(YankyGPutBefore)"
+	K["n"]["<c-n>"] = "<Plug>(YankyCycleForward)"
+	K["n"]["<c-p>"] = "<Plug>(YankyCycleBackward)"
+	K["n"]["<leader>fy"] = "<cmd>Telescope yank_history<cr>"
+	K = core.merge_configs(K, "mappings.plugin_after.yanky")
+	core.set_keymap_bucket(K)
+end
 return M

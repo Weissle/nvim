@@ -310,6 +310,14 @@ if config.group.ez ~= false then
 			require("bufjump").setup(k)
 		end,
 	}
+
+	M["gbprod/yanky.nvim"] = {
+		event = lazy_event_enter_file,
+		config = function()
+			require("plugins.setup.yanky").setup()
+			require("mappings.plugin_after").yanky()
+		end,
+	}
 end
 
 if config.group.doc ~= false then

@@ -50,7 +50,6 @@ end
 
 M.nvim_tree = function()
 	local K = core.get_keymap_empty_bucket()
-	K["n"]["<C-n>"] = "<cmd>NvimTreeToggle<cr>"
 	K["n"]["<leader>nn"] = "<cmd>NvimTreeToggle<cr>"
 	K["n"]["<leader>nm"] = "<cmd>NvimTreeFindFile<cr>"
 	K["n"]["<leader>nf"] = "<cmd>NvimTreeFocus<cr>"
