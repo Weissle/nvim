@@ -7,6 +7,7 @@ local config = {
 		ez = true,
 		doc = true,
 		session = true,
+		debug = false,
 	},
 	lazy_event_enter_file = { "BufRead", "BufNewFile" },
 }
@@ -369,6 +370,47 @@ if config.group.session ~= false then
 		},
 		config = function()
 			require("plugins.setup.auto-session").setup()
+		end,
+	}
+end
+
+if config.group.debug ~= false then
+	M["mfussenegger/nvim-dap"] = {
+		after = { "mason.nvim" },
+		config = function()
+			require("plugins.setup.dap").setup()
+			require("mappings.fl_mappings").dap()
+		end,
+	}
+
+	M["rcarriga/nvim-dap-ui"] = {
+		after = "nvim-dap",
+		config = function()
+			require("plugins.setup.dap-ui").setup({})
+			require("mappings.fl_mappings").dapui()
+		end,
+	}
+
+	M["Weissle/persistent-breakpoints.nvim"] = {
+		after = "nvim-dap",
+		config = function()
+			require("persistent-breakpoints").setup({
+				load_breakpoints_event = { "BufReadPost" },
+			})
+		end,
+	}
+
+	M["nvim-telescope/telescope-dap.nvim"] = {
+		after = { "nvim-dap" },
+		config = function()
+			require("telescope").load_extension("dap")
+		end,
+	}
+
+	M["theHamsta/nvim-dap-virtual-text"] = {
+		after = "nvim-dap",
+		config = function()
+			require("nvim-dap-virtual-text").setup({})
 		end,
 	}
 end

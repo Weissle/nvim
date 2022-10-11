@@ -87,6 +87,27 @@ M.telescope = function()
 	core.set_keymap_bucket(K)
 end
 
+M.dap = function()
+	local K = core.get_keymap_empty_bucket()
+	K["n"]["<leader>da"] = require("persistent-breakpoints.api").toggle_breakpoint
+	K["n"]["<leader>dA"] = require("persistent-breakpoints.api").set_conditional_breakpoint
+	K["n"]["<leader>dt"] = require("dap").run_to_cursor
+	K["n"]["<leader>dp"] = require("dap").pause
+	K["n"]["<leader>dT"] = "<cmd>lua require('dap').terminate(); require('dapui').close()<cr>"
+	K["n"]["<leader>dc"] = "<cmd>Telescope dap configurations<cr>"
+	K["n"]["<leader>dC"] = "<cmd>Telescope dap commands<cr>"
+	K["n"]["<leader>dv"] = "<cmd>Telescope dap variables<cr>"
+	K["n"]["<leader>db"] = "<cmd>Telescope dap list_breakpoints<cr>"
+	K["n"]["<F4>"] = "<cmd>lua require'dap'.terminate()<cr>"
+	K["n"]["<F5>"] = "<cmd>lua require'dap'.continue()<cr>"
+	K["n"]["<F6>"] = "<cmd>lua require'dap'.step_over()<cr>"
+	K["n"]["<F7>"] = "<cmd>lua require'dap'.step_into()<cr>"
+	K["n"]["<F8>"] = "<cmd>lua require'dap'.step_out()<cr>"
+	K["n"]["<F9>"] = "<cmd>lua require'dap'.run_last()<cr>"
+	K = core.merge_configs(K, "mappings.plugin_after.telescope")
+	core.set_keymap_bucket(K)
+end
+
 M.yanky = function()
 	local K = core.get_keymap_empty_bucket()
 	K[{ "n", "x" }]["y"] = "<Plug>(YankyYank)"
