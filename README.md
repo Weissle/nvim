@@ -87,6 +87,4 @@ I do appreciate anyone who try it, use it and give me the feedback.
 
 
 ## TODO
-- [ ] About Hop:https://github.com/phaazon/hop.nvim/pull/314
-- [ ] If we use all buffer as the source of `cmp-buffer`, `dd` becomes slowly.
-
+- [ ] Breakpoints style.

@@ -7,7 +7,7 @@ local config = {
 		ez = true,
 		doc = true,
 		session = true,
-		debug = false,
+		debug = true,
 	},
 	lazy_event_enter_file = { "BufRead", "BufNewFile" },
 }
@@ -111,12 +111,7 @@ if config.group.lsp ~= false then
 	M["ray-x/lsp_signature.nvim"] = {
 		after = { "nvim-lspconfig" },
 		config = function()
-			require("lsp_signature").setup({
-				bind = true,
-				handler_opts = {
-					border = "rounded",
-				},
-			})
+			require("plugins.setup.lsp_signature").setup()
 		end,
 	}
 
@@ -379,15 +374,15 @@ if config.group.debug ~= false then
 		after = { "mason.nvim" },
 		config = function()
 			require("plugins.setup.dap").setup()
-			require("mappings.fl_mappings").dap()
+			require("mappings.plugin_after").dap()
 		end,
 	}
 
 	M["rcarriga/nvim-dap-ui"] = {
 		after = "nvim-dap",
 		config = function()
-			require("plugins.setup.dap-ui").setup({})
-			require("mappings.fl_mappings").dapui()
+			require("plugins.setup.dapui").setup({})
+			require("mappings.plugin_after").dapui()
 		end,
 	}
 
@@ -397,6 +392,7 @@ if config.group.debug ~= false then
 			require("persistent-breakpoints").setup({
 				load_breakpoints_event = { "BufReadPost" },
 			})
+			require("mappings.plugin_after").persistent_breakpoints()
 		end,
 	}
 
@@ -404,6 +400,7 @@ if config.group.debug ~= false then
 		after = { "nvim-dap" },
 		config = function()
 			require("telescope").load_extension("dap")
+			require("mappings.plugin_after").telescope_dap()
 		end,
 	}
 

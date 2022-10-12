@@ -12,6 +12,12 @@ M.config = {
 		ignore_focus = {
 			"NvimTree",
 			"Outline",
+			"dapui_console",
+			"dap-repl",
+			"dapui_breakpoints",
+			"dapui_stacks",
+			"dapui_scopes",
+			"dapui_watches",
 		},
 	},
 	sections = {

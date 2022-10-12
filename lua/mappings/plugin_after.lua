@@ -38,9 +38,9 @@ M.bufferline = function()
 	K["n"]["<leader>bj"] = "<cmd>BufferLinePick<cr>"
 	K["n"]["<leader>bn"] = "<cmd>BufferLineCycleNext<cr>"
 	K["n"]["<leader>bp"] = "<cmd>BufferLineCyclePrev<cr>"
-	K["n"]["<leader>ql"] = "<cmd>BufferLineCloseLeft<cr>"
-	K["n"]["<leader>qr"] = "<cmd>BufferLineCloseRight<cr>"
-	K["n"]["<leader>qo"] = "<cmd>BufferLineCloseRight<cr><bar><cmd>BufferLineCloseLeft<cr>"
+	K["n"]["<leader>ql"] = "<cmd>BufferLineCloseLeft<cr><C-L>"
+	K["n"]["<leader>qr"] = "<cmd>BufferLineCloseRight<cr><C-L>"
+	K["n"]["<leader>qo"] = "<cmd>BufferLineCloseRight<cr><bar><cmd>BufferLineCloseLeft<cr><C-L>"
 	K = core.merge_configs(K, "mappings.plugin_after.bufferline")
 	core.set_keymap_bucket(K)
 end
@@ -89,22 +89,44 @@ end
 
 M.dap = function()
 	local K = core.get_keymap_empty_bucket()
-	K["n"]["<leader>da"] = require("persistent-breakpoints.api").toggle_breakpoint
-	K["n"]["<leader>dA"] = require("persistent-breakpoints.api").set_conditional_breakpoint
 	K["n"]["<leader>dt"] = require("dap").run_to_cursor
 	K["n"]["<leader>dp"] = require("dap").pause
-	K["n"]["<leader>dT"] = "<cmd>lua require('dap').terminate(); require('dapui').close()<cr>"
-	K["n"]["<leader>dc"] = "<cmd>Telescope dap configurations<cr>"
-	K["n"]["<leader>dC"] = "<cmd>Telescope dap commands<cr>"
-	K["n"]["<leader>dv"] = "<cmd>Telescope dap variables<cr>"
-	K["n"]["<leader>db"] = "<cmd>Telescope dap list_breakpoints<cr>"
+	-- K["n"]["<leader>dT"] = "<cmd>lua require('dap').terminate(); require('dapui').close()<cr>"
 	K["n"]["<F4>"] = "<cmd>lua require'dap'.terminate()<cr>"
 	K["n"]["<F5>"] = "<cmd>lua require'dap'.continue()<cr>"
 	K["n"]["<F6>"] = "<cmd>lua require'dap'.step_over()<cr>"
 	K["n"]["<F7>"] = "<cmd>lua require'dap'.step_into()<cr>"
 	K["n"]["<F8>"] = "<cmd>lua require'dap'.step_out()<cr>"
 	K["n"]["<F9>"] = "<cmd>lua require'dap'.run_last()<cr>"
-	K = core.merge_configs(K, "mappings.plugin_after.telescope")
+	K = core.merge_configs(K, "mappings.plugin_after.dap")
+	core.set_keymap_bucket(K)
+end
+
+M.persistent_breakpoints = function()
+	local K = core.get_keymap_empty_bucket()
+	K["n"]["<leader>da"] = require("persistent-breakpoints.api").toggle_breakpoint
+	K["n"]["<leader>dA"] = require("persistent-breakpoints.api").set_conditional_breakpoint
+	K["n"]["<leader>dR"] = require("persistent-breakpoints.api").clear_all_breakpoints
+	K = core.merge_configs(K, "mappings.plugin_after.persistent_breakpoints")
+	core.set_keymap_bucket(K)
+end
+
+M.dapui = function()
+	local K = core.get_keymap_empty_bucket()
+	K["n"]["<leader>du"] = require("dapui").toggle
+	K[{ "n", "x" }]["<leader>de"] = require("dapui").eval
+	K = core.merge_configs(K, "mappings.plugin_after.dapui")
+	core.set_keymap_bucket(K)
+end
+
+M.telescope_dap = function()
+	local K = core.get_keymap_empty_bucket()
+	K["n"]["<leader>dc"] = "<cmd>Telescope dap configurations<cr>"
+	K["n"]["<leader>dC"] = "<cmd>Telescope dap commands<cr>"
+	K["n"]["<leader>dv"] = "<cmd>Telescope dap variables<cr>"
+	K["n"]["<leader>db"] = "<cmd>Telescope dap list_breakpoints<cr>"
+	K["n"]["<leader>df"] = "<cmd>Telescope dap frame<cr>"
+	K = core.merge_configs(K, "mappings.plugin_after.telescope_dap")
 	core.set_keymap_bucket(K)
 end
 

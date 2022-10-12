@@ -13,10 +13,19 @@ _G.close_symbols_outline = function()
 	pcall(vim.cmd, "SymbolsOutlineClose")
 end
 
+_G.close_dapui = function()
+	local dapui_ext, dapui = pcall(require, "dapui")
+	if dapui_ext == false then
+		return
+	else
+		pcall(dapui.close, {})
+	end
+end
+
 M.config = {
 	log_level = "error",
 	auto_session_suppress_dirs = { "~/" },
-	pre_save_cmds = { "NvimTreeClose", _G.close_all_floating_wins, _G.close_symbols_outline },
+	pre_save_cmds = { "NvimTreeClose", _G.close_all_floating_wins, _G.close_symbols_outline, _G.close_dapui },
 }
 
 M.setup = function()
