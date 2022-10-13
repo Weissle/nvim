@@ -1,26 +1,16 @@
 local M = {}
 
 M["plugins.setup.treesitter"] = function(C)
-	C.config.ensure_installed = { "c", "lua", "cpp", "json", "python", "cmake", "markdown" }
+	table.insert(C.config.ensure_installed, "json")
+	table.insert(C.config.ensure_installed, "markdown")
 end
 
 M["plugins.setup.lspconfig"] = function(C)
-	C.lsp_servers = {
-		"pyright",
-		"clangd",
-		"cmake",
-		"bashls",
-		"sumneko_lua",
+	C.clangd_config = {
+		capabilities = C.default_capabilities,
+		on_attach = C.on_attach,
+		cmd = { "clangd", "--header-insertion=never" },
 	}
-	C.clients_format_disabled["clangd"] = true
-	C.clangd_config = vim.deepcopy(C.default_lsp_config)
-	C.clangd_config.cmd = { "clangd", "--header-insertion=never" }
-end
-
-M["plugins.setup.null-ls"] = function(C)
-	local nl = require("null-ls")
-	local formatting = nl.builtins.formatting
-	table.insert(C.config.sources, formatting.clang_format)
 end
 
 M["plugins.plugins"] = {
@@ -76,7 +66,7 @@ end
 M["plugins.setup.telescope"] = function(C)
 	C.config.defaults.path_display = {
 		shorten = {
-			len = 3,
+			len = 5,
 			exclude = { 1, -1 },
 		},
 	}
@@ -88,5 +78,9 @@ M["plugins.setup.nvim-tree"] = function(C)
 		side = "right",
 	}
 end
+
+M["settings.opt"] = {
+	mouse = "",
+}
 
 return M
