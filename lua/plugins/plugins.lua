@@ -196,12 +196,10 @@ if config.group.ui then
 	}
 
 	M["rcarriga/nvim-notify"] = {
-		setup = function()
-			require("mappings.plugin_preset").notify()
-		end,
 		config = function()
 			vim.notify = require("notify")
 			require("telescope").load_extension("notify")
+			require("mappings.plugin_after").notify()
 		end,
 	}
 

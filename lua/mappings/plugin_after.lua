@@ -143,4 +143,13 @@ M.yanky = function()
 	K = core.merge_configs(K, "mappings.plugin_after.yanky")
 	core.set_keymap_bucket(K)
 end
+
+M.notify = function()
+	local K = core.get_keymap_empty_bucket()
+	K["n"]["<leader>fn"] = "<cmd>Telescope notify<cr>"
+	K["n"]["<leader>nd"] = vim.notify.dismiss
+	K = core.merge_configs(K, "mappings.plugin_after.notify")
+	core.set_keymap_bucket(K)
+end
+
 return M

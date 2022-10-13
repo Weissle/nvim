@@ -10,7 +10,7 @@ M.config = {
 }
 
 M.setup = function()
-	require("lsp_signature").setup()
+	require("lsp_signature").setup(M.config)
 end
 
 M = core.merge_configs(M, "plugins.setup.lsp_signature")

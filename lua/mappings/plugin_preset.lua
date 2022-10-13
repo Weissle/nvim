@@ -9,13 +9,6 @@ M.todo_comments = function()
 	core.set_keymap_bucket(K)
 end
 
-M.notify = function()
-	local K = core.get_keymap_empty_bucket()
-	K["n"]["<leader>fn"] = "<cmd>Telescope notify<cr>"
-	K = core.merge_configs(K, "mappings.plugin_preset.notify")
-	core.set_keymap_bucket(K)
-end
-
 M.session_lens = function()
 	if vim.g.auto_session_enabled ~= false then
 		local K = core.get_keymap_empty_bucket()
