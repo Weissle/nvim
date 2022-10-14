@@ -9,7 +9,7 @@ local config = {
 		session = true,
 		debug = true,
 	},
-	lazy_event_enter_file = { "BufRead", "BufNewFile" },
+	lazy_event_enter_file = { "BufReadPre", "BufNewFile" },
 }
 
 require("core").merge_configs(config, "plugins.plugins.config")

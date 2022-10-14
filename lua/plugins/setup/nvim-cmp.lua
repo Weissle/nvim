@@ -71,7 +71,13 @@ M.insert_config = {
 			option = {
 				-- PERF: It may slows down you paste and delete motion.
 				get_bufnrs = function()
-					return vim.api.nvim_list_bufs()
+					local ret = {}
+					for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+						if vim.api.nvim_buf_line_count(buf) <= 5000 then
+							table.insert(ret, buf)
+						end
+					end
+					return ret
 				end,
 			},
 		},

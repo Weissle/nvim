@@ -1,3 +1,4 @@
+-- pcall(require, "experiments")
 pcall(require, "custom")
 
 require("settings")
