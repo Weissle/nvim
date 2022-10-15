@@ -83,4 +83,3 @@ I do appreciate anyone who try it, use it and give me the feedback.
 
 
 ## TODO
-- [ ] Breakpoints style.

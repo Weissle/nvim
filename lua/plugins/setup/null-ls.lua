@@ -9,20 +9,7 @@ M.config = {
 		builtins.formatting.clang_format,
 	},
 	on_attach = function(client, bufnr)
-		if _G._client_offset_encodings == nil then
-			if core.vim_version >= "0.8.0" then
-				_G._client_offset_encoding = client.offset_encoding
-			else
-				_G._client_offset_encoding = client.offset_encoding
-			end
-		else
-			if core.vim_version >= "0.8.0" then
-				client.offset_encoding = _G._client_offset_encoding
-			else
-				client.offset_encoding = _G._client_offset_encoding
-			end
-		end
-
+		-- client.offset_encoding = "utf-8"
 		if core.vim_version >= "0.8.0" then
 			client.server_capabilities.completionProvider = false
 		else

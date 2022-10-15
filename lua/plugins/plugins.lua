@@ -141,7 +141,7 @@ if config.group.lsp ~= false then
 					end,
 					opts = {
 						expr = true,
-						slient = true,
+						silent = true,
 					},
 				}
 			end

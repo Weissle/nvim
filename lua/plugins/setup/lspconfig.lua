@@ -11,26 +11,13 @@ M.clients_format_disabled = {
 
 local cmp_nvim_lsp_ext, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if cmp_nvim_lsp_ext then
-	M.default_capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+	M.default_capabilities = require("cmp_nvim_lsp").default_capabilities()
 else
 	M.default_capabilities = vim.lsp.protocol.make_client_capabilities()
 end
 
 M.on_attach = function(client, bufnr)
-	if _G._client_offset_encodings == nil then
-		if core.vim_version >= "0.8.0" then
-			_G._client_offset_encoding = client.offset_encoding
-		else
-			_G._client_offset_encoding = client.offset_encoding
-		end
-	else
-		if core.vim_version >= "0.8.0" then
-			client.offset_encoding = _G._client_offset_encoding
-		else
-			client.offset_encoding = _G._client_offset_encoding
-		end
-	end
-
+	-- client.offset_encoding = "utf-8"
 	if core.vim_version >= "0.8.0" then
 		if M.clients_format_disabled[client.name] ~= nil then
 			client.server_capabilities.documentFormattingProvider = false
@@ -76,7 +63,7 @@ M.default_lsp_config = {
 }
 
 M.load_lua_dev = function()
-	local lua_dev_ext, lua_dev = pcall(require, "lua-dev")
+	local lua_dev_ext, lua_dev = pcall(require, "neodev")
 	if lua_dev_ext then
 		lua_dev.setup({})
 	end
