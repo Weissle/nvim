@@ -60,6 +60,12 @@ M["nvim-telescope/telescope.nvim"] = {
 		},
 		{
 			"nvim-telescope/telescope-live-grep-args.nvim",
+			setup = function()
+				require("plugins.override")["mappings.plugin_after.telescope"] = function(C)
+					C["n"]["<leader>fg"] =
+						"<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>"
+				end
+			end,
 			after = "telescope.nvim",
 			config = function()
 				require("telescope").load_extension("live_grep_args")
@@ -128,7 +134,17 @@ if config.group.lsp ~= false then
 	M["smjonas/inc-rename.nvim"] = {
 		disable = require("core").vim_version < "0.8.0",
 		setup = function()
-			vim.g._inc_rename_exists = true
+			require("plugins.override")["mappings.plugin_after.lspconfig"] = function(C)
+				C["n"]["<leader>lr"] = {
+					function()
+						return ":IncRename " .. vim.fn.expand("<cword>")
+					end,
+					opts = {
+						expr = true,
+						slient = true,
+					},
+				}
+			end
 		end,
 		after = { "nvim-lspconfig" },
 		config = function()

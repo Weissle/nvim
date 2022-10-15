@@ -10,7 +10,6 @@ M.clients_format_disabled = {
 }
 
 local cmp_nvim_lsp_ext, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
--- Change default_capabilities will not effect other variables which alread directly use default_capabilities like default_lsp_config.
 if cmp_nvim_lsp_ext then
 	M.default_capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
 else

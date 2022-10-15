@@ -7,18 +7,7 @@ M.lspconfig = function()
 	K["n"]["<leader>la"] = vim.lsp.buf.code_action
 	K["n"]["<leader>lh"] = vim.lsp.buf.hover
 	K["n"]["<leader>ls"] = vim.lsp.buf.signature_help
-	if vim.g._inc_rename_exists == true then
-		local opts = vim.deepcopy(core.keymap_opts)
-		opts.expr = true
-		K["n"]["<leader>lr"] = {
-			function()
-				return ":IncRename " .. vim.fn.expand("<cword>")
-			end,
-			opts = opts,
-		}
-	else
-		K["n"]["<leader>lr"] = vim.lsp.buf.rename
-	end
+	K["n"]["<leader>lr"] = vim.lsp.buf.rename
 	K["n"]["<leader>lf"] = vim.lsp.buf.formatting
 	K["n"]["<leader>lt"] = vim.lsp.buf.type_definition
 	-- diagnostic
@@ -65,10 +54,7 @@ end
 M.telescope = function()
 	local K = core.get_keymap_empty_bucket()
 	K["n"]["<leader>ff"] = "<cmd>Telescope find_files<cr>"
-
-	K["n"]["<leader>fg"] = "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>"
-	-- K["n"]["<leader>fg"] = "<cmd>Telescope live_grep<cr>"
-
+	K["n"]["<leader>fg"] = "<cmd>Telescope live_grep<cr>"
 	K["n"]["<leader>fb"] = "<cmd>Telescope buffers<cr>"
 	K["n"]["<leader>fh"] = "<cmd>Telescope help_tags<cr>"
 	K["n"]["<leader>fc"] = "<cmd>Telescope commands<cr>"
@@ -91,7 +77,7 @@ M.dap = function()
 	local K = core.get_keymap_empty_bucket()
 	K["n"]["<leader>dt"] = require("dap").run_to_cursor
 	K["n"]["<leader>dp"] = require("dap").pause
-	-- K["n"]["<leader>dT"] = "<cmd>lua require('dap').terminate(); require('dapui').close()<cr>"
+	K["n"]["<leader>dT"] = "<cmd>lua require('dap').terminate(); require('dapui').close()<cr>"
 	K["n"]["<F4>"] = "<cmd>lua require'dap'.terminate()<cr>"
 	K["n"]["<F5>"] = "<cmd>lua require'dap'.continue()<cr>"
 	K["n"]["<F6>"] = "<cmd>lua require'dap'.step_into()<cr>"
@@ -104,9 +90,9 @@ end
 
 M.persistent_breakpoints = function()
 	local K = core.get_keymap_empty_bucket()
-	K["n"]["<leader>da"] = require("persistent-breakpoints.api").toggle_breakpoint
-	K["n"]["<leader>dA"] = require("persistent-breakpoints.api").set_conditional_breakpoint
-	K["n"]["<leader>dR"] = require("persistent-breakpoints.api").clear_all_breakpoints
+	K["n"]["<leader>ba"] = require("persistent-breakpoints.api").toggle_breakpoint
+	K["n"]["<leader>bc"] = require("persistent-breakpoints.api").set_conditional_breakpoint
+	K["n"]["<leader>bC"] = require("persistent-breakpoints.api").clear_all_breakpoints
 	K = core.merge_configs(K, "mappings.plugin_after.persistent_breakpoints")
 	core.set_keymap_bucket(K)
 end

@@ -1,4 +1,10 @@
+-- plugins may override other plugins' config.
+pcall(require, "plugins.override")
+
+-- experiments features.
 -- pcall(require, "experiments")
+
+-- your custom config
 pcall(require, "custom")
 
 require("settings")

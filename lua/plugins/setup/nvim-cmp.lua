@@ -127,7 +127,6 @@ M.auto_snip_jump = function(entry)
 	local dont_jump = cmp_kind == "Snippet" or vim.api.nvim_get_mode().mode == "s"
 	print(cmp_kind, dont_jump)
 	if not dont_jump and luasnip.jumpable(1) then
-		print(jump)
 		luasnip.jump(1)
 	end
 end
