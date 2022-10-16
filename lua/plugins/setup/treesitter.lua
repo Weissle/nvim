@@ -1,7 +1,7 @@
 local M = {}
 
 M.config = {
-	ensure_installed = { "c", "lua", "cpp", "python", "cmake", "bash" },
+	ensure_installed = {},
 	sync_install = false,
 	highlight = {
 		enable = true,

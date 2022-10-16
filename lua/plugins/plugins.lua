@@ -102,10 +102,6 @@ if config.group.lsp ~= false then
 		end,
 	}
 
-	M["folke/lua-dev.nvim"] = {
-		module = "lua-dev",
-	}
-
 	M["neovim/nvim-lspconfig"] = {
 		after = { "mason-lspconfig.nvim" },
 		config = function()
@@ -148,7 +144,7 @@ if config.group.lsp ~= false then
 		end,
 		after = { "nvim-lspconfig" },
 		config = function()
-			require("plugins.setup.inc-rename")
+			require("plugins.setup.inc-rename").setup()
 		end,
 	}
 

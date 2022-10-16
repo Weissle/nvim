@@ -1,8 +1,14 @@
 local M = {}
 
+require("plugins.options.dev")
+require("plugins.options.language.c_cpp")
+require("plugins.options.language.python")
+
 M["plugins.setup.treesitter"] = function(C)
 	table.insert(C.config.ensure_installed, "json")
 	table.insert(C.config.ensure_installed, "markdown")
+	table.insert(C.config.ensure_installed, "bash")
+	table.insert(C.config.ensure_installed, "cmake")
 end
 
 M["plugins.setup.lspconfig"] = function(C)
@@ -14,11 +20,6 @@ M["plugins.setup.lspconfig"] = function(C)
 end
 
 M["plugins.plugins"] = {
-
-	["lewis6991/impatient.nvim"] = {
-		disable = true,
-	},
-
 	["iamcco/markdown-preview.nvim"] = {
 		ft = { "markdown" },
 		run = "cd app && npm install",

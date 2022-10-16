@@ -1,17 +1,14 @@
 local M = {}
 local core = require("core")
 
-M.lsp_servers = { "sumneko_lua", "pyright", "clangd", "bashls", "cmake" }
+M.lsp_servers = {}
 
--- null-ls provides the format feature.
-M.clients_format_disabled = {
-	sumneko_lua = true,
-	clangd = true,
-}
+-- if null-ls provides the format feature.
+M.clients_format_disabled = {}
 
 local cmp_nvim_lsp_ext, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if cmp_nvim_lsp_ext then
-	M.default_capabilities = require("cmp_nvim_lsp").default_capabilities()
+	M.default_capabilities = cmp_nvim_lsp.default_capabilities()
 else
 	M.default_capabilities = vim.lsp.protocol.make_client_capabilities()
 end
@@ -30,32 +27,6 @@ M.on_attach = function(client, bufnr)
 		end
 	end
 end
-
-M.sumneko_lua_config = {
-	capabilities = M.default_capabilities,
-	settings = {
-		Lua = {
-			runtime = {
-				version = "LuaJIT",
-			},
-			diagnostics = {
-				globals = { "vim" },
-			},
-			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
-			},
-			telemetry = {
-				enable = false,
-			},
-			completion = {
-				autoRequire = false,
-				keywordSnippet = "Disable",
-				callSnippet = "Replace",
-			},
-		},
-	},
-	on_attach = M.on_attach,
-}
 
 M.default_lsp_config = {
 	capabilities = M.default_capabilities,

@@ -4,10 +4,7 @@ local nl = require("null-ls")
 local builtins = nl.builtins
 
 M.config = {
-	sources = {
-		builtins.formatting.stylua,
-		builtins.formatting.clang_format,
-	},
+	sources = {},
 	on_attach = function(client, bufnr)
 		-- client.offset_encoding = "utf-8"
 		if core.vim_version >= "0.8.0" then

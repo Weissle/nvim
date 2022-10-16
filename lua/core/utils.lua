@@ -24,6 +24,8 @@ M.create_empty_function = function(ret)
 	end
 end
 
+--- Execute everything executable.
+---@param cmd string|function|table
 M.call = function(cmd)
 	if type(cmd) == "string" then
 		vim.cmd(cmd)

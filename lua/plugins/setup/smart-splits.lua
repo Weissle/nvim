@@ -7,7 +7,10 @@ M.config = {
 				vim.api.nvim_del_augroup_by_name("move-to-term")
 			end,
 			on_leave = function()
-				require("settings.functions").setup_startinsert_in_terminal()
+				local f = require("settings.functions").setup_startinsert_in_terminal
+				if type(f) == "function" then
+					f()
+				end
 			end,
 		},
 	},
