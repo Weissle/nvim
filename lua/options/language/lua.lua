@@ -3,30 +3,27 @@ local _M = {}
 _M["plugins.setup.lspconfig"] = function(C)
 	table.insert(C.lsp_servers, "sumneko_lua")
 	C.clients_format_disabled["sumneko_lua"] = true
-	C.sumneko_lua_config = {
-		capabilities = C.default_capabilities,
-		settings = {
-			Lua = {
-				runtime = {
-					version = "LuaJIT",
-				},
-				diagnostics = {
-					globals = { "vim" },
-				},
-				workspace = {
-					library = vim.api.nvim_get_runtime_file("", true),
-				},
-				telemetry = {
-					enable = false,
-				},
-				completion = {
-					autoRequire = false,
-					keywordSnippet = "Disable",
-					callSnippet = "Replace",
-				},
+	C.sumneko_lua_config = vim.deepcopy(C.default_lsp_config)
+	C.sumneko_lua_config.settings = {
+		Lua = {
+			runtime = {
+				version = "LuaJIT",
+			},
+			diagnostics = {
+				globals = { "vim" },
+			},
+			workspace = {
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
+			telemetry = {
+				enable = false,
+			},
+			completion = {
+				autoRequire = false,
+				keywordSnippet = "Disable",
+				callSnippet = "Replace",
 			},
 		},
-		on_attach = C.on_attach,
 	}
 end
 

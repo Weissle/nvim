@@ -26,7 +26,7 @@ It should be placed to a new repo.**
 |**lua/mappings/** | The common and plugins' specific keymaps.  
 |**lua/plugins/plugins.lua** | All used plugins are declared here.  
 |**lua/plugins/setup/** | The plugins' setup function.  
-|**lua/plugins/options/** | Some predefined but not used config. You can use or not.
+|**lua/options/** | Some predefined but not used config. You can use or not.
 |**lua/experiments/** | Experiments features are placed here. They are disabled by default as well as the config in options.
 
 ### Create you config
@@ -72,7 +72,7 @@ In function, these modules are required when the function is called.
 -- use experimental feature.
 require("experiments")
 -- use lua/plugins/options/python.lua
-require("lua.plugins.options.language.python")
+require("options.language.python")
 -- then write and register your config
 ```
 

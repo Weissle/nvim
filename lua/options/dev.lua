@@ -1,4 +1,4 @@
-require("plugins.options.language.lua")
+require("options.language.lua")
 
 local _M = {}
 

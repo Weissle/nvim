@@ -34,4 +34,16 @@ _M["mappings.init"] = function(C)
 	C["n"]["<leader>tv"] = "<cmd>vsp<cr><bar><cmd>terminal<cr>i"
 end
 
+_M["plugins.setup.smart-splits"] = function(C)
+	C.config.resize_mode.hooks.on_enter = function()
+		vim.api.nvim_del_augroup_by_name("move-to-term")
+	end
+	C.config.resize_mode.hooks.on_leave = function()
+		local f = require("settings.functions").setup_startinsert_in_terminal
+		if type(f) == "function" then
+			f()
+		end
+	end
+end
+
 require("core").register_override_config(_M)

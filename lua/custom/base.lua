@@ -1,6 +1,6 @@
-require("plugins.options.terminal_mode")
-require("plugins.options.language.c_cpp")
-require("plugins.options.language.python")
+require("options.terminal_mode")
+require("options.language.c_cpp")
+require("options.language.python")
 
 local _M = {}
 
@@ -12,10 +12,10 @@ _M["plugins.setup.treesitter"] = function(C)
 end
 
 _M["plugins.setup.lspconfig"] = function(C)
-	C.clangd_config = {
-		capabilities = C.default_capabilities,
-		on_attach = C.on_attach,
-		cmd = { "clangd", "--header-insertion=never" },
+	C.clangd_config = vim.deepcopy(C.default_lsp_config)
+	C.clangd_config.cmd = {
+		"clangd",
+		"--header-insertion=never",
 	}
 end
 

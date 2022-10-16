@@ -53,14 +53,6 @@ M.setup_autocmd_reload_launchjson = function()
 	})
 end
 
-M.setup = function()
-	for k, f in pairs(M) do
-		if k ~= "setup" and type(f) == "function" then
-			f()
-		end
-	end
-end
-
 M = require("core").merge_configs(M, "plugins.setup.dap")
 
-return M
+return require("core").setup_helper(M)

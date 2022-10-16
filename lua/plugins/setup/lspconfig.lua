@@ -7,44 +7,31 @@ M.lsp_servers = {}
 M.clients_format_disabled = {}
 
 local cmp_nvim_lsp_ext, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+local default_capabilities
 if cmp_nvim_lsp_ext then
-	M.default_capabilities = cmp_nvim_lsp.default_capabilities()
+	default_capabilities = cmp_nvim_lsp.default_capabilities()
 else
-	M.default_capabilities = vim.lsp.protocol.make_client_capabilities()
-end
-
-M.on_attach = function(client, bufnr)
-	if vim.b._offset_encoding == nil then
-		vim.b._offset_encoding = client.offset_encoding
-	end
-	client.offset_encoding = vim.b._offset_encoding
-	if core.vim_version >= "0.8.0" then
-		if M.clients_format_disabled[client.name] ~= nil then
-			client.server_capabilities.documentFormattingProvider = false
-			client.server_capabilities.documentRangeFormattingProvider = false
-		end
-	else
-		if M.clients_format_disabled[client.name] ~= nil then
-			client.resolved_capabilities.document_formatting = false
-			client.resolved_capabilities.document_range_formatting = false
-		end
-	end
+	default_capabilities = vim.lsp.protocol.make_client_capabilities()
 end
 
 M.default_lsp_config = {
-	capabilities = M.default_capabilities,
-	on_attach = M.on_attach,
+	capabilities = default_capabilities,
+	on_attach = function(client, bufnr)
+		if core.vim_version >= "0.8.0" then
+			if M.clients_format_disabled[client.name] ~= nil then
+				client.server_capabilities.documentFormattingProvider = false
+				client.server_capabilities.documentRangeFormattingProvider = false
+			end
+		else
+			if M.clients_format_disabled[client.name] ~= nil then
+				client.resolved_capabilities.document_formatting = false
+				client.resolved_capabilities.document_range_formatting = false
+			end
+		end
+	end,
 }
 
-M.load_lua_dev = function()
-	local lua_dev_ext, lua_dev = pcall(require, "neodev")
-	if lua_dev_ext then
-		lua_dev.setup({})
-	end
-end
-
 M.setup = function()
-	M.load_lua_dev()
 	local lspconfig = require("lspconfig")
 	for _, lsp in pairs(M.lsp_servers) do
 		if M[lsp .. "_config"] == nil then

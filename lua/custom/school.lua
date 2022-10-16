@@ -1,4 +1,4 @@
-require("plugins.options.dev")
+require("options.dev")
 local _M = {}
 _M["plugins.setup.lspconfig"] = function(C)
 	table.insert(C.lsp_servers, "texlab")
