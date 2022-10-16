@@ -12,17 +12,6 @@ M["i"]["<C-a>"] = "<C-o>A"
 
 M["s"]["<BS>"] = "<Space><BS>"
 
-M["t"]["jj"] = "<C-\\><C-n>"
-M["t"]["<C-w>j"] = "<C-\\><C-n><C-w>j"
-M["t"]["<C-w>h"] = "<C-\\><C-n><C-w>h"
-M["t"]["<C-w>k"] = "<C-\\><C-n><C-w>k"
-M["t"]["<C-w>l"] = "<C-\\><C-n><C-w>l"
-M["t"]["gt"] = "<C-\\><C-n><cmd>tabn<cr>"
-M["t"]["gT"] = "<C-\\><C-n><cmd>tabN<cr>"
-M["n"]["<leader>tt"] = "<cmd>tabnew<cr><bar><cmd>terminal<cr>i"
-M["n"]["<leader>tx"] = "<cmd>sp<cr><bar><cmd>terminal<cr>i"
-M["n"]["<leader>tv"] = "<cmd>vsp<cr><bar><cmd>terminal<cr>i"
-
 M = core.merge_configs(M, "mappings.init")
 
 core.set_keymap_bucket(M)

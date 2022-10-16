@@ -1,20 +1,11 @@
 local M = {}
 
-M.config = {
-	on_highlights = function(highlights, colors)
-		highlights.WinSeparator = {
-			fg = "#6699FF",
-		}
-	end,
-}
+M.config = {}
 
-M.set_colorscheme = function()
-	vim.cmd("colorscheme tokyonight-moon")
-end
-
+M.colorscheme = "tokyonight-moon"
 M.setup = function()
 	require("tokyonight").setup(M.config)
-	M.set_colorscheme()
+	vim.cmd("colorscheme " .. M.colorscheme)
 end
 
 M = require("core").merge_configs(M, "plugins.setup.tokyonight")

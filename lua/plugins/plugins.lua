@@ -110,13 +110,6 @@ if config.group.lsp ~= false then
 		end,
 	}
 
-	M["ray-x/lsp_signature.nvim"] = {
-		after = { "nvim-lspconfig" },
-		config = function()
-			require("plugins.setup.lsp_signature").setup()
-		end,
-	}
-
 	M["simrat39/symbols-outline.nvim"] = {
 		cmd = { "SymbolsOutline" },
 		setup = function()
@@ -309,14 +302,6 @@ if config.group.ez ~= false then
 		end,
 	}
 
-	M["kwkarlwang/bufjump.nvim"] = {
-		keys = { "<leader>bo", "<leader>bi" },
-		config = function()
-			local k = require("mappings.plugin_builtin").bufjump()
-			require("bufjump").setup(k)
-		end,
-	}
-
 	M["gbprod/yanky.nvim"] = {
 		event = lazy_event_enter_file,
 		config = function()
@@ -397,12 +382,18 @@ if config.group.debug ~= false then
 	}
 
 	M["Weissle/persistent-breakpoints.nvim"] = {
-		after = "nvim-dap",
+		module = "persistent-breakpoints.api",
+		setup = function()
+			require("plugins.override")["mappings.plugin_after.dap"] = function(C)
+				C["n"]["<leader>ba"] = require("persistent-breakpoints.api").toggle_breakpoint
+				C["n"]["<leader>bc"] = require("persistent-breakpoints.api").set_conditional_breakpoint
+				C["n"]["<leader>bC"] = require("persistent-breakpoints.api").clear_all_breakpoints
+			end
+		end,
 		config = function()
 			require("persistent-breakpoints").setup({
 				load_breakpoints_event = { "BufReadPost" },
 			})
-			require("mappings.plugin_after").persistent_breakpoints()
 		end,
 	}
 

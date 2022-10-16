@@ -1,7 +1,8 @@
-local M = {}
-
 require("plugins.options.language.lua")
-M["plugins.plugins"] = function(C)
+
+local _M = {}
+
+_M["plugins.plugins"] = function(C)
 	C["folke/lua-dev.nvim"] = {
 		module = "neodev",
 	}
@@ -9,7 +10,7 @@ M["plugins.plugins"] = function(C)
 	C["lewis6991/impatient.nvim"] = nil
 end
 
-M["plugins.setup.lspconfig"] = function(C)
+_M["plugins.setup.lspconfig"] = function(C)
 	local original_setup = C.setup
 	C.setup = function()
 		require("neodev").setup({})
@@ -17,5 +18,4 @@ M["plugins.setup.lspconfig"] = function(C)
 	end
 end
 
-require("core").register_override_config(M)
-return M
+require("core").register_override_config(_M)

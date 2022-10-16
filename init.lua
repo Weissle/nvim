@@ -1,11 +1,8 @@
 -- plugins may override other plugins' config.
-pcall(require, "plugins.override")
-
--- experiments features.
--- pcall(require, "experiments")
+require("plugins.override")
 
 -- your custom config
-pcall(require, "custom")
+require("custom")
 
 require("settings")
 -- impatient slow down startup when we don't use auto-session

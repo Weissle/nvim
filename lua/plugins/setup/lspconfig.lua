@@ -14,7 +14,10 @@ else
 end
 
 M.on_attach = function(client, bufnr)
-	-- client.offset_encoding = "utf-8"
+	if vim.b._offset_encoding == nil then
+		vim.b._offset_encoding = client.offset_encoding
+	end
+	client.offset_encoding = vim.b._offset_encoding
 	if core.vim_version >= "0.8.0" then
 		if M.clients_format_disabled[client.name] ~= nil then
 			client.server_capabilities.documentFormattingProvider = false

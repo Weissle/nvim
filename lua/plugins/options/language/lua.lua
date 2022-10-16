@@ -1,7 +1,6 @@
 -- For language c/cpp including lsp, format feature
-local M = {}
-
-M["plugins.setup.lspconfig"] = function(C)
+local _M = {}
+_M["plugins.setup.lspconfig"] = function(C)
 	table.insert(C.lsp_servers, "sumneko_lua")
 	C.clients_format_disabled["sumneko_lua"] = true
 	C.sumneko_lua_config = {
@@ -31,12 +30,12 @@ M["plugins.setup.lspconfig"] = function(C)
 	}
 end
 
-M["plugins.setup.null-ls"] = function(C)
+_M["plugins.setup.null-ls"] = function(C)
 	table.insert(C.config.sources, require("null-ls").builtins.formatting.stylua)
 end
 
-M["plugins.setup.treesitter"] = function(C)
+_M["plugins.setup.treesitter"] = function(C)
 	table.insert(C.config.ensure_installed, "lua")
 end
 
-require("core").register_override_config(M)
+require("core").register_override_config(_M)

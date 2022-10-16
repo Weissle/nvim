@@ -1,5 +1,5 @@
 # **Yue**
-A neovim framework for C, C++, Python and Lua.  
+A Neovim framework.
 **If you see this sentence, it means that **Yue** is not totally ready.
 It should be placed to a new repo.**
 
@@ -21,39 +21,36 @@ It should be placed to a new repo.**
 | Folder or File | Usage |
 | -- | -- |
 |**lua/custom/** | Place your config here.  
-|**lua/core/** | The core of **Yue**.  
+|**lua/core/** | The core of **Yue**. Usually you don't need to change it.
 |**lua/setting/** | The common and basic setting.  
 |**lua/mappings/** | The common and plugins' specific keymaps.  
 |**lua/plugins/plugins.lua** | All used plugins are declared here.  
 |**lua/plugins/setup/** | The plugins' setup function.  
-|**lua/experiments/** | Experiments features are placed here. They are disabled by default. Check the `init.lua` if you want them.
+|**lua/plugins/options/** | Some predefined but not used config. You can use or not.
+|**lua/experiments/** | Experiments features are placed here. They are disabled by default as well as the config in options.
 
 ### Create you config
 If you want to change something, find the relative part firstly.
-You should see its default config and something like `require("core").merge_config(M, "{config_name}")`.
+You should see its default config and something like `require("core").merge_configs(M, "{config_name}")`.
 To override the content of M, you should create a function accept the M, and change it inside the function.  
-Here is an example how to employ your config to **Yue**'s.
-By default, LSP and treesitter support lua, c/c++ and python language.
+Below is an example to show how to add the support of golang by changing the lspconfig's and treesitter's config.
 Assuming we need golang's LSP and treesitter.
 ```lua
--- lua/custom/init.lua
-my_config = {}
-
--- The config of treesitter in lua/plugins/setup/treesitter.lua 
--- We should add `python` to the config.ensure_installed field
-my_config["plugins.setup.treesitter"] = function(C)
-	table.insert(C.config.ensure_installed,"go")
-	-- C.config.ensure_installed = {"lua", "cpp", "python", "go"} works too.
-end
-
--- The config of LSP in lua/plugins/setup/lspconfig.lua 
--- Let us use `pyright` as python LSP server.
-my_config["plugins.setup.lspconfig"] = function(C)
-	C.config.lsp_servers = {"sumneko_lua", "clangd", "pyright", "gopls"}
-end
-
--- Let **Yue** know your config
-require("core").register_override_config(my_config)
+-- For language golang.
+local _M = {
+	-- use gopls as the go LSP server.
+	-- See file lua/plugins/setup/lspconfig.lua and nvim-lspconfig's github repo for more information.
+	["plugins.setup.lspconfig"] = function(C)
+		table.insert(C.lsp_servers, "gopls")
+	end,
+	-- golang highlight.
+	-- See file lua/plugins/setup/treesitter.lua and nvim-treesitter's github repo for more information.
+	["plugins.setup.treesitter"] = function(C)
+		table.insert(C.config.ensure_installed, "go")
+	end,
+}
+-- let Yue know your config.
+require("core").register_override_config(_M)
 ```
 
 You can also use a `table` to override the default config.
@@ -69,6 +66,50 @@ But this way is not recommended. Since using function
 Some plugins are lazy loaded and the runtime paths don't include their path at first.
 In function, these modules are required when the function is called.
 
+### Use the Optional config
+```lua
+-- file: lua/custom/init.lua
+-- use experimental feature.
+require("experiments")
+-- use lua/plugins/options/python.lua
+require("lua.plugins.options.language.python")
+-- then write and register your config
+```
+
+### The Priority of Different Override Config.
+The later registered config have higher priority.
+```lua
+--[[
+M = {
+	a = 3,
+	b = {1,2}
+}
+require("core").merge_configs(M, "somthing")
+]]
+local _M1 = {
+	["something"] = function(C) 
+		C.a = 1
+		table.insert(C.b,5)
+	end
+}
+require("core").register_override_config(_M1)
+local _M2 = {
+	["something"] = function(C) 
+		C.a = 2
+		table.insert(C.b,4)
+	end
+}
+require("core").register_override_config(_M2)
+--[[
+_M1["somthing"](somthing) is called firstly.
+Then _M2["somthing"](somthing) is called.
+Finnaly, 
+somthing = {
+	a = 2,
+	b = {1,2,5,4}
+}
+]]
+```
 ## You May Ask
 * **A startup plugin?**  
 Since we have the session manager plugin, the startup page is redundant.

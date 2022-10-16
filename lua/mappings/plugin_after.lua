@@ -84,16 +84,14 @@ M.dap = function()
 	K["n"]["<F7>"] = "<cmd>lua require'dap'.step_over()<cr>"
 	K["n"]["<F8>"] = "<cmd>lua require'dap'.step_out()<cr>"
 	K["n"]["<F9>"] = "<cmd>lua require'dap'.run_last()<cr>"
-	K = core.merge_configs(K, "mappings.plugin_after.dap")
-	core.set_keymap_bucket(K)
-end
 
-M.persistent_breakpoints = function()
-	local K = core.get_keymap_empty_bucket()
-	K["n"]["<leader>ba"] = require("persistent-breakpoints.api").toggle_breakpoint
-	K["n"]["<leader>bc"] = require("persistent-breakpoints.api").set_conditional_breakpoint
-	K["n"]["<leader>bC"] = require("persistent-breakpoints.api").clear_all_breakpoints
-	K = core.merge_configs(K, "mappings.plugin_after.persistent_breakpoints")
+	K["n"]["<leader>ba"] = require("dap").toggle_breakpoint
+	K["n"]["<leader>bc"] = function()
+		require("dap").set_breakpoint(vim.fn.input("[Condition] > "))
+	end
+
+	K["n"]["<leader>bC"] = require("dap").clear_breakpoints()
+	K = core.merge_configs(K, "mappings.plugin_after.dap")
 	core.set_keymap_bucket(K)
 end
 

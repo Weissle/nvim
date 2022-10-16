@@ -1,17 +1,17 @@
-local M = {}
-
-require("plugins.options.dev")
+require("plugins.options.terminal_mode")
 require("plugins.options.language.c_cpp")
 require("plugins.options.language.python")
 
-M["plugins.setup.treesitter"] = function(C)
+local _M = {}
+
+_M["plugins.setup.treesitter"] = function(C)
 	table.insert(C.config.ensure_installed, "json")
 	table.insert(C.config.ensure_installed, "markdown")
 	table.insert(C.config.ensure_installed, "bash")
 	table.insert(C.config.ensure_installed, "cmake")
 end
 
-M["plugins.setup.lspconfig"] = function(C)
+_M["plugins.setup.lspconfig"] = function(C)
 	C.clangd_config = {
 		capabilities = C.default_capabilities,
 		on_attach = C.on_attach,
@@ -19,7 +19,7 @@ M["plugins.setup.lspconfig"] = function(C)
 	}
 end
 
-M["plugins.plugins"] = {
+_M["plugins.plugins"] = {
 	["iamcco/markdown-preview.nvim"] = {
 		ft = { "markdown" },
 		run = "cd app && npm install",
@@ -31,9 +31,19 @@ M["plugins.plugins"] = {
 			vim.g.mkdp_open_to_the_world = 1
 		end,
 	},
+
+	["kwkarlwang/bufjump.nvim"] = {
+		keys = { "<leader>bo", "<leader>bi" },
+		config = function()
+			require("bufjump").setup({
+				forward = "<leader>bi",
+				backward = "<leader>bo",
+			})
+		end,
+	},
 }
 
-M["plugins.setup.luasnip"] = {
+_M["plugins.setup.luasnip"] = {
 	load_snippets = function()
 		require("luasnip.loaders.from_vscode").lazy_load({
 			exclude = { "cpp" },
@@ -44,7 +54,7 @@ M["plugins.setup.luasnip"] = {
 	end,
 }
 
-M["mappings.init"] = function(C)
+_M["mappings.init"] = function(C)
 	C["n"]["<F3>"] = "<cmd>noh<cr>"
 	C[""]["J"] = "gJ"
 
@@ -64,7 +74,7 @@ M["mappings.init"] = function(C)
 	C["n"]["gcP"] = "yygccP"
 end
 
-M["plugins.setup.telescope"] = function(C)
+_M["plugins.setup.telescope"] = function(C)
 	C.config.defaults.path_display = {
 		shorten = {
 			len = 5,
@@ -73,15 +83,23 @@ M["plugins.setup.telescope"] = function(C)
 	}
 end
 
-M["plugins.setup.nvim-tree"] = function(C)
+_M["plugins.setup.nvim-tree"] = function(C)
 	C.config.view = {
 		adaptive_size = true,
 		side = "right",
 	}
 end
 
-M["settings.opt"] = {
+_M["settings.opt"] = {
 	mouse = "",
 }
 
-return M
+_M["plugins.setup.tokyonight"] = function(C)
+	C.config.on_highlights = function(highlights, colors)
+		highlights.WinSeparator = {
+			fg = "#6699FF",
+		}
+	end
+end
+
+require("core").register_override_config(_M)
