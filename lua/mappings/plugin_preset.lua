@@ -53,20 +53,10 @@ end
 M.spectre = function()
 	local K = core.get_keymap_empty_bucket()
 	K["n"]["<leader>so"] = "<cmd>lua require('spectre').open()<cr>"
+	K["x"]["<leader>so"] = "<esc><cmd>lua require('spectre').open_visual()<cr>"
+	K["n"]["<leader>sl"] = "<cmd>lua require('spectre').open_file_search()<cr>"
 	K["n"]["<leader>sw"] = "<cmd>lua require('spectre').open_visual({select_word=true})<cr>"
-	K["n"]["<leader>sf"] = "<cmd>lua require('spectre').open_file_search()<cr>"
-	K["x"]["<leader>sf"] = "<cmd>lua require('spectre').open_visual()<cr>"
 	K = core.merge_configs(K, "mappings.plugin_preset.spectre")
-	core.set_keymap_bucket(K)
-end
-
-M.harpoon = function()
-	local K = core.get_keymap_empty_bucket()
-	K["n"]["<leader>ha"] = "<cmd>lua require('harpoon.mark').add_file()<cr>"
-	K["n"]["<leader>hC"] = "<cmd>lua require('harpoon.mark').clear_all()<cr>"
-	K["n"]["<leader>hn"] = "<cmd>lua require('harpoon.ui').nav_next()<cr>"
-	K["n"]["<leader>hp"] = "<cmd>lua require('harpoon.ui').nav_prev()<cr>"
-	K = core.merge_configs(K, "mappings.plugin_preset.harpoon")
 	core.set_keymap_bucket(K)
 end
 

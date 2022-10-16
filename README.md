@@ -124,3 +124,4 @@ I do appreciate anyone who try it, use it and give me the feedback.
 
 
 ## TODO
+- [] https://github.com/nvim-pack/nvim-spectre/issues/93
