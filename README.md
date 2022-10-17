@@ -110,6 +110,11 @@ somthing = {
 }
 ]]
 ```
+
+## Contribution
+1. **Bug Fixed**: Modify the original files directly (of course, on your branch). Please provide enough details about the bug including its root cause or how to reproduce it.
+2. **New Feature**: Create a lua file, place it to `lua/experiments/` and indicate its' target place, `options` or **Yue**'s main part. Please make sure that user should almost no need to change their config after this new feature is accepted. 
+
 ## You May Ask
 * **A startup plugin?**  
 Since we have the session manager plugin, the startup page is redundant.
@@ -124,4 +129,4 @@ I do appreciate anyone who try it, use it and give me the feedback.
 
 
 ## TODO
-- [] https://github.com/nvim-pack/nvim-spectre/issues/93
+- [ ] https://github.com/nvim-pack/nvim-spectre/issues/93

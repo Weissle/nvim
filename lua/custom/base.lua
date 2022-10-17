@@ -41,6 +41,14 @@ _M["plugins.plugins"] = {
 			})
 		end,
 	},
+
+	["karb94/neoscroll.nvim"] = {
+		disable = false,
+		keys = { "<C-u>", "<C-d>", "<C-y>", "<C-e>", "<C-b>", "<C-f>" },
+		config = function()
+			require("neoscroll").setup({ mappings = { "<C-u>", "<C-d>", "<C-y>", "<C-e>", "<C-b>", "<C-f>" } })
+		end,
+	},
 }
 
 _M["plugins.setup.luasnip"] = {

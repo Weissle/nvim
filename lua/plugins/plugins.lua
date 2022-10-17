@@ -234,11 +234,9 @@ if config.group.ui then
 		end,
 	}
 
+	-- This plugin override the keymap. So it is disabled by default in case users' keymaps are overrided while they don't know.
 	M["karb94/neoscroll.nvim"] = {
-		keys = { "<C-u>", "<C-d>", "<C-y>", "<C-e>", "<C-b>", "<C-f>" },
-		config = function()
-			require("neoscroll").setup({ mappings = { "<C-u>", "<C-d>", "<C-y>", "<C-e>", "<C-b>", "<C-f>" } })
-		end,
+		disable = true,
 	}
 end
 
