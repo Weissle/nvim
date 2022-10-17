@@ -30,6 +30,4 @@ for k, v in pairs(global) do
 	vim.g[k] = v
 end
 
-for _, v in pairs(require("settings.functions")) do
-	v()
-end
+core.call(require("settings.functions"))

@@ -1,6 +1,6 @@
 local _M = {}
 
-_M["settings.function"] = function(C)
+_M["settings.functions"] = function(C)
 	C.setup_startinsert_in_terminal = function()
 		vim.defer_fn(function()
 			vim.api.nvim_create_augroup("move-to-term", { clear = true })
@@ -32,18 +32,6 @@ _M["mappings.init"] = function(C)
 	C["n"]["<leader>tt"] = "<cmd>tabnew<cr><bar><cmd>terminal<cr>i"
 	C["n"]["<leader>tx"] = "<cmd>sp<cr><bar><cmd>terminal<cr>i"
 	C["n"]["<leader>tv"] = "<cmd>vsp<cr><bar><cmd>terminal<cr>i"
-end
-
-_M["plugins.setup.smart-splits"] = function(C)
-	C.config.resize_mode.hooks.on_enter = function()
-		vim.api.nvim_del_augroup_by_name("move-to-term")
-	end
-	C.config.resize_mode.hooks.on_leave = function()
-		local f = require("settings.functions").setup_startinsert_in_terminal
-		if type(f) == "function" then
-			f()
-		end
-	end
 end
 
 require("core").register_override_config(_M)

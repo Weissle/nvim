@@ -7,9 +7,7 @@ M.enable_unnamedplus = function()
 	end, 500)
 end
 
-M.disable_auto_comment = function()
-	vim.cmd([[autocmd FileType * set formatoptions-=cro]])
-end
+M.disable_auto_comment = [[autocmd FileType * set formatoptions-=cro]]
 
 M.setup_autosave = function()
 	vim.api.nvim_create_augroup("autosave", { clear = true })
