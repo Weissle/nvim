@@ -234,7 +234,7 @@ if config.group.ui then
 		end,
 	}
 
-	-- This plugin override the keymap. So it is disabled by default in case users' keymaps are overrided while they don't know.
+	-- INFO: This plugin override the keymap. So it is disabled by default in case users' keymaps are overrided while they don't know.
 	M["karb94/neoscroll.nvim"] = {
 		disable = true,
 	}

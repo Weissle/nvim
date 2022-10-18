@@ -58,6 +58,11 @@ M.insert_config = {
 		{
 			name = "nvim_lsp",
 			entry_filter = function(entry, ctx)
+				local entry_label_length = #entry["completion_item"]["label"]
+				local length_max = M.entry_label_length_max or 80
+				if entry_label_length > length_max then
+					return false
+				end
 				local cmp_kind = cmp_item_kind[entry:get_kind()]
 				return cmp_kind ~= "Snippet" and cmp_kind ~= "Text"
 			end,

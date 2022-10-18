@@ -109,7 +109,7 @@ M.telescope_dap = function()
 	K["n"]["<leader>dC"] = "<cmd>Telescope dap commands<cr>"
 	K["n"]["<leader>dv"] = "<cmd>Telescope dap variables<cr>"
 	K["n"]["<leader>db"] = "<cmd>Telescope dap list_breakpoints<cr>"
-	K["n"]["<leader>df"] = "<cmd>Telescope dap frame<cr>"
+	K["n"]["<leader>df"] = "<cmd>Telescope dap frames<cr>"
 	K = core.merge_configs(K, "mappings.plugin_after.telescope_dap")
 	core.set_keymap_bucket(K)
 end
