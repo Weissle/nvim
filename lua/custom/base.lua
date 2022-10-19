@@ -1,6 +1,7 @@
 require("options.terminal_mode")
 require("options.language.c_cpp")
 require("options.language.python")
+require("options.plugins.inc-rename")
 
 local _M = {}
 

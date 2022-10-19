@@ -108,27 +108,6 @@ if config.group.lsp ~= false then
 		end,
 	}
 
-	M["smjonas/inc-rename.nvim"] = {
-		disable = require("core").vim_version < "0.8.0",
-		setup = function()
-			require("plugins.override")["mappings.plugin_after.lspconfig"] = function(C)
-				C["n"]["<leader>lr"] = {
-					function()
-						return ":IncRename " .. vim.fn.expand("<cword>")
-					end,
-					opts = {
-						expr = true,
-						silent = true,
-					},
-				}
-			end
-		end,
-		after = { "nvim-lspconfig" },
-		config = function()
-			require("plugins.setup.inc-rename").setup()
-		end,
-	}
-
 	M["jose-elias-alvarez/null-ls.nvim"] = {
 		after = { "mason-lspconfig.nvim" },
 		config = function()

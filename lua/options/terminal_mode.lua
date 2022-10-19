@@ -21,7 +21,7 @@ _M["settings.functions"] = function(C)
 	end
 end
 
-_M["mappings.init"] = function(C)
+_M["mappings.base"] = function(C)
 	C["t"]["jj"] = "<C-\\><C-n>"
 	C["t"]["<C-w>j"] = "<C-\\><C-n><C-w>j"
 	C["t"]["<C-w>h"] = "<C-\\><C-n><C-w>h"
