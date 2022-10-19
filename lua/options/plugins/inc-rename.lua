@@ -10,7 +10,7 @@ _M["plugins.plugins"] = function(M)
 				config.input_buffer_type = "dressing"
 			end
 			require("core").merge_configs("inc-rename.config")
-			require("plugins.setup.inc-rename").setup(config)
+			require("inc_rename").setup(config)
 		end,
 	}
 end

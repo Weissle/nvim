@@ -90,7 +90,7 @@ if config.group.lsp ~= false then
 	M["williamboman/mason-lspconfig.nvim"] = {
 		after = { "mason.nvim" },
 		config = function()
-			require("plugins.setup.mason-lspconfig").setup()
+			require("mason-lspconfig").setup({ automatic_installation = true })
 		end,
 	}
 
@@ -118,7 +118,7 @@ if config.group.lsp ~= false then
 	M["jayp0521/mason-null-ls.nvim"] = {
 		after = { "null-ls.nvim" },
 		config = function()
-			require("plugins.setup.mason-null-ls").setup()
+			require("mason-null-ls").setup({ automatic_installation = true })
 		end,
 	}
 end
@@ -237,7 +237,7 @@ if config.group.ez ~= false then
 	M["mrjones2014/smart-splits.nvim"] = {
 		cmd = "SmartResizeMode",
 		config = function()
-			require("plugins.setup.smart-splits").setup()
+			require("smart-splits").setup({})
 		end,
 	}
 
