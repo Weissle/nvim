@@ -27,9 +27,7 @@ M.subplugin_config = {
 		config = { delay = 30 },
 		after = { unhighlight_inactivate_buffer, disable_cursorword_in_nvimtree },
 	},
-	["mini.bufremove"] = {
-		after = { require("mappings.plugin_after").bufremove },
-	},
+	["mini.bufremove"] = {},
 	["mini.pairs"] = {},
 	["mini.surround"] = {
 		config = { mappings = require("mappings.plugin_builtin").mini_surround() },

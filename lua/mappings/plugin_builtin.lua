@@ -8,6 +8,9 @@ M.telescope = function()
 		n = {
 			["q"] = action.close,
 		},
+		i = {
+			["<ESC>"] = action.close,
+		},
 	}
 	return core.merge_configs(K, "mappings.plugin_builtin.telescope")
 end

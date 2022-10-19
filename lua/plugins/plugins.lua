@@ -33,7 +33,6 @@ M["kyazdani42/nvim-tree.lua"] = {
 	setup = function()
 		vim.g.loaded_netrw = 1
 		vim.g.loaded_netrwPlugin = 1
-		require("mappings.plugin_preset").nvim_tree()
 	end,
 	config = function()
 		require("plugins.setup.nvim-tree").setup()
@@ -60,12 +59,6 @@ M["nvim-telescope/telescope.nvim"] = {
 		},
 		{
 			"nvim-telescope/telescope-live-grep-args.nvim",
-			setup = function()
-				require("plugins.override")["mappings.plugin_after.telescope"] = function(C)
-					C["n"]["<leader>fg"] =
-						"<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>"
-				end
-			end,
 			after = "telescope.nvim",
 			config = function()
 				require("telescope").load_extension("live_grep_args")
@@ -74,7 +67,6 @@ M["nvim-telescope/telescope.nvim"] = {
 	},
 	config = function()
 		require("plugins.setup.telescope").setup()
-		require("mappings.plugin_after").telescope()
 	end,
 }
 
@@ -106,15 +98,11 @@ if config.group.lsp ~= false then
 		after = { "mason-lspconfig.nvim" },
 		config = function()
 			require("plugins.setup.lspconfig").setup()
-			require("mappings.plugin_after").lspconfig()
 		end,
 	}
 
 	M["simrat39/symbols-outline.nvim"] = {
 		cmd = { "SymbolsOutline" },
-		setup = function()
-			require("mappings.plugin_preset").symbols_outline()
-		end,
 		config = function()
 			require("symbols-outline").setup()
 		end,
@@ -204,7 +192,6 @@ if config.group.ui then
 		config = function()
 			vim.notify = require("notify")
 			require("telescope").load_extension("notify")
-			require("mappings.plugin_after").notify()
 		end,
 	}
 
@@ -230,7 +217,6 @@ if config.group.ui then
 		event = lazy_event_enter_file,
 		config = function()
 			require("plugins.setup.bufferline").setup()
-			require("mappings.plugin_after").bufferline()
 		end,
 	}
 
@@ -244,9 +230,6 @@ if config.group.ez ~= false then
 	M["phaazon/hop.nvim"] = {
 		module = "hop",
 		cmd = { "HopLineStartMW", "HopWordMW" },
-		setup = function()
-			require("mappings.plugin_preset").hop()
-		end,
 		config = function()
 			require("hop").setup()
 		end,
@@ -269,15 +252,11 @@ if config.group.ez ~= false then
 		},
 		config = function()
 			require("plugins.setup.nvim-ufo").setup()
-			require("mappings.plugin_after").ufo()
 		end,
 	}
 
 	M["mrjones2014/smart-splits.nvim"] = {
 		cmd = "SmartResizeMode",
-		setup = function()
-			require("mappings.plugin_preset").smart_split()
-		end,
 		config = function()
 			require("plugins.setup.smart-splits").setup()
 		end,
@@ -285,9 +264,6 @@ if config.group.ez ~= false then
 
 	M["windwp/nvim-spectre"] = {
 		module = "spectre",
-		setup = function()
-			require("mappings.plugin_preset").spectre()
-		end,
 		config = function()
 			require("spectre").setup()
 		end,
@@ -304,7 +280,6 @@ if config.group.ez ~= false then
 		event = lazy_event_enter_file,
 		config = function()
 			require("plugins.setup.yanky").setup()
-			require("mappings.plugin_after").yanky()
 		end,
 	}
 end
@@ -312,9 +287,6 @@ end
 if config.group.doc ~= false then
 	M["folke/todo-comments.nvim"] = {
 		event = lazy_event_enter_file,
-		setup = function()
-			require("mappings.plugin_preset").todo_comments()
-		end,
 		cmd = { "TodoTelescope" },
 		config = function()
 			require("todo-comments").setup()
@@ -323,9 +295,6 @@ if config.group.doc ~= false then
 
 	M["danymat/neogen"] = {
 		cmd = { "Neogen" },
-		setup = function()
-			require("mappings.plugin_preset").neogen()
-		end,
 		config = function()
 			require("neogen").setup({
 				snippet_engine = "luasnip",
@@ -349,9 +318,6 @@ if config.group.session ~= false then
 		requires = {
 			"rmagatti/session-lens",
 			after = { "telescope.nvim", "auto-session" },
-			setup = function()
-				require("mappings.plugin_preset").session_lens()
-			end,
 			config = function()
 				require("session-lens").setup()
 			end,
@@ -365,9 +331,19 @@ end
 if config.group.debug ~= false then
 	M["mfussenegger/nvim-dap"] = {
 		after = { "mason.nvim" },
+		requires = {
+			{
+				"Weissle/persistent-breakpoints.nvim",
+				after = "nvim-dap",
+				config = function()
+					require("persistent-breakpoints").setup({
+						load_breakpoints_event = { "BufReadPost" },
+					})
+				end,
+			},
+		},
 		config = function()
 			require("plugins.setup.dap").setup()
-			require("mappings.plugin_after").dap()
 		end,
 	}
 
@@ -375,23 +351,6 @@ if config.group.debug ~= false then
 		after = "nvim-dap",
 		config = function()
 			require("plugins.setup.dapui").setup({})
-			require("mappings.plugin_after").dapui()
-		end,
-	}
-
-	M["Weissle/persistent-breakpoints.nvim"] = {
-		module = "persistent-breakpoints.api",
-		setup = function()
-			require("plugins.override")["mappings.plugin_after.dap"] = function(C)
-				C["n"]["<leader>ba"] = require("persistent-breakpoints.api").toggle_breakpoint
-				C["n"]["<leader>bc"] = require("persistent-breakpoints.api").set_conditional_breakpoint
-				C["n"]["<leader>bC"] = require("persistent-breakpoints.api").clear_all_breakpoints
-			end
-		end,
-		config = function()
-			require("persistent-breakpoints").setup({
-				load_breakpoints_event = { "BufReadPost" },
-			})
 		end,
 	}
 
@@ -399,7 +358,6 @@ if config.group.debug ~= false then
 		after = { "nvim-dap" },
 		config = function()
 			require("telescope").load_extension("dap")
-			require("mappings.plugin_after").telescope_dap()
 		end,
 	}
 

@@ -62,7 +62,7 @@ _M["plugins.setup.luasnip"] = {
 	end,
 }
 
-_M["mappings.init"] = function(C)
+_M["mappings.base"] = function(C)
 	C["n"]["<F3>"] = "<cmd>noh<cr>"
 	C[""]["J"] = "gJ"
 
