@@ -94,7 +94,6 @@ end
 
 _M["plugins.setup.nvim-tree"] = function(C)
 	C.config.view = {
-		adaptive_size = true,
 		side = "right",
 	}
 end
@@ -102,13 +101,5 @@ end
 _M["settings.opt"] = {
 	mouse = "",
 }
-
-_M["plugins.setup.tokyonight"] = function(C)
-	C.config.on_highlights = function(highlights, colors)
-		highlights.WinSeparator = {
-			fg = "#6699FF",
-		}
-	end
-end
 
 require("core").register_override_config(_M)

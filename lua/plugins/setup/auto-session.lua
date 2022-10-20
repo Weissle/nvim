@@ -10,7 +10,11 @@ _G.close_all_floating_wins = function()
 end
 
 _G.close_symbols_outline = function()
-	pcall(vim.cmd, "SymbolsOutlineClose")
+	pcall(vim.cmd, "tabdo SymbolsOutlineClose")
+end
+
+_G.close_nvim_tree = function()
+	pcall(vim.cmd, "tabdo NvimTreeClose")
 end
 
 _G.close_dapui = function()
@@ -25,7 +29,7 @@ end
 M.config = {
 	log_level = "error",
 	auto_session_suppress_dirs = { "~/" },
-	pre_save_cmds = { "NvimTreeClose", _G.close_all_floating_wins, _G.close_symbols_outline, _G.close_dapui },
+	pre_save_cmds = { _G.close_nvim_tree, _G.close_all_floating_wins, _G.close_symbols_outline, _G.close_dapui },
 }
 
 M.setup = function()

@@ -4,6 +4,9 @@ M.config = {
 	git = {
 		ignore = false,
 	},
+	view = {
+		adaptive_size = true,
+	},
 }
 
 M.setup = function()
