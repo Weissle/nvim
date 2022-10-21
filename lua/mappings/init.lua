@@ -20,16 +20,24 @@ P["n"]["<leader>la"] = vim.lsp.buf.code_action
 P["n"]["<leader>lh"] = vim.lsp.buf.hover
 P["n"]["<leader>ls"] = vim.lsp.buf.signature_help
 P["n"]["<leader>lr"] = vim.lsp.buf.rename
-P["n"]["<leader>lf"] = vim.lsp.buf.formatting
-P["n"]["<leader>lt"] = vim.lsp.buf.type_definition
+P["n"]["<leader>lf"] = function()
+	if core.vim_version < "0.8.0" then
+		vim.lsp.buf.formatting()
+	else
+		vim.lsp.buf.format()
+	end
+end
+P["n"]["<leader>lt"] = "<cmd>Telescope lsp_type_definitions<cr>"
+P["n"]["<leader>ld"] = "<cmd>Telescope diagnostics<cr>"
 -- diagnostic
 P["n"]["[d"] = vim.diagnostic.goto_prev
 P["n"]["]d"] = vim.diagnostic.goto_next
 P["n"]["<leader>lo"] = vim.diagnostic.open_float
 -- frequently use
-P["n"]["gi"] = vim.lsp.buf.implementation
+P["n"]["gi"] = "<cmd>Telescope lsp_implementations<cr>"
 P["n"]["gD"] = vim.lsp.buf.declaration
-P["n"]["gd"] = vim.lsp.buf.definition
+P["n"]["gd"] = "<cmd>Telescope lsp_definitions initial_mode=normal<cr>"
+P["n"]["gr"] = "<cmd>Telescope lsp_references initial_mode=normal<cr>"
 
 -- bufferline
 P["n"]["<leader>bj"] = "<cmd>BufferLinePick<cr>"
@@ -54,16 +62,14 @@ P["n"]["<leader>fb"] = "<cmd>Telescope buffers<cr>"
 P["n"]["<leader>fh"] = "<cmd>Telescope help_tags<cr>"
 P["n"]["<leader>fc"] = "<cmd>Telescope commands<cr>"
 P["n"]["<leader>ft"] = "<cmd>Telescope <cr>"
-P["n"]["<leader>fa"] = "<cmd>Telescope find_files no_ignore=true<cr>"
+P["n"]["<leader>fa"] = "<cmd>Telescope find_files no_ignore=true hidden=true<cr>"
 P["n"]["<leader>f*"] = "<cmd>Telescope grep_string<cr>"
 P["n"]["<leader>fo"] = "<cmd>Telescope oldfiles<cr>"
 P["n"]["<leader>fG"] = "<cmd>Telescope git_status<cr>"
 P["n"]["<leader>fr"] = "<cmd>Telescope resume<cr>"
 P["n"]["<leader>f/"] = "<cmd>Telescope current_buffer_fuzzy_find<cr>"
-P["n"]["<leader>fd"] = "<cmd>Telescope diagnostics<cr>"
 P["n"]["<leader>fm"] = "<cmd>Telescope marks<cr>"
 P["n"]["<leader>fk"] = "<cmd>lua require('telescope.builtin').keymaps{ modes = {'n','i','c','x','v','o'}}<cr>"
-P["n"]["gr"] = "<cmd>Telescope lsp_references initial_mode=normal<cr>"
 
 -- dap
 P["n"]["<leader>dt"] = "<cmd>lua require('dap').run_to_cursor()<cr>"
