@@ -2,6 +2,8 @@
 local M = {}
 local core = require("core")
 
+-- For Comment.nvim, it will use `gc` and `gb` as prefix. Since we use its default, you can check its README.md in the github.
+
 M.telescope = function()
 	local action = require("telescope.actions")
 	local K = {

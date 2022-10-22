@@ -1,5 +1,7 @@
 local _M = {}
 
+-- need nvim-lspconfig
+
 _M["plugins.plugins"] = function(M)
 	M["smjonas/inc-rename.nvim"] = {
 		disable = require("core").vim_version < "0.8.0",
@@ -21,8 +23,10 @@ _M["mappings.plugin"] = function(P)
 			return ":IncRename " .. vim.fn.expand("<cword>")
 		end,
 		opts = {
-			expr = true,
+			remap = false,
 			silent = true,
+			unique = true,
+			expr = true,
 		},
 	}
 end

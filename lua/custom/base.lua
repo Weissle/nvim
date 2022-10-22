@@ -6,10 +6,9 @@ require("options.plugins.inc-rename")
 local _M = {}
 
 _M["plugins.setup.treesitter"] = function(C)
-	table.insert(C.config.ensure_installed, "json")
-	table.insert(C.config.ensure_installed, "markdown")
-	table.insert(C.config.ensure_installed, "bash")
-	table.insert(C.config.ensure_installed, "cmake")
+	for _, v in pairs({ "json", "markdown", "bash", "cmake" }) do
+		table.insert(C.config.ensure_installed, v)
+	end
 end
 
 _M["plugins.setup.lspconfig"] = function(C)
@@ -79,8 +78,16 @@ _M["mappings.base"] = function(C)
 	C["n"]["<leader>qt"] = "<cmd>q<cr>"
 	C["n"]["<leader>qw"] = "<cmd>wa<cr>"
 
-	C["n"]["gcp"] = "yygccp"
-	C["n"]["gcP"] = "yygccP"
+	C["n"]["gcp"] = { "yygccp", opts = {
+		remap = true,
+		silent = true,
+		unique = true,
+	} }
+	C["n"]["gcP"] = { "yygccP", opts = {
+		remap = true,
+		silent = true,
+		unique = true,
+	} }
 end
 
 _M["plugins.setup.telescope"] = function(C)

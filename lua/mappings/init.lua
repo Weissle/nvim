@@ -1,5 +1,8 @@
 local core = require("core")
 
+local default_keymap_opts = { remap = false, silent = true, unique = true }
+default_keymap_opts = core.merge_configs(default_keymap_opts, "mappings.default_keymap_opts")
+
 local B = core.get_keymap_empty_bucket()
 -- since <space> is the <leader>
 B["n"][" "] = "<NOP>"
@@ -11,7 +14,7 @@ B["i"]["<C-j>"] = "<down>"
 B["i"]["<C-a>"] = "<C-o>A"
 B["s"]["<BS>"] = "<Space><BS>"
 B = core.merge_configs(B, "mappings.base")
-core.set_keymap_bucket(B)
+core.set_keymap_bucket(B, default_keymap_opts)
 
 local P = core.get_keymap_empty_bucket()
 
@@ -47,9 +50,9 @@ P["n"]["<leader>ql"] = "<cmd>BufferLineCloseLeft<cr><C-L>"
 P["n"]["<leader>qr"] = "<cmd>BufferLineCloseRight<cr><C-L>"
 P["n"]["<leader>qo"] = "<cmd>BufferLineCloseRight<cr><bar><cmd>BufferLineCloseLeft<cr><C-L>"
 
--- bufremove
-P["n"]["<leader>qb"] = "<cmd>lua require('mini.bufremove').delete(0)<cr>"
-P["t"]["<leader>qb"] = "<cmd>lua require('mini.bufremove').delete(0)<cr>"
+-- bufremove: remove current buffer while keep the layout.
+P[{ "n", "t" }]["<leader>qb"] = "<cmd>lua require('mini.bufremove').delete(0)<cr>"
+P[{ "n", "t" }]["<leader>qB"] = "<cmd>lua require('mini.bufremove').delete(0,true)<cr>"
 
 -- ufo
 P["n"]["zR"] = "<cmd>lua require('ufo').openAllFolds()<cr>"
@@ -155,4 +158,4 @@ P[hop_mode]["<leader>he"] =
 	"<cmd>lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, multi_windows = true })<cr>"
 
 P = core.merge_configs(P, "mappings.plugin")
-core.set_keymap_bucket(P)
+core.set_keymap_bucket(P, default_keymap_opts)
