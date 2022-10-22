@@ -32,9 +32,11 @@ M.config = {
 	pre_save_cmds = { _G.close_nvim_tree, _G.close_all_floating_wins, _G.close_symbols_outline, _G.close_dapui },
 }
 
+-- NOTE: folds options is exclusive. Due to ufo is not loaded at startup.
+M.sessionoptions = "blank,buffers,curdir,help,tabpages,winsize,winpos,terminal"
+
 M.setup = function()
-	-- NOTE: folds options is exclusive. Due to ufo is not loaded at startup.
-	vim.o.sessionoptions = "blank,buffers,curdir,help,tabpages,winsize,winpos,terminal"
+	vim.o.sessionoptions = M.sessionoptions
 	require("auto-session").setup(M.config)
 end
 

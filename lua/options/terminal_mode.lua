@@ -1,3 +1,4 @@
+-- Simple wrap for the neovim terminal feature.
 local _M = {}
 
 _M["settings.functions"] = function(C)

@@ -1,15 +1,10 @@
 require("options.terminal_mode")
+local core = require("core")
 require("options.language.c_cpp")
 require("options.language.python")
 require("options.plugins.inc-rename")
 
 local _M = {}
-
-_M["plugins.setup.treesitter"] = function(C)
-	for _, v in pairs({ "json", "markdown", "bash", "cmake" }) do
-		table.insert(C.config.ensure_installed, v)
-	end
-end
 
 _M["plugins.setup.lspconfig"] = function(C)
 	C.clangd_config = vim.deepcopy(C.default_lsp_config)
@@ -51,17 +46,6 @@ _M["plugins.plugins"] = {
 	},
 }
 
-_M["plugins.setup.luasnip"] = {
-	load_snippets = function()
-		require("luasnip.loaders.from_vscode").lazy_load({
-			exclude = { "cpp" },
-		})
-		require("luasnip.loaders.from_vscode").lazy_load({
-			paths = { "./snippets" },
-		})
-	end,
-}
-
 _M["mappings.base"] = function(C)
 	C["n"]["<F3>"] = "<cmd>noh<cr>"
 	C[""]["J"] = "gJ"
@@ -90,23 +74,48 @@ _M["mappings.base"] = function(C)
 	} }
 end
 
-_M["plugins.setup.telescope"] = function(C)
-	C.config.defaults.path_display = {
+_M["plugins.setup_config"] = function(C)
+	C["kyazdani42/nvim-tree.lua"].setup.config.view.side = "right"
+	C["nvim-telescope/telescope.nvim"].setup.config.defaults.path_display = {
 		shorten = {
 			len = 5,
 			exclude = { 1, -1 },
 		},
 	}
-end
-
-_M["plugins.setup.nvim-tree"] = function(C)
-	C.config.view = {
-		side = "right",
-	}
+	for _, lang in pairs({ "json", "markdown", "bash", "cmake" }) do
+		table.insert(C["nvim-treesitter/nvim-treesitter"].setup.config.ensure_installed, lang)
+	end
+	C["L3MON4D3/LuaSnip"].after.load_snippets = function()
+		require("luasnip.loaders.from_vscode").lazy_load({
+			exclude = { "cpp" },
+		})
+		require("luasnip.loaders.from_vscode").lazy_load({
+			paths = { "./snippets" },
+		})
+	end
 end
 
 _M["settings.opt"] = {
 	mouse = "",
 }
+
+_M["settings.functions"] = function(C)
+	C.setup_markdown_spell_check = function()
+		vim.api.nvim_create_autocmd({ "Filetype" }, {
+			pattern = "markdown",
+			callback = function()
+				vim.cmd([[setlocal spell]])
+			end,
+		})
+	end
+	C.setup_quickfix_q_quit = function()
+		vim.api.nvim_create_autocmd({ "Filetype" }, {
+			pattern = "qf",
+			callback = function()
+				vim.cmd([[nnoremap <buffer> q <cmd>q<cr>]])
+			end,
+		})
+	end
+end
 
 require("core").register_override_config(_M)

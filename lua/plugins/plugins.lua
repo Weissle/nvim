@@ -18,7 +18,7 @@ local lazy_event_enter_file = config.lazy_event_enter_file
 M["wbthomason/packer.nvim"] = {
 	cmd = { "PackerInstall", "PackerSync", "PackerStatus", "PackerCompile", "PackerProfile", "PackerClean" },
 	config = function()
-		require("plugins.setup.packer").setup()
+		require("plugins.setup_manager").setup("wbthomason/packer.nvim")
 	end,
 }
 
@@ -35,17 +35,16 @@ M["kyazdani42/nvim-tree.lua"] = {
 		vim.g.loaded_netrwPlugin = 1
 	end,
 	config = function()
-		require("plugins.setup.nvim-tree").setup()
+		require("plugins.setup_manager").setup("kyazdani42/nvim-tree.lua")
 	end,
 }
 
 M["williamboman/mason.nvim"] = {
 	event = lazy_event_enter_file,
 	config = function()
-		require("mason").setup()
+		require("plugins.setup_manager").setup("williamboman/mason.nvim")
 	end,
 }
-
 M["nvim-telescope/telescope.nvim"] = {
 	branch = "0.1.x",
 	requires = {
@@ -54,19 +53,19 @@ M["nvim-telescope/telescope.nvim"] = {
 			run = "make",
 			after = "telescope.nvim",
 			config = function()
-				require("telescope").load_extension("fzf")
+				require("plugins.setup_manager").setup("nvim-telescope/telescope-fzf-native.nvim")
 			end,
 		},
 		{
 			"nvim-telescope/telescope-live-grep-args.nvim",
 			after = "telescope.nvim",
 			config = function()
-				require("telescope").load_extension("live_grep_args")
+				require("plugins.setup_manager").setup("nvim-telescope/telescope-live-grep-args.nvim")
 			end,
 		},
 	},
 	config = function()
-		require("plugins.setup.telescope").setup()
+		require("plugins.setup_manager").setup("nvim-telescope/telescope.nvim")
 	end,
 }
 
@@ -74,7 +73,7 @@ M["nvim-treesitter/nvim-treesitter"] = {
 	run = ":TSUpdate",
 	event = lazy_event_enter_file,
 	config = function()
-		require("plugins.setup.treesitter").setup()
+		require("plugins.setup_manager").setup("nvim-treesitter/nvim-treesitter")
 	end,
 }
 
@@ -82,7 +81,7 @@ M["L3MON4D3/LuaSnip"] = {
 	module = "luasnip",
 	event = { "BufRead", "BufNewFile", "InsertEnter" },
 	config = function()
-		require("plugins.setup.luasnip").setup()
+		require("plugins.setup_manager").setup("L3MON4D3/LuaSnip")
 	end,
 }
 
@@ -90,35 +89,34 @@ if config.group.lsp ~= false then
 	M["williamboman/mason-lspconfig.nvim"] = {
 		after = { "mason.nvim" },
 		config = function()
-			require("mason-lspconfig").setup({ automatic_installation = true })
+			require("plugins.setup_manager").setup("williamboman/mason-lspconfig.nvim")
 		end,
 	}
 
 	M["neovim/nvim-lspconfig"] = {
 		after = { "mason-lspconfig.nvim" },
 		config = function()
-			require("plugins.setup.lspconfig").setup()
+			require("plugins.setup_manager").setup("neovim/nvim-lspconfig")
 		end,
 	}
 
 	M["simrat39/symbols-outline.nvim"] = {
 		cmd = { "SymbolsOutline" },
 		config = function()
-			require("symbols-outline").setup()
+			require("plugins.setup_manager").setup("simrat39/symbols-outline.nvim")
 		end,
 	}
-
 	M["jose-elias-alvarez/null-ls.nvim"] = {
 		after = { "mason-lspconfig.nvim" },
 		config = function()
-			require("plugins.setup.null-ls").setup()
+			require("plugins.setup_manager").setup("jose-elias-alvarez/null-ls.nvim")
 		end,
 	}
 
 	M["jayp0521/mason-null-ls.nvim"] = {
 		after = { "null-ls.nvim" },
 		config = function()
-			require("mason-null-ls").setup({ automatic_installation = true })
+			require("plugins.setup_manager").setup("jayp0521/mason-null-ls.nvim")
 		end,
 	}
 end
@@ -130,7 +128,7 @@ if config.group.cmp ~= false then
 		after = "LuaSnip",
 		keys = { ":", "/" },
 		config = function()
-			require("plugins.setup.nvim-cmp").setup()
+			require("plugins.setup_manager").setup("hrsh7th/nvim-cmp")
 		end,
 	}
 
@@ -163,20 +161,19 @@ if config.group.ui then
 
 	M["folke/tokyonight.nvim"] = {
 		config = function()
-			require("plugins.setup.tokyonight").setup()
+			require("plugins.setup_manager").setup("folke/tokyonight.nvim")
 		end,
 	}
 
 	M["rcarriga/nvim-notify"] = {
 		config = function()
-			vim.notify = require("notify")
-			require("telescope").load_extension("notify")
+			require("plugins.setup_manager").setup("rcarriga/nvim-notify")
 		end,
 	}
 
 	M["stevearc/dressing.nvim"] = {
 		config = function()
-			require("dressing").setup()
+			require("plugins.setup_manager").setup("stevearc/dressing.nvim")
 		end,
 	}
 
@@ -187,7 +184,7 @@ if config.group.ui then
 	M["nvim-lualine/lualine.nvim"] = {
 		event = lazy_event_enter_file,
 		config = function()
-			require("plugins.setup.lualine").setup()
+			require("plugins.setup_manager").setup("nvim-lualine/lualine.nvim")
 		end,
 	}
 
@@ -195,7 +192,7 @@ if config.group.ui then
 		tag = "v2.*",
 		event = lazy_event_enter_file,
 		config = function()
-			require("plugins.setup.bufferline").setup()
+			require("plugins.setup_manager").setup("akinsho/bufferline.nvim")
 		end,
 	}
 
@@ -210,14 +207,14 @@ if config.group.ez ~= false then
 		module = "hop",
 		cmd = { "HopLineStartMW", "HopWordMW" },
 		config = function()
-			require("hop").setup()
+			require("plugins.setup_manager").setup("phaazon/hop.nvim")
 		end,
 	}
 
 	M["echasnovski/mini.nvim"] = {
 		event = lazy_event_enter_file,
 		config = function()
-			require("plugins.setup.mini").setup()
+			require("plugins.setup_manager").setup("echasnovski/mini.nvim")
 		end,
 	}
 
@@ -230,35 +227,35 @@ if config.group.ez ~= false then
 			},
 		},
 		config = function()
-			require("plugins.setup.nvim-ufo").setup()
+			require("plugins.setup_manager").setup("kevinhwang91/nvim-ufo")
 		end,
 	}
 
 	M["mrjones2014/smart-splits.nvim"] = {
 		cmd = "SmartResizeMode",
 		config = function()
-			require("smart-splits").setup({})
+			require("plugins.setup_manager").setup("mrjones2014/smart-splits.nvim")
 		end,
 	}
 
 	M["windwp/nvim-spectre"] = {
 		module = "spectre",
 		config = function()
-			require("spectre").setup()
+			require("plugins.setup_manager").setup("windwp/nvim-spectre")
 		end,
 	}
 
 	M["ethanholz/nvim-lastplace"] = {
 		event = { "BufReadPre" },
 		config = function()
-			require("plugins.setup.nvim-lastplace").setup()
+			require("plugins.setup_manager").setup("ethanholz/nvim-lastplace")
 		end,
 	}
 
 	M["gbprod/yanky.nvim"] = {
 		event = lazy_event_enter_file,
 		config = function()
-			require("plugins.setup.yanky").setup()
+			require("plugins.setup_manager").setup("gbprod/yanky.nvim")
 		end,
 	}
 end
@@ -268,23 +265,21 @@ if config.group.doc ~= false then
 		event = lazy_event_enter_file,
 		cmd = { "TodoTelescope" },
 		config = function()
-			require("todo-comments").setup()
+			require("plugins.setup_manager").setup("folke/todo-comments.nvim")
 		end,
 	}
 
 	M["danymat/neogen"] = {
 		cmd = { "Neogen" },
 		config = function()
-			require("neogen").setup({
-				snippet_engine = "luasnip",
-			})
+			require("plugins.setup_manager").setup("danymat/neogen")
 		end,
 	}
 
 	M["numToStr/Comment.nvim"] = {
 		keys = { "gc", "gb" },
 		config = function()
-			require("Comment").setup()
+			require("plugins.setup_manager").setup("numToStr/Comment.nvim")
 		end,
 	}
 end
@@ -298,11 +293,11 @@ if config.group.session ~= false then
 			"rmagatti/session-lens",
 			after = { "telescope.nvim", "auto-session" },
 			config = function()
-				require("session-lens").setup()
+				require("plugins.setup_manager").setup("rmagatti/session-lens")
 			end,
 		},
 		config = function()
-			require("plugins.setup.auto-session").setup()
+			require("plugins.setup_manager").setup("rmagatti/auto-session")
 		end,
 	}
 end
@@ -315,35 +310,33 @@ if config.group.debug ~= false then
 				"Weissle/persistent-breakpoints.nvim",
 				after = "nvim-dap",
 				config = function()
-					require("persistent-breakpoints").setup({
-						load_breakpoints_event = { "BufReadPost" },
-					})
+					require("plugins.setup_manager").setup("Weissle/persistent-breakpoints.nvim")
 				end,
 			},
 		},
 		config = function()
-			require("plugins.setup.dap").setup()
+			require("plugins.setup_manager").setup("mfussenegger/nvim-dap")
 		end,
 	}
 
 	M["rcarriga/nvim-dap-ui"] = {
 		after = "nvim-dap",
 		config = function()
-			require("plugins.setup.dapui").setup({})
+			require("plugins.setup_manager").setup("rcarriga/nvim-dap-ui")
 		end,
 	}
 
 	M["nvim-telescope/telescope-dap.nvim"] = {
 		after = { "nvim-dap" },
 		config = function()
-			require("telescope").load_extension("dap")
+			require("plugins.setup_manager").setup("nvim-telescope/telescope-dap.nvim")
 		end,
 	}
 
 	M["theHamsta/nvim-dap-virtual-text"] = {
 		after = "nvim-dap",
 		config = function()
-			require("nvim-dap-virtual-text").setup({})
+			require("plugins.setup_manager").setup("theHamsta/nvim-dap-virtual-text")
 		end,
 	}
 end

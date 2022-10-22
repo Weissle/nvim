@@ -25,33 +25,25 @@ It should be placed to a new repo.**
 |**lua/setting/** | The common and basic setting.  
 |**lua/mappings/** | The common and plugins' specific keymaps.  
 |**lua/plugins/plugins.lua** | All used plugins are declared here.  
-|**lua/plugins/setup/** | The plugins' setup function.  
+|**lua/plugins/setup_config.h** <br> **lua/plugins/setup/**| Plugins' setuping config.|
 |**lua/options/** | Some predefined but not used config. You can use or not.
 |**lua/experiments/** | Experiments features are placed here. They are disabled by default as well as the config in options.
 
 ### Create you config
+#### Basic
+```lua
+-- custom/init.lua
+-- To use experimental feature
+require("experiments")
+-- For C/C++ language
+require("options.language.c_cpp")
+-- For Python language
+require("options.language.python")
+```
+#### Advanced
 If you want to change something, find the relative part firstly.
 You should see its default config and something like `require("core").merge_configs(M, "{config_name}")`.
-To override the content of M, you should create a function accept the M, and change it inside the function.  
-Below is an example to show how to add the support of golang by changing the lspconfig's and treesitter's config.
-Assuming we need golang's LSP and treesitter.
-```lua
--- For language golang.
-local _M = {
-	-- use gopls as the go LSP server.
-	-- See file lua/plugins/setup/lspconfig.lua and nvim-lspconfig's github repo for more information.
-	["plugins.setup.lspconfig"] = function(C)
-		table.insert(C.lsp_servers, "gopls")
-	end,
-	-- golang highlight.
-	-- See file lua/plugins/setup/treesitter.lua and nvim-treesitter's github repo for more information.
-	["plugins.setup.treesitter"] = function(C)
-		table.insert(C.config.ensure_installed, "go")
-	end,
-}
--- let Yue know your config.
-require("core").register_override_config(_M)
-```
+To override the content of M, you should create a function accept the M, and change it inside the function. I believe files under `lua/options/` and `lua/experiments/` are good examples.
 
 You can also use a `table` to override the default config.
 But this way is not recommended. Since using function
@@ -66,24 +58,11 @@ But this way is not recommended. Since using function
 Some plugins are lazy loaded and the runtime paths don't include their path at first.
 In function, these modules are required when the function is called.
 
-### Use the Optional config
-```lua
--- file: lua/custom/init.lua
--- use experimental feature.
-require("experiments")
--- use lua/plugins/options/python.lua
-require("options.language.python")
--- then write and register your config
-```
-
 ### The Priority of Different Override Config.
 The later registered config have higher priority.
 ```lua
---[[
-M = {
-	a = 3,
-	b = {1,2}
-}
+--[[ somewhere,
+M = {a = 3,	b = {1,2}}
 require("core").merge_configs(M, "somthing")
 ]]
 local _M1 = {
@@ -103,7 +82,7 @@ require("core").register_override_config(_M2)
 --[[
 _M1["somthing"](somthing) is called firstly.
 Then _M2["somthing"](somthing) is called.
-Finnaly, 
+Finnaly:
 somthing = {
 	a = 2,
 	b = {1,2,5,4}
@@ -113,7 +92,7 @@ somthing = {
 
 ## Contribution
 1. **Bug Fixed**: Modify the original files directly (of course, on your branch). Please provide enough details about the bug including its root cause or how to reproduce it.
-2. **New Feature**: Create a lua file, place it to `lua/experiments/` and indicate its' target place, `options` or **Yue**'s main part. Please make sure that user should almost no need to change their config after this new feature is accepted. 
+2. **New Feature**: Create a lua file, place it to `lua/experiments/` and indicate its' target place, `options` or **Yue**'s main part. Please make sure that user should almost no need to change their config after the new feature is merged. 
 
 ## You May Ask
 * **A startup plugin?**  
@@ -130,3 +109,4 @@ I do appreciate anyone who try it, use it and give me the feedback.
 
 ## TODO
 - [ ] https://github.com/nvim-pack/nvim-spectre/issues/93
+- [ ] https://github.com/neovim/neovim/pull/17446#pullrequestreview-1103134678
