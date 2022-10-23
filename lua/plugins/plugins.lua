@@ -1,5 +1,6 @@
 local M = {}
 local config = {
+	-- don't change the group unless you want to disable a group of plugins at once.
 	group = {
 		lsp = true,
 		cmp = true,
@@ -30,10 +31,6 @@ M["nvim-lua/plenary.nvim"] = {
 
 M["kyazdani42/nvim-tree.lua"] = {
 	cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle", "NvimTreeFocus" },
-	setup = function()
-		vim.g.loaded_netrw = 1
-		vim.g.loaded_netrwPlugin = 1
-	end,
 	config = function()
 		require("plugins.setup_manager").setup("kyazdani42/nvim-tree.lua")
 	end,
@@ -200,12 +197,12 @@ if config.group.ui then
 	M["karb94/neoscroll.nvim"] = {
 		disable = true,
 	}
+
 end
 
 if config.group.ez ~= false then
 	M["phaazon/hop.nvim"] = {
-		module = "hop",
-		cmd = { "HopLineStartMW", "HopWordMW" },
+		event = lazy_event_enter_file,
 		config = function()
 			require("plugins.setup_manager").setup("phaazon/hop.nvim")
 		end,
@@ -256,6 +253,13 @@ if config.group.ez ~= false then
 		event = lazy_event_enter_file,
 		config = function()
 			require("plugins.setup_manager").setup("gbprod/yanky.nvim")
+		end,
+	}
+
+	M["nvim-treesitter/nvim-treesitter-textobjects"] = {
+		after = "nvim-treesitter",
+		config = function()
+			require("plugins.setup_manager").setup("nvim-treesitter/nvim-treesitter-textobjects")
 		end,
 	}
 end

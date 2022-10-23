@@ -38,19 +38,4 @@ M.call = function(cmd)
 	end
 end
 
---- return a table contains one member `setup` which call all functions in T.
----@param T table
----@return table
-M.setup_helper = function(T)
-	return {
-		setup = function()
-			for _, v in pairs(T) do
-				if type(v) == "function" then
-					v()
-				end
-			end
-		end,
-	}
-end
-
 return M

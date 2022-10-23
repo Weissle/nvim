@@ -139,4 +139,12 @@ end
 
 require("core").merge_configs(M, "plugins.setup.nvim-cmp")
 
-return require("core").setup_helper(M)
+return {
+	setup = function()
+		for _, v in pairs(M) do
+			if (type(v)) == "function" then
+				v()
+			end
+		end
+	end,
+}

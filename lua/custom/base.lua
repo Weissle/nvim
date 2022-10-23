@@ -1,9 +1,9 @@
 require("options.terminal_mode")
-local core = require("core")
 require("options.language.c_cpp")
 require("options.language.python")
 require("options.plugins.inc-rename")
 
+local core = require("core")
 local _M = {}
 
 _M["plugins.setup.lspconfig"] = function(C)
@@ -54,13 +54,11 @@ _M["mappings.base"] = function(C)
 	C["t"]["<C-w><C-h>"] = "<C-\\><C-n><C-w>h"
 	C["t"]["<C-w><C-k>"] = "<C-\\><C-n><C-w>k"
 	C["t"]["<C-w><C-l>"] = "<C-\\><C-n><C-w>l"
-	C["t"]["<leader>qt"] = "<cmd>q<cr>"
-	C["t"]["<leader>qq"] = "exit<cr>"
 
-	--> so long due to the bug of terminal mode
-	C["n"]["<leader>qa"] = "<cmd>wa<cr><bar><cmd>qa<cr>"
-	C["n"]["<leader>qt"] = "<cmd>q<cr>"
-	C["n"]["<leader>qw"] = "<cmd>wa<cr>"
+	C[{ "t", "n" }]["<leader>qt"] = "<cmd>q<cr>"
+	C["n"]["<leader>qa"] = "<cmd>qa<cr>"
+	C["n"]["<leader>qw"] = "<cmd>w<cr>"
+	C["n"]["<leader>qW"] = "<cmd>wa<cr>"
 
 	C["n"]["gcp"] = { "yygccp", opts = {
 		remap = true,
@@ -118,4 +116,4 @@ _M["settings.functions"] = function(C)
 	end
 end
 
-require("core").register_override_config(_M)
+core.register_override_config(_M)

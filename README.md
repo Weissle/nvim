@@ -1,23 +1,26 @@
 # **Yue**
-A Neovim framework.
+A Neovim framework.  
 **If you see this sentence, it means that **Yue** is not totally ready.
 It should be placed to a new repo.**
 
 ## Features
-:book: LSP, Completion, Debug, Beautiful UI...  
+:book: LSP, Completion, Fuzzy Search, Debug, Beautiful UI...  
 :gear: Easy to config and almost all config can be changed.  
-:dash: Backward compatibility. Support Neovim >= 0.7.0. (The plugins require neovim >= 0.8.0 will be disable automatically.)
+:dash: Backward compatibility. Support Neovim >= 0.7.0.  
+:keyboard: Keymaps are reasonable and easy to remember.
 
 ## **Yue** is for?
 * For user who just begin to use neovim, **Yue** directly provides rich features and saves your precious time.
 * For user who are already having your own config or using other framework, **Yue** is a good reference for improving your vim experience. 
 
-## How to use **Yue**?
-<!-- 1. clone this repo to your `~/.config/nvim`. -->
-<!-- 2. Run "YuePluginsSync" in neovim to install the plugins. -->
-<!-- 3. Create your config if you need. -->
 
-### Walk Through
+## How to use **Yue**?
+1. clone this repo to your `~/.config/nvim`.
+`git clone https://github.com/YueNvim/Yue.git ~/.config/nvim`
+2. Run command `YuePluginsSync` in `neovim` to install the plugins.
+3. Create your config if you need. Check the `Create your config` section.
+
+**Walk Through**
 | Folder or File | Usage |
 | -- | -- |
 |**lua/custom/** | Place your config here.  
@@ -26,24 +29,26 @@ It should be placed to a new repo.**
 |**lua/mappings/** | The common and plugins' specific keymaps.  
 |**lua/plugins/plugins.lua** | All used plugins are declared here.  
 |**lua/plugins/setup_config.h** <br> **lua/plugins/setup/**| Plugins' setuping config.|
-|**lua/options/** | Some predefined but not used config. You can use or not.
-|**lua/experiments/** | Experiments features are placed here. They are disabled by default as well as the config in options.
+|**lua/options/** | Some predefined but not loaded config.
+|**lua/experiments/** | Experiments features are placed here.
 
-### Create you config
-#### Basic
+## Create your config
+### Basic
 ```lua
 -- custom/init.lua
 -- To use experimental feature
 require("experiments")
+
+-- Check lua/options for more optional config.
 -- For C/C++ language
 require("options.language.c_cpp")
 -- For Python language
 require("options.language.python")
 ```
-#### Advanced
+### Advanced
 If you want to change something, find the relative part firstly.
 You should see its default config and something like `require("core").merge_configs(M, "{config_name}")`.
-To override the content of M, you should create a function accept the M, and change it inside the function. I believe files under `lua/options/` and `lua/experiments/` are good examples.
+To override the content of M, you should create a function accepts the `M`, and change `M` inside the function. I believe files under `lua/options/` and `lua/experiments/` are good examples.
 
 You can also use a `table` to override the default config.
 But this way is not recommended. Since using function

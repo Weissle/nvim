@@ -175,6 +175,7 @@ _M["akinsho/bufferline.nvim"] = {
 		module = "plugins.setup.bufferline",
 	},
 }
+
 _M["phaazon/hop.nvim"] = {
 	setup = {
 		module = "hop",
@@ -233,6 +234,13 @@ _M["gbprod/yanky.nvim"] = {
 		use_telescope = function()
 			require("telescope").load_extension("yank_history")
 		end,
+	},
+}
+
+_M["nvim-treesitter/nvim-treesitter-textobjects"] = {
+	setup = {
+		module = "nvim-treesitter.configs",
+		config = require("mappings.plugin_builtin").treesitter_textobjects(),
 	},
 }
 

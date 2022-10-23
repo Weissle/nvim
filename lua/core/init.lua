@@ -10,7 +10,6 @@ return {
 	create_default_table = utils.create_default_table,
 	create_empty_function = utils.create_empty_function,
 	call = utils.call,
-	setup_helper = utils.setup_helper,
 	keymap_opts = keymap.keymap_opts,
 	get_keymap_empty_bucket = keymap.get_keymap_empty_bucket,
 	set_keymap_bucket = keymap.set_keymap_bucket,

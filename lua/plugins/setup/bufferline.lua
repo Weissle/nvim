@@ -9,7 +9,7 @@ M.config = {
 					name = "Bash",
 					auto_close = false,
 					matcher = function(buf)
-						return buf.filename == "bash" or buf.filename == "zsh"
+						return buf.buftype == "terminal"
 					end,
 				},
 			},
