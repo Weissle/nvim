@@ -95,6 +95,7 @@ _M["williamboman/mason-lspconfig.nvim"] = {
 }
 
 _M["neovim/nvim-lspconfig"] = {
+	preset = {},
 	setup = {
 		module = "plugins.setup.lspconfig",
 	},

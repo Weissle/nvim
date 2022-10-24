@@ -10,11 +10,16 @@ _M["plugins.plugins"] = function(C)
 	C["lewis6991/impatient.nvim"] = nil
 end
 
-_M["plugins.setup.lspconfig"] = function(C)
-	local original_setup = C.setup
-	C.setup = function()
-		require("neodev").setup({})
-		original_setup()
+_M["plugins.setup_config"] = function(C)
+	C["folke/lua-dev.nvim"] = {
+		setup = {
+			module = "neodev",
+			config = {},
+		},
+	}
+
+	C["neovim/nvim-lspconfig"].preset.setup_neodev = function()
+		require("plugins.setup_manager").setup("folke/lua-dev.nvim")
 	end
 end
 
