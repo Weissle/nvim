@@ -31,8 +31,8 @@ _M["plugins.setup.null-ls"] = function(C)
 	table.insert(C.config.sources, require("null-ls").builtins.formatting.stylua)
 end
 
-_M["plugins.setup.treesitter"] = function(C)
-	table.insert(C.config.ensure_installed, "lua")
+_M["plugins.setup_config"] = function(C)
+	table.insert(C["nvim-treesitter/nvim-treesitter"].setup.config.ensure_installed, "lua")
 end
 
 require("core").register_override_config(_M)

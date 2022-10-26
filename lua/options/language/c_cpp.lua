@@ -20,9 +20,9 @@ _M["plugins.setup.null-ls"] = function(C)
 	table.insert(C.config.sources, require("null-ls").builtins.formatting.clang_format)
 end
 
-_M["plugins.setup.treesitter"] = function(C)
-	table.insert(C.config.ensure_installed, "cpp")
-	table.insert(C.config.ensure_installed, "c")
+_M["plugins.setup_config"] = function(C)
+	table.insert(C["nvim-treesitter/nvim-treesitter"].setup.config.ensure_installed, "cpp")
+	table.insert(C["nvim-treesitter/nvim-treesitter"].setup.config.ensure_installed, "c")
 end
 
 require("core").register_override_config(_M)

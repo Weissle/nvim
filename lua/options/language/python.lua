@@ -17,8 +17,8 @@ _M["plugins.setup.dap"] = function(C)
 	end
 end
 
-_M["plugins.setup.treesitter"] = function(C)
-	table.insert(C.config.ensure_installed, "python")
+_M["plugins.setup_config"] = function(C)
+	table.insert(C["nvim-treesitter/nvim-treesitter"].setup.config.ensure_installed, "python")
 end
 
 require("core").register_override_config(_M)
