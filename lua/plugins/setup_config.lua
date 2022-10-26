@@ -63,7 +63,15 @@ _M["nvim-treesitter/nvim-treesitter"] = {
 			highlight = {
 				enable = true,
 				additional_vim_regex_highlighting = false,
+				disable = function(lang, buf)
+					local max_filesize = 100 * 1024 -- 100 KB
+					local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+					if ok and stats and stats.size > max_filesize then
+						return true
+					end
+				end,
 			},
+			textobjects = require("mappings.plugin_builtin").treesitter_textobjects(),
 		},
 	},
 	after = {
@@ -238,12 +246,8 @@ _M["gbprod/yanky.nvim"] = {
 	},
 }
 
-_M["nvim-treesitter/nvim-treesitter-textobjects"] = {
-	setup = {
-		module = "nvim-treesitter.configs",
-		config = require("mappings.plugin_builtin").treesitter_textobjects(),
-	},
-}
+-- merged into treesitter. check nvim-treesitter/nvim-treesitter's config.
+_M["nvim-treesitter/nvim-treesitter-textobjects"] = {}
 
 _M["folke/todo-comments.nvim"] = {
 	setup = {
@@ -317,7 +321,5 @@ _M["rcarriga/nvim-dap-ui"] = {
 		end,
 	},
 }
-
-_M = require("core").merge_configs(_M, "plugins.setup_config")
 
 return _M

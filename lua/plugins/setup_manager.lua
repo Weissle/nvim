@@ -6,6 +6,9 @@ local setup_config = require("plugins.setup_config")
 
 _M.setup = function(name)
 	local cfg = setup_config[name]
+	if cfg == nil then
+		return
+	end
 	if cfg.preset then
 		core.call(cfg.preset)
 	end

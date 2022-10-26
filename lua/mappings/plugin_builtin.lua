@@ -106,7 +106,7 @@ M.treesitter_textobjects = function()
 			},
 		},
 	}
-	return require("core").merge_configs({ textobjects = K }, "mappings.plugin_builtin.nvim-treesitter-textobjects")
+	return require("core").merge_configs(K, "mappings.plugin_builtin.nvim-treesitter-textobjects")
 end
 
 return M

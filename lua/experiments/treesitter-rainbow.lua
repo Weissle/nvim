@@ -1,17 +1,10 @@
 local _M = {}
 
 _M["plugins.setup_config"] = function(C)
-	C["p00f/nvim-ts-rainbow"] = {
-		setup = {
-			module = "nvim-treesitter.configs",
-			config = {
-				rainbow = {
-					enable = true,
-					extened_mode = true,
-					max_file_lines = 5000,
-				},
-			},
-		},
+	C["nvim-treesitter/nvim-treesitter"].setup.config.rainbow = {
+		enable = true,
+		extened_mode = true,
+		max_file_lines = 5000,
 	}
 end
 
