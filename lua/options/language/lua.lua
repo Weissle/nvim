@@ -11,6 +11,7 @@ _M["plugins.setup.lspconfig"] = function(C)
 			},
 			diagnostics = {
 				globals = { "vim" },
+				disable = { "param-type-mismatch" },
 			},
 			workspace = {
 				library = vim.api.nvim_get_runtime_file("", true),

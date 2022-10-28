@@ -322,4 +322,6 @@ _M["rcarriga/nvim-dap-ui"] = {
 	},
 }
 
+_M = require("core").merge_configs(_M, "plugins.setup_config")
+
 return _M
