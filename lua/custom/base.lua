@@ -70,6 +70,7 @@ _M["mappings.base"] = function(C)
 		silent = true,
 		unique = true,
 	} }
+	C["n"]["mD"] = "<cmd>lua require('mini.doc').generate()<cr>"
 end
 
 _M["plugins.setup_config"] = function(C)

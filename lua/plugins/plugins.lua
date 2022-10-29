@@ -42,6 +42,7 @@ M["williamboman/mason.nvim"] = {
 		require("plugins.setup_manager").setup("williamboman/mason.nvim")
 	end,
 }
+
 M["nvim-telescope/telescope.nvim"] = {
 	branch = "0.1.x",
 	requires = {
@@ -197,11 +198,11 @@ if config.group.ui then
 	M["karb94/neoscroll.nvim"] = {
 		disable = true,
 	}
-
 end
 
 if config.group.ez ~= false then
 	M["phaazon/hop.nvim"] = {
+		cmd = { "HopWordMW", "HopChar1MW", "HopLineStartMW" },
 		event = lazy_event_enter_file,
 		config = function()
 			require("plugins.setup_manager").setup("phaazon/hop.nvim")
@@ -220,7 +221,7 @@ if config.group.ez ~= false then
 		requires = {
 			{
 				"kevinhwang91/promise-async",
-				module = "promise",
+				module = { "promise", "async" },
 			},
 		},
 		config = function()
@@ -260,6 +261,14 @@ if config.group.ez ~= false then
 		after = "nvim-treesitter",
 		config = function()
 			require("plugins.setup_manager").setup("nvim-treesitter/nvim-treesitter-textobjects")
+		end,
+	}
+
+	M["Weissle/easy-action"] = {
+		branch = "dev",
+		event = lazy_event_enter_file,
+		config = function()
+			require("plugins.setup_manager").setup("Weissle/easy-action")
 		end,
 	}
 end

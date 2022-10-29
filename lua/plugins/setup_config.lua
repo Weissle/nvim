@@ -249,6 +249,13 @@ _M["gbprod/yanky.nvim"] = {
 -- merged into treesitter. check nvim-treesitter/nvim-treesitter's config.
 _M["nvim-treesitter/nvim-treesitter-textobjects"] = {}
 
+_M["Weissle/easy-action"] = {
+	setup = {
+		module = "easy-action",
+		config = {},
+	},
+}
+
 _M["folke/todo-comments.nvim"] = {
 	setup = {
 		module = "todo-comments",

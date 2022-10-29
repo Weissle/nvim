@@ -43,6 +43,7 @@ M.subplugin_config = {
 	["mini.surround"] = {
 		config = { mappings = require("mappings.plugin_builtin").mini_surround() },
 	},
+	["mini.doc"] = {},
 }
 
 M.setup = function()
