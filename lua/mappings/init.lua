@@ -170,7 +170,7 @@ P[hop_mode]["<leader>he"] =
 	"<cmd>lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, multi_windows = true })<cr>"
 
 -- easy-action
-P["n"][";e"] = "<cmd>EasyActionAny<cr>"
+P["n"][";e"] = "<cmd>BasicEasyAction<cr>"
 
 P = core.merge_configs(P, "mappings.plugin")
 core.set_keymap_bucket(P, default_keymap_opts)
