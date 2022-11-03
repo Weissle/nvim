@@ -86,7 +86,7 @@ _M["plugins.setup_config"] = function(C)
 	end
 	C["L3MON4D3/LuaSnip"].after.load_snippets = function()
 		require("luasnip.loaders.from_vscode").lazy_load({
-			exclude = { "cpp" },
+			exclude = { "cpp", "all" },
 		})
 		require("luasnip.loaders.from_vscode").lazy_load({
 			paths = { "./snippets" },

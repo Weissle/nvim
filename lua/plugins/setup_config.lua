@@ -90,7 +90,9 @@ _M["L3MON4D3/LuaSnip"] = {
 	},
 	after = {
 		load_snippets = function()
-			require("luasnip.loaders.from_vscode").lazy_load({})
+			require("luasnip.loaders.from_vscode").lazy_load({
+				exclude = { "all" },
+			})
 		end,
 	},
 }
