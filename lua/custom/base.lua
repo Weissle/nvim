@@ -28,12 +28,21 @@ _M["plugins.plugins"] = {
 	},
 
 	["kwkarlwang/bufjump.nvim"] = {
+		disable = true,
 		keys = { "<leader>bo", "<leader>bi" },
 		config = function()
 			require("bufjump").setup({
 				forward = "<leader>bi",
 				backward = "<leader>bo",
 			})
+		end,
+	},
+
+	["cbochs/portal.nvim"] = {
+		config = function()
+			require("portal").setup({})
+			vim.keymap.set("n", "<leader>bo", require("portal").jump_backward, {})
+			vim.keymap.set("n", "<leader>bi", require("portal").jump_forward, {})
 		end,
 	},
 

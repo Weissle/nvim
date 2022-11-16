@@ -85,6 +85,9 @@ M.insert_config = {
 			},
 		},
 	},
+	completion = {
+		keyword_length = 2,
+	},
 }
 
 M.setup_insert_mode = function()
@@ -122,17 +125,6 @@ M.remove_redundant_quota = function()
 		if ch1 == ch2 and (ch1 == '"' or ch1 == "'") then
 			line = string.sub(line, 0, c - 1) .. string.sub(line, c + 1) .. " "
 			vim.api.nvim_buf_set_lines(0, r - 1, r, true, { line })
-		end
-	end)
-end
-
-M.auto_snip_jump = function()
-	cmp.event:on("confirm_done", function(entry)
-		local cmp_kind = cmp_item_kind[entry.entry:get_kind()]
-		-- Don't jump when the completion item is snippet or now is the select mode.
-		local dont_jump = cmp_kind == "Snippet" or vim.api.nvim_get_mode().mode == "s"
-		if not dont_jump and luasnip.jumpable(1) then
-			luasnip.jump(1)
 		end
 	end)
 end
