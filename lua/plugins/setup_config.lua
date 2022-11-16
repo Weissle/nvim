@@ -217,17 +217,6 @@ _M["windwp/nvim-spectre"] = {
 	},
 }
 
-_M["ethanholz/nvim-lastplace"] = {
-	setup = {
-		module = "nvim-lastplace",
-		config = {
-			lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
-			lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
-			lastplace_open_folds = true,
-		},
-	},
-}
-
 _M["gbprod/yanky.nvim"] = {
 	setup = {
 		module = "yanky",

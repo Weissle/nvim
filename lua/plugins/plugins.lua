@@ -243,13 +243,6 @@ if config.group.ez ~= false then
 		end,
 	}
 
-	M["ethanholz/nvim-lastplace"] = {
-		event = { "BufReadPre" },
-		config = function()
-			require("plugins.setup_manager").setup("ethanholz/nvim-lastplace")
-		end,
-	}
-
 	M["gbprod/yanky.nvim"] = {
 		event = lazy_event_enter_file,
 		config = function()

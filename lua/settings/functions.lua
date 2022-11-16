@@ -44,6 +44,12 @@ M.setup_auto_format = function()
 	})
 end
 
+M.restore_cursor = function()
+	vim.cmd(
+		[[autocmd BufRead * autocmd FileType <buffer> ++once if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif]]
+	)
+end
+
 M = require("core").merge_configs(M, "settings.functions")
 
 return M
