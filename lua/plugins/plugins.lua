@@ -3,6 +3,7 @@ local config = {
 	-- don't change the group unless you want to disable a group of plugins at once.
 	group = {
 		lsp = true,
+		lsp_extra = true,
 		cmp = true,
 		ui = true,
 		ez = true,
@@ -104,6 +105,9 @@ if config.group.lsp ~= false then
 			require("plugins.setup_manager").setup("simrat39/symbols-outline.nvim")
 		end,
 	}
+end
+
+if config.group.lsp_extra ~= false then
 	M["jose-elias-alvarez/null-ls.nvim"] = {
 		after = { "mason-lspconfig.nvim" },
 		config = function()

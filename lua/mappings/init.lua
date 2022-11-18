@@ -47,7 +47,6 @@ P["n"]["]d"] = vim.diagnostic.goto_next
 P["n"]["<leader>lo"] = vim.diagnostic.open_float
 -- frequently use
 P["n"]["gi"] = "<cmd>Telescope lsp_implementations<cr>"
-P["n"]["gD"] = vim.lsp.buf.declaration
 P["n"]["gd"] = "<cmd>Telescope lsp_definitions initial_mode=normal<cr>"
 P["n"]["gr"] = "<cmd>Telescope lsp_references initial_mode=normal<cr>"
 -- symbols_outline

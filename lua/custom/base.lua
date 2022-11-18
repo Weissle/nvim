@@ -107,6 +107,30 @@ _M["settings.opt"] = {
 	mouse = "",
 }
 
+_M["plugins.setup.nvim-cmp"] = function(C)
+	local sources = C.insert_config.sources
+	local compare = require("cmp").config.compare
+	for _, source in ipairs(sources) do
+		source.priority = 1
+	end
+	sources[1].max_item_count = 15
+	C.sorting = {
+		priority_weight = 2,
+		comparators = {
+			-- compare.exact,
+			compare.score,
+			compare.offset,
+			-- -- compare.scopes,
+			compare.recently_used,
+			-- compare.locality,
+			-- compare.kind,
+			-- compare.sort_text,
+			-- compare.length,
+			-- compare.order,
+		},
+	}
+end
+
 _M["settings.functions"] = function(C)
 	C.setup_markdown_spell_check = function()
 		vim.api.nvim_create_autocmd({ "Filetype" }, {
