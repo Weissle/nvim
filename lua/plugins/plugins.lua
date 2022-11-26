@@ -173,12 +173,6 @@ if config.group.ui then
 		end,
 	}
 
-	M["stevearc/dressing.nvim"] = {
-		config = function()
-			require("plugins.setup_manager").setup("stevearc/dressing.nvim")
-		end,
-	}
-
 	M["lukas-reineke/indent-blankline.nvim"] = {
 		event = lazy_event_enter_file,
 	}

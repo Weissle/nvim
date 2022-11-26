@@ -169,12 +169,6 @@ _M["rcarriga/nvim-notify"] = {
 	},
 }
 
-_M["stevearc/dressing.nvim"] = {
-	setup = {
-		module = "dressing",
-	},
-}
-
 _M["nvim-lualine/lualine.nvim"] = {
 	setup = {
 		module = "plugins.setup.lualine",

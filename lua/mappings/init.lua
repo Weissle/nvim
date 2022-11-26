@@ -119,7 +119,7 @@ P["n"]["<leader>fy"] = "<cmd>Telescope yank_history<cr>"
 
 -- notify
 P["n"]["<leader>fn"] = "<cmd>Telescope notify<cr>"
-P["n"]["<leader>md"] = "<cmd>lua vim.notify.dismiss()<cr>"
+P["n"]["<leader>md"] = "<cmd>lua require('notify').dismiss()<cr>"
 
 -- todo_comments
 P["n"]["<leader>fT"] = "<cmd>TodoTelescope <cr>"

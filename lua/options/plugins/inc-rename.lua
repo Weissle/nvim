@@ -8,9 +8,6 @@ _M["plugins.plugins"] = function(M)
 		after = { "nvim-lspconfig" },
 		config = function()
 			local config = {}
-			if pcall(require, "dressing") then
-				config.input_buffer_type = "dressing"
-			end
 			require("core").merge_configs("inc-rename.config")
 			require("inc_rename").setup(config)
 		end,
