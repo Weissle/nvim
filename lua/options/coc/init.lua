@@ -10,8 +10,11 @@ _M["plugins.plugins.config"] = {
 
 _M["plugins.plugins"] = function(C)
 	C["neoclide/coc.nvim"] = {
+		after = "mason.nvim",
 		branch = "release",
 		config = function()
+			vim.g.coc_global_extensions = { "coc-clangd" }
+			vim.api.nvim_create_augroup("CocGroup", { clear = true })
 			vim.api.nvim_create_autocmd("User", {
 				group = "CocGroup",
 				pattern = "CocJumpPlaceholder",
@@ -24,6 +27,12 @@ end
 
 _M["settings.opt"] = function(opt)
 	opt.updatetime = 300
+	-- opt.signcolumn = "yes"
+end
+
+_M["settings.global"] = function(g)
+	g.loaded_python3_provider = 1
+	g.loaded_node_provider = 1
 	-- opt.signcolumn = "yes"
 end
 

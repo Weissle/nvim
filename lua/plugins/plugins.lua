@@ -13,8 +13,7 @@ local config = {
 	},
 	lazy_event_enter_file = { "BufReadPre", "BufNewFile" },
 }
-
-require("core").merge_configs(config, "plugins.plugins.config")
+config = require("core").merge_configs(config, "plugins.plugins.config")
 local lazy_event_enter_file = config.lazy_event_enter_file
 
 M["wbthomason/packer.nvim"] = {
@@ -84,14 +83,14 @@ M["L3MON4D3/LuaSnip"] = {
 	end,
 }
 
-if config.group.lsp ~= false then
-	M["williamboman/mason-lspconfig.nvim"] = {
-		after = { "mason.nvim" },
-		config = function()
-			require("plugins.setup_manager").setup("williamboman/mason-lspconfig.nvim")
-		end,
-	}
+M["williamboman/mason-lspconfig.nvim"] = {
+	after = { "mason.nvim" },
+	config = function()
+		require("plugins.setup_manager").setup("williamboman/mason-lspconfig.nvim")
+	end,
+}
 
+if config.group.lsp ~= false then
 	M["neovim/nvim-lspconfig"] = {
 		after = { "mason-lspconfig.nvim" },
 		config = function()
