@@ -1,2 +1,3 @@
 require("experiments.treesitter-rainbow")
-require("experiments.noice")
+require("experiments.bookmarks")
+-- require("experiments.noice")
