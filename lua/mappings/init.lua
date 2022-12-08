@@ -61,6 +61,7 @@ P["n"]["<leader>bcr"] = "<cmd>BufferLineCloseRight<cr><C-L>"
 P["n"]["<leader>bco"] = "<cmd>BufferLineCloseRight<cr><bar><cmd>BufferLineCloseLeft<cr><C-L>" -- clost other
 -- mini.bufremove
 P["n"]["<leader>bd"] = "<cmd>lua require('mini.bufremove').delete(0)<cr>"
+P["n"]["<leader>bD"] = "<cmd>lua require('mini.bufremove').delete(0,true)<cr>"
 
 -- ufo
 P["n"]["zR"] = "<cmd>lua require('ufo').openAllFolds()<cr>"

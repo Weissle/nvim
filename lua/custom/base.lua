@@ -66,8 +66,6 @@ _M["mappings.base"] = function(C)
 
 	C[{ "t", "n" }]["<leader>qt"] = "<cmd>q<cr>"
 	C["n"]["<leader>qa"] = "<cmd>qa<cr>"
-	C["n"]["<leader>qw"] = "<cmd>w<cr>"
-	C["n"]["<leader>qW"] = "<cmd>wa<cr>"
 
 	C["n"]["gcp"] = { "yygccp", opts = {
 		remap = true,
