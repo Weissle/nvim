@@ -1,0 +1,6 @@
+{
+    "session.saveOnVimLeave": false,
+    "sumneko-lua.enableNvimLuaDev": true,
+    "colors.enable": false,
+    "inlayHint.enable": false
+}
