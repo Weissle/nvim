@@ -88,21 +88,6 @@ vim.keymap.set({ "n", "x" }, "<leader>de", "<cmd>lua require('dapui').eval()<cr>
 vim.keymap.set("n", "<leader>fn", "<cmd>Telescope notify<cr>", opts)
 vim.keymap.set("n", "<leader>md", "<cmd>lua require('notify').dismiss()<cr>", opts)
 
--- todo_comments
-vim.keymap.set("n", "<leader>fT", "<cmd>TodoTelescope <cr>", opts)
-
--- session_lens
-vim.keymap.set("n", "<leader>fs", "<cmd>Telescope session-lens search_session<cr>", opts)
-
-
--- smart_split
-vim.keymap.set("n", "<leader>mr", "<cmd>SmartResizeMode<cr>", opts)
-
--- nvim_tree
-vim.keymap.set("n", "<leader>nn", "<cmd>NvimTreeToggle<cr>", opts)
-vim.keymap.set("n", "<leader>nm", "<cmd>NvimTreeFindFile<cr>", opts)
-vim.keymap.set("n", "<leader>nf", "<cmd>NvimTreeFocus<cr>", opts)
-
 -- spectre
 vim.keymap.set("n", "<leader>sg", "<cmd>lua require('spectre').open()<cr>", opts)
 vim.keymap.set("x", "<leader>sg", "<esc><cmd>lua require('spectre').open_visual()<cr>", opts)
@@ -124,8 +109,6 @@ vim.keymap.set(
 	opts
 )
 
--- easy-action
-vim.keymap.set("n", "<leader>e", "<cmd>BasicEasyAction<cr>", opts)
 
 -- for terminal mode
 vim.keymap.set("t", "jj", "<C-\\><C-n>", opts)

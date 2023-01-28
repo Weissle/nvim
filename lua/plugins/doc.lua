@@ -119,6 +119,8 @@ return {
 	},
 	{
 		"folke/todo-comments.nvim",
+		keys = { { "<leader>fT", "<cmd>TodoTelescope <cr>" } },
+		event = { "BufReadPost" },
 		name = "todo-comments",
 		dependencies = { "nvim-telescope/telescope.nvim" },
 		opts = {},

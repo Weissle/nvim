@@ -2,7 +2,6 @@ return {
 	{
 		"mfussenegger/nvim-dap",
 		dependencies = { "williamboman/mason.nvim" },
-		keys = { "<leader>d" },
 		config = function()
 			local dap_breakpoint_highlight = {
 				DapBreakpoint = { ctermbg = 0, fg = "#993939" },
@@ -69,6 +68,7 @@ return {
 	{
 		"rcarriga/nvim-dap-ui",
 		dependencies = { "mfussenegger/nvim-dap" },
+		keys = { "<leader>dr" },
 		config = function()
 			require("dapui").setup()
 			require("dap").listeners.after.event_initialized["dapui_config"] = require("dapui").open
@@ -85,12 +85,12 @@ return {
 		},
 		dependencies = { "mfussenegger/nvim-dap", "nvim-telescope/telescope.nvim" },
 		config = function()
-
 			require("telescope").load_extension("dap")
 		end,
 	},
 	{
 		"theHamsta/nvim-dap-virtual-text",
+		keys = { "<leader>d" },
 		dependencies = { "mfussenegger/nvim-dap" },
 		opts = {},
 	},

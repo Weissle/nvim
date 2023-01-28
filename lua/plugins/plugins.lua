@@ -6,7 +6,12 @@ return {
 	},
 	{
 		"kyazdani42/nvim-tree.lua",
-		cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle", "NvimTreeFocus" },
+		keys = {
+			-- nvim_tree
+			{ "<leader>nn", "<cmd>NvimTreeToggle<cr>" },
+			{ "<leader>nm", "<cmd>NvimTreeFindFile<cr>" },
+			{ "<leader>nf", "<cmd>NvimTreeFocus<cr>" },
+		},
 		name = "nvim-tree",
 		opts = {
 			git = {
@@ -21,7 +26,7 @@ return {
 	{
 		"L3MON4D3/LuaSnip",
 		dependencies = { "rafamadriz/friendly-snippets" },
-		-- event = { "BufRead", "BufNewFile", "InsertEnter" },
+		event = { "BufRead", "BufNewFile", "InsertEnter" },
 		config = function(_, opts)
 			require("luasnip").setup(opts)
 			require("luasnip.loaders.from_vscode").lazy_load({
@@ -180,6 +185,7 @@ return {
 	},
 	{
 		"mrjones2014/smart-splits.nvim",
+		keys = { { "<leader>mr", "<cmd>SmartResizeMode<cr>" } },
 		cmd = "SmartResizeMode",
 		config = true,
 	},
@@ -212,6 +218,7 @@ return {
 	},
 	{
 		"Weissle/easy-action",
+		keys = { { "<leader>e", "<cmd>BasicEasyAction<cr>" } },
 		branch = "dev",
 		dependencies = { "kevinhwang91/promise-async" },
 		opts = {},
@@ -223,48 +230,35 @@ return {
 			return vim.g.auto_session_enabled ~= false
 		end,
 		config = function()
-			_G.close_all_floating_wins = function()
-				for _, win in ipairs(vim.api.nvim_list_wins()) do
-					local config = vim.api.nvim_win_get_config(win)
-					if config.relative ~= "" then
-						vim.api.nvim_win_close(win, true)
-					end
-				end
-			end
-
-			_G.close_symbols_outline = function()
-				pcall(vim.cmd, "tabdo SymbolsOutlineClose")
-			end
-
-			_G.close_nvim_tree = function()
-				pcall(vim.cmd, "tabdo NvimTreeClose")
-			end
-
-			_G.close_dapui = function()
-				local dapui_ext, dapui = pcall(require, "dapui")
-				if dapui_ext == false then
-					return
-				else
-					pcall(dapui.close, {})
-				end
-			end
-
 			-- NOTE: folds options is exclusive. Due to ufo is not loaded at startup.
 			vim.o.sessionoptions = "blank,buffers,curdir,help,tabpages,winsize,winpos,terminal"
 			require("auto-session").setup({
 				log_level = "error",
 				auto_session_suppress_dirs = { "~/" },
 				pre_save_cmds = {
-					_G.close_nvim_tree,
-					_G.close_all_floating_wins,
-					_G.close_symbols_outline,
-					_G.close_dapui,
+					function()
+						for _, win in ipairs(vim.api.nvim_list_wins()) do
+							local config = vim.api.nvim_win_get_config(win)
+							if config.relative ~= "" then
+								vim.api.nvim_win_close(win, true)
+							end
+						end
+						pcall(vim.cmd, "tabdo NvimTreeClose")
+						pcall(vim.cmd, "tabdo SymbolsOutlineClose")
+						local dapui_ext, dapui = pcall(require, "dapui")
+						if dapui_ext == false then
+							return
+						else
+							pcall(dapui.close, {})
+						end
+					end,
 				},
 			})
 		end,
 	},
 	{
 		"rmagatti/session-lens",
+		keys = { { "<leader>fs", "<cmd>Telescope session-lens search_session<cr>" } },
 		dependencies = { "nvim-telescope/telescope.nvim", "rmagatti/auto-session" },
 		name = "session-lens",
 		opts = {},
