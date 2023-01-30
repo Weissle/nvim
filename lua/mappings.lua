@@ -49,7 +49,8 @@ vim.keymap.set("n", "<leader>fc", "<cmd>Telescope commands<cr>", opts)
 vim.keymap.set("n", "<leader>ft", "<cmd>Telescope <cr>", opts)
 vim.keymap.set("n", "<leader>fa", "<cmd>Telescope find_files no_ignore=true hidden=true<cr>", opts)
 vim.keymap.set("n", "<leader>f*", "<cmd>Telescope grep_string<cr>", opts)
-vim.keymap.set("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", opts)
+vim.keymap.set("n", "<leader>fo", "<cmd>Telescope frecency workspace=CWD<cr>", opts)
+vim.keymap.set("n", "<leader>fO", "<cmd>Telescope frecency<cr>", opts)
 vim.keymap.set("n", "<leader>fG", "<cmd>Telescope git_status<cr>", opts)
 vim.keymap.set("n", "<leader>fr", "<cmd>Telescope resume<cr>", opts)
 vim.keymap.set("n", "<leader>f/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)
@@ -87,28 +88,6 @@ vim.keymap.set({ "n", "x" }, "<leader>de", "<cmd>lua require('dapui').eval()<cr>
 -- notify
 vim.keymap.set("n", "<leader>fn", "<cmd>Telescope notify<cr>", opts)
 vim.keymap.set("n", "<leader>md", "<cmd>lua require('notify').dismiss()<cr>", opts)
-
--- spectre
-vim.keymap.set("n", "<leader>sg", "<cmd>lua require('spectre').open()<cr>", opts)
-vim.keymap.set("x", "<leader>sg", "<esc><cmd>lua require('spectre').open_visual()<cr>", opts)
-vim.keymap.set("n", "<leader>sf", "<cmd>lua require('spectre').open_file_search()<cr>", opts)
-vim.keymap.set("n", "<leader>swg", "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", opts)
--- waiting for the new feature in spectre to support below keymaps
--- P["x"]["<leader>sf"]
--- P["n"]["<leader>swf"]
-
-local hop_mode = { "n", "x", "o" }
-vim.keymap.set(hop_mode, "<leader>hl", "<cmd>HopLineStartMW<cr>", opts)
-vim.keymap.set(hop_mode, "<leader>hw", "<cmd>HopWordMW<cr>", opts)
-vim.keymap.set(hop_mode, "<leader>hc", "<cmd>HopChar2MW<cr>", opts)
-vim.keymap.set(hop_mode, "<leader>hf", "<cmd>HopChar1MW<cr>", opts)
-vim.keymap.set(
-	hop_mode,
-	"<leader>he",
-	"<cmd>lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, multi_windows = true })<cr>",
-	opts
-)
-
 
 -- for terminal mode
 vim.keymap.set("t", "jj", "<C-\\><C-n>", opts)

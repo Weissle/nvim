@@ -9,7 +9,7 @@ return {
 			require("nvim-treesitter.install").prefer_git = true
 		end,
 		opts = {
-			ensure_installed = { "cpp", "c", "lua", "python", "json", "markdown", "bash", "cmake" },
+			ensure_installed = { "cpp", "c", "lua", "python", "json", "markdown", "bash", "cmake", "help", "vim" },
 			sync_install = false,
 			highlight = {
 				enable = true,
@@ -113,7 +113,16 @@ return {
 	},
 	{
 		"windwp/nvim-spectre",
-		lazy = true,
+		keys = {
+			-- spectre
+			{ "<leader>sg", "<esc><cmd>lua require('spectre').open_visual()<cr>", mode = { "x" } },
+			{ "<leader>sg", "<cmd>lua require('spectre').open()<cr>" },
+			{ "<leader>sf", "<cmd>lua require('spectre').open_file_search()<cr>" },
+			{ "<leader>swg", "<cmd>lua require('spectre').open_visual({select_word=true})<cr>" },
+			-- waiting for the new feature in spectre to support below keymaps
+			-- P["x"]["<leader>sf"]
+			-- P["n"]["<leader>swf"]
+		},
 		name = "spectre",
 		opts = {},
 	},
@@ -122,7 +131,7 @@ return {
 		keys = { { "<leader>fT", "<cmd>TodoTelescope <cr>" } },
 		event = { "BufReadPost" },
 		name = "todo-comments",
-		dependencies = { "nvim-telescope/telescope.nvim" },
+		dependencies = { "telescope" },
 		opts = {},
 	},
 	{
@@ -143,5 +152,18 @@ return {
 		keys = { { "gc", mode = { "x", "n", "v" } }, { "gb", mode = { "x", "n", "v" } } },
 		name = "Comment",
 		opts = {},
+	},
+	{
+		"crusj/bookmarks.nvim",
+		branch = "main",
+		name = "bookmarks",
+		keys = { "<leader>b" },
+		opts = {
+			toggle = "<leader>bz",
+			add = "<leader>ba",
+			order = "<leader>bS",
+			delete_on_virt = "<leader>bA",
+			show_desc = "<leader>bs",
+		},
 	},
 }

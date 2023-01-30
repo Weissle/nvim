@@ -1,4 +1,4 @@
-return {
+local dap_plugins_spec = {
 	{
 		"mfussenegger/nvim-dap",
 		dependencies = { "williamboman/mason.nvim" },
@@ -83,7 +83,7 @@ return {
 			{ "<leader>db", "<cmd>Telescope dap list_breakpoints<cr>" },
 			{ "<leader>df", "<cmd>Telescope dap frames<cr>" },
 		},
-		dependencies = { "mfussenegger/nvim-dap", "nvim-telescope/telescope.nvim" },
+		dependencies = { "mfussenegger/nvim-dap", "telescope" },
 		config = function()
 			require("telescope").load_extension("dap")
 		end,
@@ -95,3 +95,5 @@ return {
 		opts = {},
 	},
 }
+-- disable all dap
+return {}

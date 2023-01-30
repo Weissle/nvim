@@ -6,5 +6,5 @@ require("mappings")
 -- if vim.g.auto_session_enabled ~= false then
 --     pcall(require, "impatient")
 -- end
-require("plugins_setup")
+require("plugins")
 --require("mappings")

@@ -115,7 +115,7 @@ return {
 						priority = 1,
 						max_item_count = 15,
 					},
-					{ name = "luasnip", priority = 1 },
+					{ name = "luasnip", priority = 1.5 },
 					{ name = "path", priority = 1 },
 					{
 						name = "buffer",

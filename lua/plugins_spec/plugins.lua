@@ -1,5 +1,4 @@
 return {
-	-- R["lewis6991/impatient.nvim"] = {}
 	{
 		"nvim-lua/plenary.nvim",
 		lazy = true,
@@ -7,7 +6,6 @@ return {
 	{
 		"kyazdani42/nvim-tree.lua",
 		keys = {
-			-- nvim_tree
 			{ "<leader>nn", "<cmd>NvimTreeToggle<cr>" },
 			{ "<leader>nm", "<cmd>NvimTreeFindFile<cr>" },
 			{ "<leader>nf", "<cmd>NvimTreeFocus<cr>" },
@@ -54,11 +52,18 @@ return {
 				"nvim-telescope/telescope-fzf-native.nvim",
 				build = "make",
 			},
-			"nvim-telescope/telescope-live-grep-args.nvim",
+			{ "nvim-telescope/telescope-live-grep-args.nvim" },
+			{ "nvim-telescope/telescope-frecency.nvim", dependencies = { "kkharji/sqlite.lua" } },
 		},
-		config = function()
+		config = function(_, opts)
+			require("telescope").setup(opts)
+			require("telescope").load_extension("fzf")
+			require("telescope").load_extension("live_grep_args")
+			require("telescope").load_extension("frecency")
+		end,
+		opts = function()
 			local action = require("telescope.actions")
-			local cfg = {
+			return {
 				defaults = {
 					mappings = {
 						n = {
@@ -75,10 +80,12 @@ return {
 						},
 					},
 				},
+				extensions = {
+					frecency = {
+						show_unindexed = false,
+					},
+				},
 			}
-			require("telescope").setup(cfg)
-			require("telescope").load_extension("fzf")
-			require("telescope").load_extension("live_grep_args")
 		end,
 	},
 	{
@@ -86,23 +93,19 @@ return {
 		lazy = true,
 	},
 	{
-		"rcarriga/nvim-notify",
-		dependencies = { "nvim-telescope/telescope.nvim" },
-		config = function(_, opts)
-			require("notify").setup(opts)
-			require("telescope").load_extension("notify")
-		end,
-		opts = { level = vim.log.levels.WARN },
-	},
-	{
-		"karb94/neoscroll.nvim",
-		name = "neoscroll",
-		keys = { "<C-u>", "<C-d>", "<C-y>", "<C-e>", "<C-b>", "<C-f>" },
-		opts = { mappings = { "<C-u>", "<C-d>", "<C-y>", "<C-e>", "<C-b>", "<C-f>" } },
-	},
-	{
 		"phaazon/hop.nvim",
 		name = "hop",
+		keys = {
+			{ "<leader>hl", "<cmd>HopLineStartMW<cr>", mode = { "n", "x", "o" } },
+			{ "<leader>hw", "<cmd>HopWordMW<cr>", mode = { "n", "x", "o" } },
+			{ "<leader>hc", "<cmd>HopChar2MW<cr>", mode = { "n", "x", "o" } },
+			{ "<leader>hf", "<cmd>HopChar1MW<cr>", mode = { "n", "x", "o" } },
+			{
+				"<leader>he",
+				"<cmd>lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, multi_windows = true })<cr>",
+				mode = { "n", "x", "o" },
+			},
+		},
 		opts = {},
 	},
 	{
@@ -191,7 +194,7 @@ return {
 	},
 	{
 		"gbprod/yanky.nvim",
-		dependencies = { "nvim-telescope/telescope.nvim" },
+		dependencies = { "telescope" },
 		keys = {
 			{ "y", "<Plug>(YankyYank)", mode = { "n", "x" } },
 			{ "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" } },
@@ -220,7 +223,7 @@ return {
 		"Weissle/easy-action",
 		keys = { { "<leader>e", "<cmd>BasicEasyAction<cr>" } },
 		branch = "dev",
-		dependencies = { "kevinhwang91/promise-async" },
+		dependencies = { "kevinhwang91/promise-async", "hop" },
 		opts = {},
 	},
 	{
@@ -259,7 +262,7 @@ return {
 	{
 		"rmagatti/session-lens",
 		keys = { { "<leader>fs", "<cmd>Telescope session-lens search_session<cr>" } },
-		dependencies = { "nvim-telescope/telescope.nvim", "rmagatti/auto-session" },
+		dependencies = { "telescope", "rmagatti/auto-session" },
 		name = "session-lens",
 		opts = {},
 	},

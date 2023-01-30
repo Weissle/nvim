@@ -17,7 +17,7 @@ opt.fixeol = false
 opt.expandtab = true
 opt.ff = "unix"
 opt.mouse = ""
-
+opt.signcolumn = "yes"
 ------------------------------------SPLIT--------------------------------------------------------
 local global = vim.g
 global.loaded_netrw = 1
@@ -28,26 +28,37 @@ global.loaded_ruby_provider = 0
 -- global.auto_session_enabled = false
 
 ------------------------------------SPLIT--------------------------------------------------------
-vim.cmd([[autocmd BufRead * autocmd FileType <buffer> ++once if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif]])
+vim.cmd(
+	[[autocmd BufRead * autocmd FileType <buffer> ++once if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif]]
+)
 vim.cmd([[autocmd FileType * set formatoptions-=cro]])
--- vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
---     callback = function()
---         pcall(vim.cmd, "write")
---     end,
--- })
+
+vim.api.nvim_create_autocmd({ "TextChanged","TextChangedI","TextChangedP" }, {
+	callback = function()
+		vim.b._changed = true
+	end,
+})
+vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
+	callback = function()
+		if vim.b._changed then
+			pcall(vim.cmd, "write")
+			vim.b._changed = false
+		end
+	end,
+})
 
 vim.cmd([[autocmd TermOpen * setlocal nonumber norelativenumber]])
 
 vim.defer_fn(function()
-    vim.api.nvim_create_autocmd("BufEnter", {
-        callback = function()
-            local file_name = vim.api.nvim_buf_get_name(0)
-            if string.find(file_name, "^term") then
-                vim.cmd("startinsert")
-            end
-        end,
-    })
-    vim.cmd([[set clipboard+=unnamedplus]])
+	vim.api.nvim_create_autocmd("BufEnter", {
+		callback = function()
+			local file_name = vim.api.nvim_buf_get_name(0)
+			if string.find(file_name, "^term") then
+				vim.cmd("startinsert")
+			end
+		end,
+	})
+	vim.cmd([[set clipboard+=unnamedplus]])
 end, 500)
 
 vim.cmd("autocmd Filetype markdown setlocal spell")
