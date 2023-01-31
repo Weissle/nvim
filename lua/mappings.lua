@@ -85,10 +85,6 @@ vim.keymap.set("n", "<leader>dC", "<cmd>lua require('persistent-breakpoints.api'
 vim.keymap.set("n", "<leader>du", "<cmd>lua require('dapui').toggle()<cr>", opts)
 vim.keymap.set({ "n", "x" }, "<leader>de", "<cmd>lua require('dapui').eval()<cr>", opts)
 
--- notify
-vim.keymap.set("n", "<leader>fn", "<cmd>Telescope notify<cr>", opts)
-vim.keymap.set("n", "<leader>md", "<cmd>lua require('notify').dismiss()<cr>", opts)
-
 -- for terminal mode
 vim.keymap.set("t", "jj", "<C-\\><C-n>", opts)
 vim.keymap.set("t", "<C-w>j", "<C-\\><C-n><C-w>j", opts)

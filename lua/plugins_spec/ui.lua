@@ -83,15 +83,20 @@ return {
 		opts = { mappings = { "<C-u>", "<C-d>", "<C-y>", "<C-e>", "<C-b>", "<C-f>" } },
 	},
 	{
+		enabled = false,
 		"rcarriga/nvim-notify",
 		dependencies = { "telescope" },
 		config = function(_, opts)
 			require("notify").setup(opts)
 			require("telescope").load_extension("notify")
+			-- notify
+			vim.keymap.set("n", "<leader>fn", "<cmd>Telescope notify<cr>", opts)
+			vim.keymap.set("n", "<leader>md", "<cmd>lua require('notify').dismiss()<cr>", opts)
 		end,
 		opts = { level = vim.log.levels.WARN },
 	},
 	{
+		enabled = false,
 		"folke/noice.nvim",
 		name = "noice",
 		dependencies = {
