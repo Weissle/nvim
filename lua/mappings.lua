@@ -15,6 +15,20 @@ vim.keymap.set("n", "<F3>", "<cmd>noh<cr>", opts)
 vim.keymap.set("", "J", "gJ", opts)
 vim.keymap.set({ "t", "n" }, "<leader>qt", "<cmd>q<cr>", opts)
 vim.keymap.set("n", "<leader>qa", "<cmd>qa<cr>", opts)
+-- copy from mini.basic
+vim.keymap.set(
+	"n",
+	"gO",
+	"<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
+	{ desc = "Put empty line above" }
+)
+vim.keymap.set(
+	"n",
+	"go",
+	"<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>",
+	{ desc = "Put empty line below" }
+)
+vim.keymap.set("n", "<C-s>", "<cmd>w<cr>", opts)
 
 ------------------------------------SPLIT--------------------------------------------------------
 
