@@ -122,8 +122,15 @@ return {
 			},
 		},
 	},
-    {
-        "stevearc/dressing.nvim",
-        opts = {}
-    }
+	{
+		"stevearc/dressing.nvim",
+		opts = {},
+	},
+	{
+		"jinh0/eyeliner.nvim",
+		opts = {
+			highlight_on_key = true,
+			dim = true,
+		},
+	},
 }
