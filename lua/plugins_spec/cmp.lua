@@ -140,15 +140,15 @@ return {
 				sorting = {
 					priority_weight = 2,
 					comparators = {
-						-- compare.exact,
+						compare.exact,
 						compare.score,
 						compare.offset,
 						-- -- compare.scopes,
 						compare.recently_used,
 						-- compare.locality,
-						-- compare.kind,
+						compare.kind,
 						-- compare.sort_text,
-						-- compare.length,
+						compare.length,
 						-- compare.order,
 					},
 				},
