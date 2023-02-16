@@ -40,8 +40,8 @@ return {
 				end,
 			}
 
-			M.sumneko_lua_config = vim.deepcopy(default_lsp_config)
-			M.sumneko_lua_config.settings = {
+			M.lua_ls_config = vim.deepcopy(default_lsp_config)
+			M.lua_ls_config.settings = {
 				Lua = {
 					runtime = {
 						version = "LuaJIT",
