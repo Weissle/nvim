@@ -22,8 +22,8 @@ return {
 		config = function()
 			local M = {}
 
-			local lsp_servers = { "clangd", "pyright", "sumneko_lua" }
-			local clients_format_disabled = { clangd = true, sumneko_lua = true }
+			local lsp_servers = { "clangd", "pyright", "lua_ls" }
+			local clients_format_disabled = { clangd = true, lua_ls = true }
 
 			-- if null-ls provides the format feature.
 
